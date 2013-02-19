@@ -1,0 +1,38 @@
+#
+#  DESCRIPTION: Configuration file for Mutt email client.
+#       AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
+#
+
+# who am i settings
+unmy_hdr *
+  my_hdr X-Homepage: http://www.kalnitsky.org/
+  my_hdr X-GPG-Key: http://www.kalnitsky.org/ikalnitsky-pub.asc
+  my_hdr X-PGP-Key: http://www.kalnitsky.org/ikalnitsky-pub.asc
+
+
+# load settings
+  source ~/.mutt/muttrc.d/general
+  source ~/.mutt/muttrc.d/autoview
+  source ~/.mutt/muttrc.d/headers
+  source ~/.mutt/muttrc.d/crypto
+  source ~/.mutt/muttrc.d/colors
+  source ~/.mutt/muttrc.d/keybindings
+
+# accounts
+  set spoolfile = "+igor@kalnitsky.org/INBOX"
+  set mbox      = "+igor@kalnitsky.org/archive"
+  set postponed = "+igor@kalnitsky.org/drafts"
+
+  mailboxes +igor@kalnitsky.org/INBOX \
+            +igor@kalnitsky.org/archive \
+            +igor@kalnitsky.org/sent \
+            +igor@kalnitsky.org/drafts \
+            +igor@kalnitsky.org/notify \
+
+# smtp settings
+  set from     = "igor@kalnitsky.org"
+  set sendmail = "msmtp -a IgorKalnitsky"
+  set sendmail_wait = 0
+unset record
+
+# vim: ft=muttrc

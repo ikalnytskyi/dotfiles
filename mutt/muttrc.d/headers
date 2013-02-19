@@ -1,0 +1,38 @@
+#
+# Tell mutt which headers to show.
+#
+# ~/.mutt/headers
+#
+
+# ignore all headers
+  ignore *
+
+# unignore headers
+  unignore From:
+  unignore To:
+  unignore CC:
+  unignore Date:
+  unignore Subject:
+
+  unignore X-PGP-Key:
+  unignore X-GPG-Key:
+  unignore X-Label:
+# unignore Reply-To:
+# unignore Mail-Followup-To:
+# unignore Organization:
+# unignore BCC:
+# unignore Message-ID:
+# unignore X-Mailer:
+# unignore X-Junked-Because:
+# unignore X-SpamProbe:
+# unignore X-Virus-hagbard:
+# unignore X-Spam-Status:
+# unignore X-Grouchosity:
+# unignore X-Bogosity:
+
+
+# show headers in this order
+  hdr_order From: To: CC: Date: Subject: X-
+
+
+# vim: ft=muttrc
