@@ -1,0 +1,13 @@
+[user]
+    name = Igor Kalnitsky
+    email = igor@kalnitsky.org
+
+[color]
+    ui = true
+
+[alias]
+    unstage = reset HEAD 
+    discard-changes = checkout -- 
+    history = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
