@@ -56,6 +56,14 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
+
+  _pip_completion()
+  {
+      COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                     COMP_CWORD=$COMP_CWORD \
+                     PIP_AUTO_COMPLETE=1 $1 ) )
+  }
+  complete -o default -F _pip_completion pip
 fi
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -119,3 +127,6 @@ export PS1="\[\033[G\]${BASEPROMPT}\n\$ "
 
 export EDITOR=vim
 export TERM=xterm-256color
+
+export CC=clang
+export CXX=clang++

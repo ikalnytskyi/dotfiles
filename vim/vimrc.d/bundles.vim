@@ -31,12 +31,12 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'drmingdrmer/xptemplate'
 Bundle 'tpope/vim-surround'
 Bundle 'xsnippet/vim-xsnippet'
-Bundle 'omailson/vim-qml'
-Bundle 'klen/python-mode'
+Bundle 'davidhalter/jedi-vim'
+Bundle 'nvie/vim-flake8'
 Bundle 'jamessan/vim-gnupg'
-Bundle 'lukerandall/haskellmode-vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Rip-Rip/clang_complete'
+Bundle 'terryma/vim-multiple-cursors'
 
 
 " Plugins from vim-scripts

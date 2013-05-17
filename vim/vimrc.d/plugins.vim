@@ -14,15 +14,14 @@ let g:xptemplate_brace_complete = ''
 let NERDTreeQuitOnOpen = 1 " close NERD Tree when file is open
 
 
-" python-mode
-" -----------
-let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_lint_signs = 0
-"let g:pymode_lint_ignore = ""
-let g:pymode_lint_minheight = 3
-let g:pymode_lint_maxheight = 3
-let g:pymode_rope = 0
-let g:pymode_folding = 0
+" jedi-vim
+" --------
+let g:jedi#popup_on_dot = 1
+
+
+" vim-flake8
+" ----------
+
 
 
 " clang_complete
