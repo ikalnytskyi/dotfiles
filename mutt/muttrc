@@ -5,9 +5,9 @@
 
 # who am i settings
 unmy_hdr *
-  my_hdr X-Homepage: http://www.kalnitsky.org/
-  my_hdr X-GPG-Key: http://www.kalnitsky.org/ikalnitsky-pub.asc
-  my_hdr X-PGP-Key: http://www.kalnitsky.org/ikalnitsky-pub.asc
+  my_hdr X-Homepage: http://kalnitsky.org/
+  my_hdr X-GPG-Key:  http://kalnitsky.org/ikalnitsky-pub.asc
+  my_hdr X-PGP-Key:  http://kalnitsky.org/ikalnitsky-pub.asc
 
 
 # load settings
@@ -31,7 +31,7 @@ unmy_hdr *
 
 # smtp settings
   set from     = "igor@kalnitsky.org"
-  set sendmail = "msmtp -a IgorKalnitsky"
+  set sendmail = "msmtp"
   set sendmail_wait = 0
 unset record
 

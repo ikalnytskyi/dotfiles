@@ -1,18 +1,18 @@
 [general]
 ui = TTY.TTYUI
-accounts = main
-pythonfile = ~/.passmanager
+accounts = ikalnitsky
+pythonfile = ~/.offlineimap_helper
 fsync = False
 
 
-[Account main]
-localrepository = main-local
-remoterepository = main-remote
+[Account ikalnitsky]
+localrepository = ikalnitsky-local
+remoterepository = ikalnitsky-remote
 status_backend = sqlite
 #postsynchook = notmuch new
 
 
-[Repository main-local]
+[Repository ikalnitsky-local]
 type = Maildir
 localfolders = ~/.mail/igor@kalnitsky.org
 nametrans = lambda folder: {
@@ -24,11 +24,11 @@ nametrans = lambda folder: {
     'notify':  'Notify',}.get(folder, folder)
 
 
-[Repository main-remote]
+[Repository ikalnitsky-remote]
 maxconnections = 1
 type = Gmail
 remoteuser = igor@kalnitsky.org
-remotepasseval = get_password("http://imap.gmail.com/", "igor@kalnitsky.org")
+remotepasseval = get_password('imap.gmail.com', 'imap', 'igor@kalnitsky.org')
 realdelete = no
 cert_fingerprint = 6d1b5b5ee0180ab493b71d3b94534b5ab937d042
 
@@ -43,4 +43,5 @@ nametrans = lambda folder: {
 folderfilter = lambda folder: folder not in [
     '[Gmail]/Trash',
     '[Gmail]/Important',
+    '[Gmail]/All Mail',
     '[Gmail]/Spam',]
