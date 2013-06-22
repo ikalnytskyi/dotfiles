@@ -5,9 +5,13 @@
 [color]
     ui = true
 
+[color "branch"]
+    current = green
+    local = magenta
+    remote = red
+
 [alias]
     unstage = reset HEAD 
     discard-changes = checkout -- 
-    history = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-    type = cat-file -t
-    dump = cat-file -p
+    branches = branch -vv
+    history = log --pretty=format:'%C(red)%h %C(yellow)%ad%C(reset) %s%d %C(blue)[%an]%C(reset)' --graph --date=short
