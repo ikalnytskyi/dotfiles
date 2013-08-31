@@ -37,6 +37,8 @@ Bundle 'jamessan/vim-gnupg'
 Bundle 'majutsushi/tagbar'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'terryma/vim-multiple-cursors'
+Bundle 'Rykka/riv.vim'
+Bundle 'wting/rust.vim'
 
 
 " Plugins from vim-scripts
