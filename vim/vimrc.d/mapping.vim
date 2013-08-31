@@ -39,11 +39,11 @@ nnoremap <silent> <F9>  :Hexmode<CR>
 nnoremap <silent> <F11>  :QFix<CR>
 
 
-" [Ctrl + T] — new tab
-" [Ctrl + W] — close tab
-" ----------------------
-nnoremap <silent><C-t> :tabnew<CR>
-nnoremap <silent><C-w> :tabclose<CR>
+" [Ctrl + Shift + T] — new tab
+" [Ctrl + Shift +  W] — close tab
+" -------------------------------
+nnoremap <silent><C-S-t> :tabnew<CR>
+nnoremap <silent><C-S-w> :tabclose<CR>
 
 
 " [Ctrl + Space] — use autocomplete
