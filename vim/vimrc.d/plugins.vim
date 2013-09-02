@@ -44,3 +44,8 @@ let g:tagbar_width = 30
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_iconchars = ['+', '-']
+
+
+" RIV
+" ---
+let g:riv_fold_auto_update = 0

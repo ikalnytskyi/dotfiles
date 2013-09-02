@@ -39,6 +39,7 @@ Bundle 'Rip-Rip/clang_complete'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'Rykka/riv.vim'
 Bundle 'wting/rust.vim'
+Bundle 'mitsuhiko/vim-jinja'
 
 
 " Plugins from vim-scripts
