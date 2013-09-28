@@ -90,7 +90,7 @@ _white()   { echo -e "\033[37m$1\033[00m"; }
 # print useful information of some vcs
 _vcs_prompt() {
   path=`pwd`
-  prompt=$' on \033[34m%n\033[00m:\033[00m%b\033[00m'
+  prompt=$' on \033[1m\033[34m%n\033[00m:\033[00m%b\033[00m'
   vcprompt -f "$prompt"
 }
 
@@ -103,12 +103,11 @@ _virtualenv() {
       folder=`dirname "${VIRTUAL_ENV}"`
       ENV_NAME=`basename "$folder"`
     fi
-    echo -n $' \033[37mworkon \033[31m'
+    echo -n $' \033[00mworkon \033[1m\033[35m'
     echo -n $ENV_NAME
     echo -n $'\033[00m'
   fi
 }
-
 VIRTUAL_ENV_DISABLE_PROMPT=1
 
 export BASEPROMPT='\n'
