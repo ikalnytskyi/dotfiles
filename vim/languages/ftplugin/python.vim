@@ -4,7 +4,6 @@
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 setlocal completeopt=menu,longest
-imap <silent> <buffer> . .<C-X><C-O>
 
 let python_highlight_all=1
 autocmd BufWritePre <buffer> normal m`:%s/\s\+$//e ``

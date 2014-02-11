@@ -31,7 +31,7 @@ nnoremap <silent> <F8> :TagbarToggle<CR>
 
 " [F9] — turn on/off hex mode
 " ---------------------------
-nnoremap <silent> <F9>  :Hexmode<CR>
+"nnoremap <silent> <F9>  :Hexmode<CR>
 
 
 " [F11] — show/hide quickfix list
@@ -39,11 +39,18 @@ nnoremap <silent> <F9>  :Hexmode<CR>
 nnoremap <silent> <F11>  :QFix<CR>
 
 
-" [Ctrl + Shift + T] — new tab
-" [Ctrl + Shift +  W] — close tab
-" -------------------------------
-nnoremap <silent><C-S-t> :tabnew<CR>
-nnoremap <silent><C-S-w> :tabclose<CR>
+nnoremap <F9> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+
+" [Ctrl + T] — new tab
+" [Ctrl +  W] — close tab
+"
+" ATTENTION: the lines below could remap hotkeys from the another plugins
+" -----------------------------------------------------------------------
+nmap <silent><C-t> :tabnew<CR>
+nmap <silent><C-w> :tabclose<CR>
 
 
 " [Ctrl + Space] — use autocomplete

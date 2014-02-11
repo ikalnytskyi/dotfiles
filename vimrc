@@ -22,9 +22,8 @@ endif
 source $VIMHOME/vimrc.d/bundles.vim
 
 source $VIMHOME/vimrc.d/general.vim
-source $VIMHOME/vimrc.d/search.vim
-source $VIMHOME/vimrc.d/indentation.vim
 source $VIMHOME/vimrc.d/appearance.vim
-source $VIMHOME/vimrc.d/mapping.vim
+source $VIMHOME/vimrc.d/keybindings.vim
 source $VIMHOME/vimrc.d/plugins.vim
+source $VIMHOME/vimrc.d/syntax.vim
 source $VIMHOME/vimrc.d/functions.vim

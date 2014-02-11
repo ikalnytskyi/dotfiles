@@ -3,7 +3,7 @@
 "        AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-syntax  on
+syntax on
 filetype plugin indent on
 
 
@@ -48,10 +48,9 @@ set fileencodings=utf-8,windows-1251,iso-8859-15,koi8-r " Order of encodings rec
 set nowrap
 
 if has('unix')
-    set clipboard=unnamedplus   " use system clipboard
-endif
-if has('win32') || has('win64') || has('mac')
-    set clipboard=unnamed       " use system clipboard
+    set clipboard=unnamedplus   " use system clipboard on unix/linux
+else
+    set clipboard=unnamed       " use system clipboard on windows/mac
 endif
 
 
@@ -64,3 +63,24 @@ endif
 
 set backupdir=$VIMHOME/backup     " Directory for backup storing
 set directory=$VIMHOME/swap       " Directory for storing swaps
+
+
+" Search settings
+" ---------------
+
+set incsearch           " Enable incremental search
+set ignorecase          " Ignore search case
+set smartcase           " Match upper case in the search string if specified
+set wrapscan            " Set the search scan to wrap lines
+set hlsearch            " Highlight search results
+
+
+" Indentation settings
+" --------------------
+
+set autoindent          " inherit current indentation in the next line
+set tabstop=4           " set tab size
+set softtabstop=4       " always insert spaces instead of tabs (if expandtab)
+set shiftwidth=4        " shift lines by 4 spaces
+set expandtab           " insert space instead the tab
+set smarttab            " align tab instead of just inserting 4 spaces

@@ -8,4 +8,4 @@ map <F4> :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<cr>
 
 
 " check errors before saving file
-autocmd BufWritePre <buffer> :call g:ClangUpdateQuickFix()
+autocmd BufWritePost <buffer> :call g:ClangUpdateQuickFix()
