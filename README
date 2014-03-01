@@ -31,3 +31,13 @@
   where
 
       {package_name} - a package to install; for instance, bash or vim
+
+
+~ Bootstraps
+
+  The repo has _bootstrap/ directory with helper scripts, that are used
+  to configure environment.
+
+  For instance, bash package depends on vcprompt program. So we have
+  the vcprompt.sh script, that downloads a latest sources, compile it
+  and install a result binary into .bin/ folder.
