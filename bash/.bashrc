@@ -2,8 +2,6 @@
 # DESCRIPTION: My awesome bash prompt with additional information.
 #      AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
 #
-# Based on Armin Ronacher's `.bashrc`.
-#
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #  STANDARD DEBIAN .BASHRC
@@ -94,7 +92,7 @@ _white()   { echo -e "\033[37m$1\033[00m"; }
 # print useful information of some vcs
 _vcs_prompt() {
   path=`pwd`
-  prompt=$' on \033[1m\033[34m%n\033[00m:\033[00m%b\033[00m'
+  prompt=$' on \033[1m\033[34m%n\033[00m:\033[00m%b\033[00m\033[36m%m\033[00m'
   vcprompt -f "$prompt"
 }
 
