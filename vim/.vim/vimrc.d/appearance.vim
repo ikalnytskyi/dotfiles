@@ -26,7 +26,7 @@ set background=dark
 colorscheme xoria256
 
 if has('gui_running')
-    colorscheme base16-tomorrow
+    colorscheme base16-default
 
     set guifont=Ubuntu\ Mono\ 13
     set guioptions-=m       "remove menu bar

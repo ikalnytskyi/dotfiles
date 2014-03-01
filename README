@@ -1,0 +1,33 @@
+                             //  dotfiles  //
+
+                      ikalnitsky's personal dotfiles
+
+
+~ Requirements
+
+  The repo is formed to be deployed using GNU Stow tool. So please make
+  sure you've installed it already.
+
+  Debian-based receipt:
+
+      $ [sudo] apt-get install stow
+
+  OS X receipt:
+
+      $ [sudo] brew install stow
+
+
+~ Installation
+
+  Clone the repo and change dir to it:
+
+      $ git clone https://github.com/ikalnitsky/dotfiles.git
+      $ cd dotfiles
+
+  Certain package can be installed by the following command:
+
+      $ stow -t ~ {package_name}
+
+  where
+
+      {package_name} - a package to install; for instance, bash or vim

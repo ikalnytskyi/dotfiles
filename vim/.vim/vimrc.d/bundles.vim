@@ -40,6 +40,7 @@ Bundle 'terryma/vim-multiple-cursors'
 Bundle 'wting/rust.vim'
 Bundle 'mitsuhiko/vim-jinja'
 Bundle 'chriskempson/base16-vim'
+Bundle 'tpope/vim-fugitive'
 
 
 " Plugins from vim-scripts
@@ -57,4 +58,8 @@ endif
 
 if !executable('clang')
     echo 'Need clang with llvm for clang_complete plugin!'
+endif
+
+if !executable('jshint')
+    echo 'Need jshint for jshint.vim plugin!'
 endif

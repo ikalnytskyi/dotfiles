@@ -1,8 +1,8 @@
 # temporary vim-files
-vim/swap/
-vim/backup/
-vim/spell/
-vim/bundle/
+vim/.vim/swap/
+vim/.vim/backup/
+vim/.vim/spell/
+vim/.vim/bundle/
 
 # temporary mutt
-mutt/temp/
+mutt/.mutt/temp/
