@@ -12,17 +12,16 @@ INSTALL_DIR=$DOTFILES_DIR/bin/.bin
 
 
 # check for hg
-if [ -x hg ]; then
+if ! which hg >/dev/null; then
     echo "ABORTED: please install mercurial"
     exit 1
 fi
 
 # check for autoconf
-if [ -x autoconf ]; then
+if ! which autoconf >/dev/null; then
     echo "ABORTED: please install autoconf"
     exit 1
 fi
-
 
 # get sources
 temp_dir=`mktemp -d`
