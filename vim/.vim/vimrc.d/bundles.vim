@@ -3,7 +3,7 @@
 "        AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" Initialize Vundle plugin
+" Initialize plugin manager
 " ------------------------
 
 filetype off
@@ -23,30 +23,29 @@ set rtp+=$VIMHOME/bundle/vundle/
 call vundle#rc()
 
 
-" Plugins from GitHub
-" -------------------
+" Plugins
+" -------
 
 Bundle 'gmarik/vundle'
+
 Bundle 'scrooloose/nerdtree'
+Bundle 'majutsushi/tagbar'
 Bundle 'drmingdrmer/xptemplate'
+Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-fugitive'
 Bundle 'xsnippet/vim-xsnippet'
+Bundle 'kien/ctrlp.vim'
+Bundle 'gitignore'
+
+Bundle 'Rip-Rip/clang_complete'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'nvie/vim-flake8'
-Bundle 'jamessan/vim-gnupg'
-Bundle 'majutsushi/tagbar'
-Bundle 'Rip-Rip/clang_complete'
-Bundle 'terryma/vim-multiple-cursors'
+
 Bundle 'wting/rust.vim'
 Bundle 'mitsuhiko/vim-jinja'
+
 Bundle 'chriskempson/base16-vim'
-Bundle 'tpope/vim-fugitive'
-
-
-" Plugins from vim-scripts
-" ------------------------
-
-Bundle 'QFixToggle'
 
 
 " Helper messages for some dependencies
@@ -58,8 +57,4 @@ endif
 
 if !executable('clang')
     echo 'Need clang with llvm for clang_complete plugin!'
-endif
-
-if !executable('jshint')
-    echo 'Need jshint for jshint.vim plugin!'
 endif
