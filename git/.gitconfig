@@ -11,9 +11,10 @@
     remote = red
 
 [alias]
-    unstage = reset HEAD 
-    discard-changes = checkout -- 
+    unstage = reset HEAD
+    discard-changes = checkout --
     branches = branch -vv
     history = log --pretty=format:'%C(red)%h %C(yellow)%ad%C(reset) %s%d %C(blue)[%an]%C(reset)' --graph --date=short
+
 [push]
-	default = simple
+    default = simple
