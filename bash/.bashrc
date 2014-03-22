@@ -3,49 +3,44 @@
 #      AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
 #
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  STANDARD DEBIAN .BASHRC
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# GENERAL SETTINGS
+# ````````````````
 
-# If not running interactively, don't do anything
+# If not running interactively, don't do anything.
 case $- in
-    *i*) ;;
-      *) return;;
+  *i*) ;;
+    *) return;;
 esac
 
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
+# Don't put duplicate lines or lines starting with
+# space in the history. See bash(1) for details.
 HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-# check the window size after each command and, if necessary,
+
+# Append to the history file, don't overwrite it.
+shopt -s histappend
+
+# Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
 
-# enable color support of ls and also add handy aliases
+# Trick to enable color support in some programs.
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" \
+       || eval "$(dircolors -b)"
 
-    alias ls='ls --color=auto --group-directories-first'
-    alias dir='dir --color=auto'
-    alias grep='grep --color=auto'
+  alias ls='ls --color=auto --group-directories-first'
+  alias dir='dir --color=auto'
+  alias grep='grep --color=auto'
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+
+# Enable programmable completion features.
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -55,54 +50,66 @@ if ! shopt -oq posix; then
 
   _pip_completion()
   {
-      COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                     COMP_CWORD=$COMP_CWORD \
-                     PIP_AUTO_COMPLETE=1 $1 ) )
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   PIP_AUTO_COMPLETE=1 $1 ) )
   }
   complete -o default -F _pip_completion pip
 fi
 
-# when open a new tab copy settings from the previous
-# (current directory, and so on)
+
+# When open a new tab copy settings from the previous
+# (current directory, and so on).
 if [ -f /etc/profile.d/vte.sh ]; then
-    . /etc/profile.d/vte.sh
+  . /etc/profile.d/vte.sh
 fi
 
-# enable virtualenvwrappers commands if exists
+
+# Enable virtualenvwrappers if exists.
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-    . /usr/local/bin/virtualenvwrapper.sh
+  . /usr/local/bin/virtualenvwrapper.sh
 fi
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  AUXILIARY FUNCTIONS
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-_bold()      { echo -e "\033[1m$1\033[0m"; }
-_underline() { echo -e "\033[4m$1\033[0m"; }
+#
+# EXPORT DEFINITIONS
+# ``````````````````
 
-_black()   { echo -e "\033[30m$1\033[00m"; }
-_red()     { echo -e "\033[31m$1\033[00m"; }
-_green()   { echo -e "\033[32m$1\033[00m"; }
-_yellow()  { echo -e "\033[33m$1\033[00m"; }
-_blue()    { echo -e "\033[34m$1\033[00m"; }
-_magenta() { echo -e "\033[35m$1\033[00m"; }
-_cyan()    { echo -e "\033[36m$1\033[00m"; }
-_white()   { echo -e "\033[37m$1\033[00m"; }
+# Add ~/.bin folder to $PATH environment. It's very
+# convenient to keep user executables here.
+export PATH=~/.bin:$PATH
+
+# This variable is used by different programs
+# and points to default text editor.
+export EDITOR=vim
+
+# Enable 256 colors support.
+export TERM=xterm-256color
+
+# My personal C/C++ compiler settings. 8)
+export CC=clang
+export CXX=clang++
 
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  SETUP BASH PROMPT
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# SETUP BASH PROMPT
+# `````````````````
 
-# print useful information of some vcs
-_vcs_prompt() {
-  path=`pwd`
-  prompt=$' on \033[1m\033[34m%n\033[00m:\033[00m%b\033[00m\033[36m%m\033[00m'
-  vcprompt -f "$prompt"
+function __baseprompt {
+  echo -n "\e[1m\e[31m\u\e[0m"       # username: bold and red
+  echo -n " at \e[1m\e[33m\h\e[0m"   # hostname: bold and yellow
+  echo -n " in \e[1m\e[32m\w\e[0m"   # curr dir: bold and green
 }
 
-# print current activated virtualenv
-_virtualenv() {
+
+function __extprompt {
+  # show current vcs information
+  if which vcprompt >/dev/null; then
+    prompt=$' on \e[1m\e[34m%n\e[0m:\e[0m%b\e[0m\e[36m%m\e[0m'
+    vcprompt -f "$prompt"
+  fi
+
+  # show current active virtualenv
   if [ x$VIRTUAL_ENV != x ]; then
     if [[ $VIRTUAL_ENV == *.virtualenvs/* ]]; then
       ENV_NAME=`basename "${VIRTUAL_ENV}"`
@@ -115,33 +122,10 @@ _virtualenv() {
     echo -n $'\033[00m'
   fi
 }
-VIRTUAL_ENV_DISABLE_PROMPT=1
 
-export BASEPROMPT='\n'
-export BASEPROMPT=$BASEPROMPT'$(_bold `_red \u`) '          # username
-export BASEPROMPT=$BASEPROMPT'at $(_bold `_yellow \h`) '    # hostname
-export BASEPROMPT=$BASEPROMPT'in $(_bold `_green :\w`)'     # current dir
-export BASEPROMPT=$BASEPROMPT'`_vcs_prompt`'                # vcs status
-export BASEPROMPT=$BASEPROMPT'`_virtualenv`'                # venv status
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-export PS1="\[\033[G\]${BASEPROMPT}\n\$ "
+export BASEPROMPT=`__baseprompt`
+export BASEPROMPT=$BASEPROMPT'`__extprompt`'
+export PS1="\n\[\e[G\]${BASEPROMPT}\n\$ "
 
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  EXPORT DEFINITIONS
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Add ~/.bin folder to $PATH environment. It's very convenient
-# to keep user executables here.
-export PATH=~/.bin:$PATH
-
-# This variable is used by different programs and points to
-# default text editor.
-export EDITOR=vim
-
-# Enable 256 colors support.
-export TERM=xterm-256color
-
-# My personal C/C++ compiler settings. 8)
-export CC=clang
-export CXX=clang++
