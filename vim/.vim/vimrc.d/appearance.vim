@@ -28,7 +28,12 @@ colorscheme xoria256
 if has('gui_running')
     colorscheme base16-default
 
-    set guifont=Ubuntu\ Mono\ 13
     set guioptions-=m       "remove menu bar
     set guioptions-=T       "remove toolbar
+
+    if has('mac')
+        set guifont=Monaco:h13
+    else
+        set guifont=Ubuntu\ Mono\ 13
+    endif
 endif

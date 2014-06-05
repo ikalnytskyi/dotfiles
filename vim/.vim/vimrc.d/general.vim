@@ -47,10 +47,10 @@ set ffs=unix,dos,mac            " End-of-line symbol processing order
 set fileencodings=utf-8,windows-1251,iso-8859-15,koi8-r " Order of encodings recognition attempts
 set nowrap
 
-if has('unix')
-    set clipboard=unnamedplus   " use system clipboard on unix/linux
-else
+if has('mac')
     set clipboard=unnamed       " use system clipboard on windows/mac
+else
+    set clipboard=unnamedplus   " use system clipboard on unix/linux
 endif
 
 
