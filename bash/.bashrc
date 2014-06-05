@@ -41,21 +41,26 @@ fi
 
 
 # Enable programmable completion features.
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-
-  _pip_completion()
-  {
-    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                   COMP_CWORD=$COMP_CWORD \
-                   PIP_AUTO_COMPLETE=1 $1 ) )
-  }
-  complete -o default -F _pip_completion pip
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  . /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
 fi
+
+# enable completion on mac os with brew package
+if which brew >/dev/null; then
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+  fi
+fi
+
+_pip_completion()
+{
+  COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                 COMP_CWORD=$COMP_CWORD \
+                 PIP_AUTO_COMPLETE=1 $1 ) )
+}
+complete -o default -F _pip_completion pip
 
 
 # When open a new tab copy settings from the previous
@@ -128,4 +133,3 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export BASEPROMPT=`__baseprompt`
 export BASEPROMPT=$BASEPROMPT'`__extprompt`'
 export PS1="\n\[\e[G\]${BASEPROMPT}\n\$ "
-
