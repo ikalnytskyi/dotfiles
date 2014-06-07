@@ -30,6 +30,7 @@ shopt -s checkwinsize
 
 
 # Trick to enable color support in some programs.
+# Works on Linux systems.
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" \
        || eval "$(dircolors -b)"
@@ -41,6 +42,7 @@ fi
 
 
 # Enable programmable completion features.
+# Works on Linux systems.
 if [ -f /usr/share/bash-completion/bash_completion ]; then
   . /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
@@ -64,7 +66,7 @@ complete -o default -F _pip_completion pip
 
 
 # When open a new tab copy settings from the previous
-# (current directory, and so on).
+# (current directory, and so on). Works on Linux systems.
 if [ -f /etc/profile.d/vte.sh ]; then
   . /etc/profile.d/vte.sh
 fi
@@ -80,6 +82,12 @@ fi
 # EXPORT DEFINITIONS
 # ``````````````````
 
+# Define utf-8 based locale settings in Mac OS.
+if [ `uname` == "Darwin" ]; then
+  export LC_ALL=en_US.utf-8
+  export LANG=en_US.utf-8
+fi
+
 # Add ~/.bin folder to $PATH environment. It's very
 # convenient to keep user executables here.
 export PATH=~/.bin:$PATH
@@ -94,6 +102,12 @@ export TERM=xterm-256color
 # My personal C/C++ compiler settings. 8)
 export CC=clang
 export CXX=clang++
+
+# Don't generate *.pyc and *.pyo
+export PYTHONDONTWRITEBYTECODE=1
+
+# Enable colors in some BSD tools (ls, etc).
+export CLICOLOR=1
 
 
 #
