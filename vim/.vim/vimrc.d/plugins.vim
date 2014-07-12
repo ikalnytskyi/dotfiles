@@ -32,7 +32,7 @@ let g:clang_hl_errors = 1
 let g:clang_use_library = 1
 let g:clang_jumpto_back_key = "<C-[>"
 let g:clang_user_options = "-std=c++11 -Wall -Wextra -pedantic"
-let g:clang_library_path = "/usr/lib/llvm-3.4/lib"
+let g:clang_library_path = "/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
 
 
 " Tagbar

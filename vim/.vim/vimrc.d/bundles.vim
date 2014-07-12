@@ -12,40 +12,42 @@ if !isdirectory($VIMHOME . "/bundle")
     call mkdir($VIMHOME . "/bundle", "p")
     cd $VIMHOME/bundle
     if executable('git')
-        !git clone https://github.com/gmarik/vundle.git
-        call BundleInstall!
+        !git clone https://github.com/gmarik/Vundle.vim.git
     else
         echo 'WARNING: Git is missing! Cannot pull Vundle plugin.'
     endif
 endif
-
-set rtp+=$VIMHOME/bundle/vundle/
-call vundle#rc()
+set rtp+=$VIMHOME/bundle/Vundle.vim/
 
 
 " Plugins
 " -------
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
-Bundle 'scrooloose/nerdtree'
-Bundle 'majutsushi/tagbar'
-Bundle 'drmingdrmer/xptemplate'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-Bundle 'xsnippet/vim-xsnippet'
-Bundle 'kien/ctrlp.vim'
-Bundle 'gitignore'
+Plugin 'scrooloose/nerdtree'
+Plugin 'majutsushi/tagbar'
+Plugin 'drmingdrmer/xptemplate'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin 'xsnippet/vim-xsnippet'
+Plugin 'kien/ctrlp.vim'
+Plugin 'gitignore'
 
-Bundle 'Rip-Rip/clang_complete'
-Bundle 'davidhalter/jedi-vim'
-Bundle 'nvie/vim-flake8'
+Plugin 'Rip-Rip/clang_complete'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'nvie/vim-flake8'
 
-Bundle 'wting/rust.vim'
-Bundle 'mitsuhiko/vim-jinja'
+Plugin 'wting/rust.vim'
+Plugin 'mitsuhiko/vim-jinja'
+Plugin 'jnwhiteh/vim-golang'
 
-Bundle 'chriskempson/base16-vim'
+Plugin 'chriskempson/base16-vim'
+Plugin 'altercation/vim-colors-solarized'
+
+call vundle#end()
 
 
 " Helper messages for some dependencies
