@@ -23,7 +23,7 @@ set statusline+=\ [pos\ %02l:%02c\ 0x%O]\ [%3b\ 0x%02B]\ [buf\ #%n]
 
 
 set background=dark
-colorscheme xoria256
+colorscheme badwolf
 
 if has('gui_running')
     colorscheme base16-default

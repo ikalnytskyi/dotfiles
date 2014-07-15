@@ -35,6 +35,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'xsnippet/vim-xsnippet'
 Plugin 'kien/ctrlp.vim'
 Plugin 'gitignore'
+Plugin 'AndrewRadev/linediff.vim'
 
 Plugin 'Rip-Rip/clang_complete'
 Plugin 'davidhalter/jedi-vim'
@@ -43,9 +44,6 @@ Plugin 'nvie/vim-flake8'
 Plugin 'wting/rust.vim'
 Plugin 'mitsuhiko/vim-jinja'
 Plugin 'jnwhiteh/vim-golang'
-
-Plugin 'chriskempson/base16-vim'
-Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()
 
