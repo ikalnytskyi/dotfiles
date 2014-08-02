@@ -17,6 +17,7 @@ let NERDTreeQuitOnOpen = 1
 " jedi-vim
 " --------
 let g:jedi#popup_on_dot = 1
+let g:jedi#force_py_version = 2
 
 
 " vim-flake8
@@ -32,7 +33,7 @@ let g:clang_hl_errors = 1
 let g:clang_use_library = 1
 let g:clang_jumpto_back_key = "<C-[>"
 let g:clang_user_options = "-std=c++11 -Wall -Wextra -pedantic"
-let g:clang_library_path = "/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
+let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 
 
 " Tagbar
@@ -41,3 +42,10 @@ let g:tagbar_width = 30
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_iconchars = ['+', '-']
+
+
+" Airline
+" -------
+if has('gui_running')
+    let g:airline_theme="base16"
+endif

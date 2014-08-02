@@ -18,6 +18,9 @@ set fillchars=""                " Get rid of characters in windows separators
 set listchars=tab:»·,trail:·    " Set unprintable characters
 set laststatus=2
 
+" the status line will be overriden by vim-airline, but I still want
+" here this settings, because airline is a plugin when this thing will
+" work even when the plugin isn't installed
 set statusline=%f\ %m\ %r\ %y\ [%{&fileencoding}]\ [len\ %L:%p%%]
 set statusline+=\ [pos\ %02l:%02c\ 0x%O]\ [%3b\ 0x%02B]\ [buf\ #%n]
 
