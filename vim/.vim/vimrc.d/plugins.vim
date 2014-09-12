@@ -33,7 +33,12 @@ let g:clang_hl_errors = 1
 let g:clang_use_library = 1
 let g:clang_jumpto_back_key = "<C-[>"
 let g:clang_user_options = "-std=c++11 -Wall -Wextra -pedantic"
-let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
+
+if has('mac')
+    let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
+else
+    let g:clang_library_path = "/usr/lib"
+endif
 
 
 " Tagbar

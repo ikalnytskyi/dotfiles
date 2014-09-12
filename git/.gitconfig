@@ -1,6 +1,7 @@
 [user]
     name = Igor Kalnitsky
     email = igor@kalnitsky.org
+    signingkey = ADFE39E4
 
 [color]
     ui = true

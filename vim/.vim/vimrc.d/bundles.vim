@@ -45,6 +45,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'wting/rust.vim'
 Plugin 'mitsuhiko/vim-jinja'
 Plugin 'jnwhiteh/vim-golang'
+Plugin 'honza/dockerfile.vim'
 
 call vundle#end()
 
@@ -54,8 +55,4 @@ call vundle#end()
 
 if !executable('ctags')
     echo 'Need ctags for tagbar plugin!'
-endif
-
-if !executable('clang')
-    echo 'Need clang with llvm for clang_complete plugin!'
 endif
