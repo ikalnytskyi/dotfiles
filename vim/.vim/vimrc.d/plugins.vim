@@ -20,12 +20,6 @@ let g:jedi#popup_on_dot = 1
 let g:jedi#force_py_version = 2
 
 
-" vim-flake8
-" ----------
-let g:flake8_builtins="_,apply,self"
-let g:flake8_max_line_length=99
-
-
 " clang_complete
 " --------------
 let g:clang_periodic_quickfix = 1
