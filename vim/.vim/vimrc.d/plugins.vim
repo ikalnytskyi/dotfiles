@@ -25,7 +25,6 @@ let g:jedi#force_py_version = 2
 let g:clang_periodic_quickfix = 1
 let g:clang_hl_errors = 1
 let g:clang_use_library = 1
-let g:clang_jumpto_back_key = "<C-[>"
 let g:clang_user_options = "-std=c++11 -Wall -Wextra -pedantic"
 
 if has('mac')

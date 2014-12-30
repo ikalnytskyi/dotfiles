@@ -91,6 +91,7 @@ fi
 # Add ~/.bin folder to $PATH environment. It's very
 # convenient to keep user executables here.
 export PATH=~/.bin:$PATH
+export PATH=~/.local/bin:$PATH
 
 # This variable is used by different programs
 # and points to default text editor.
