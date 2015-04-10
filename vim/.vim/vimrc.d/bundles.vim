@@ -36,6 +36,7 @@ Plugin 'xsnippet/vim-xsnippet'
 Plugin 'kien/ctrlp.vim'
 Plugin 'gitignore'
 Plugin 'AndrewRadev/linediff.vim'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
 
 Plugin 'Rip-Rip/clang_complete'
