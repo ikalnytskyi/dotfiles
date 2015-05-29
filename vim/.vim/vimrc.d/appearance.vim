@@ -15,6 +15,7 @@ set synmaxcol=2048              " Syntax coloring long lines slows down the vim
 set mousehide                   " Hide mouse cursor while typing
 set timeoutlen=500              " Timeout between keystrokes on shortcuts
 set fillchars=""                " Get rid of characters in windows separators
+set list                        " Show unprintable characters
 set listchars=tab:»·,trail:·    " Set unprintable characters
 set laststatus=2
 
@@ -26,7 +27,7 @@ set statusline+=\ [pos\ %02l:%02c\ 0x%O]\ [%3b\ 0x%02B]\ [buf\ #%n]
 
 
 set background=dark
-colorscheme Tomorrow-Night
+colorscheme jellybeans
 
 if has('gui_running')
     colorscheme base16-default

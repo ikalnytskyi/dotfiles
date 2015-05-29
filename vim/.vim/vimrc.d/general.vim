@@ -39,7 +39,6 @@ set showcmd                     " Show current command buffer
 set splitbelow                  " Put the new window below when vertical splitting
 set splitright                  " Put the new window right when horizontal splitting
 set backup                      " Save file backups
-set list!
 set iminsert=0                  " Turn of :lmap and Input Method
 set imsearch=-1                 " Set search layout same is iminsert
 set lazyredraw                  " Don't update the display while executing macros
