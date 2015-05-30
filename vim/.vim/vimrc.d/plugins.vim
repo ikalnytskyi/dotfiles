@@ -17,7 +17,6 @@ let NERDTreeQuitOnOpen = 1
 " jedi-vim
 " --------
 let g:jedi#popup_on_dot = 1
-let g:jedi#force_py_version = 2
 
 
 " clang_complete

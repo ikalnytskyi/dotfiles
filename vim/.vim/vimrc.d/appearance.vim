@@ -5,7 +5,6 @@
 
 scriptencoding utf-8
 
-
 set t_Co=256                    " Enable 256 color mode
 set cursorline                  " Highlight the line with cursor
 set colorcolumn=80              " Highlight 80 column
@@ -19,12 +18,10 @@ set list                        " Show unprintable characters
 set listchars=tab:»·,trail:·    " Set unprintable characters
 set laststatus=2
 
-" the status line will be overriden by vim-airline, but I still want
-" here this settings, because airline is a plugin when this thing will
-" work even when the plugin isn't installed
+" the status line will be overridden by vim-airline. it's kept here just
+" in case - if one day i'll want to use vanilla vim. :)
 set statusline=%f\ %m\ %r\ %y\ [%{&fileencoding}]\ [len\ %L:%p%%]
 set statusline+=\ [pos\ %02l:%02c\ 0x%O]\ [%3b\ 0x%02B]\ [buf\ #%n]
-
 
 set background=dark
 colorscheme jellybeans
@@ -32,8 +29,8 @@ colorscheme jellybeans
 if has('gui_running')
     colorscheme base16-default
 
-    set guioptions-=m       "remove menu bar
-    set guioptions-=T       "remove toolbar
+    set guioptions-=m       " remove menu bar
+    set guioptions-=T       " remove toolbar
 
     if has('mac')
         set guifont=Monaco:h13

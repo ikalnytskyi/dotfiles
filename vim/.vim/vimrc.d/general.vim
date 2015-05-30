@@ -6,21 +6,9 @@
 syntax on
 filetype plugin indent on
 
-
-" Add folders to Vim runtime
-" --------------------------
-
-set rtp+=$VIMHOME/templates     " user's snippets for XPTemplate
-set rtp+=$VIMHOME/languages     " language specified Vim settings
-
-
-" General settings
-" ----------------
-
-set nocompatible                " No compatibility with vi
-set shellslash                  " Set forward slash to be the slash of note (for Windows - backslashes suck)
+set nocompatible                " Use Vim defaults, no Vi ones
+set shellslash                  " Use forward slashed when expanding file names
 set vb                          " Set visual bell (instead of beeping)
-set backspace=2                 " Allow backspacing over indent, eol, and the start of an insert
 set scrolloff=3                 " Number of lines from the end of the screen when start scrolling
 set sidescrolloff=3             " Number of columns from the end of the screen when start scrolling
 set isfname+=32                 " Make Vim understand filenames with spaces
@@ -29,7 +17,7 @@ set history=128                 " How much lines of command line history to reme
 set undolevels=2048             " Number of possible undo's
 set hidden                      " Enable unwritten buffers to be hidden
 set autochdir                   " Automatically switch directory to current
-set virtualedit=all             " Enable a full virtual editing mode
+set virtualedit=all             " Enable all types of virtual modes
 set showmode                    " Show what mode are you in
 set wildmenu                    " Enable enhanced command line completion
 set browsedir=current           " Directory to use for the file browser
@@ -44,7 +32,24 @@ set imsearch=-1                 " Set search layout same is iminsert
 set lazyredraw                  " Don't update the display while executing macros
 set ffs=unix,dos,mac            " End-of-line symbol processing order
 set fileencodings=utf-8,windows-1251,iso-8859-15,koi8-r " Order of encodings recognition attempts
-set nowrap
+set nowrap                      " Turn off 'visual' wrapping
+set nofoldenable                " Turn off code folding
+set nrformats-=octal            " Consider Dec as default number format
+set completeopt=longest,menuone " Use popup even if there's only one match
+
+set incsearch                   " Enable incremental search
+set ignorecase                  " Ignore search case
+set smartcase                   " Match upper case in the search string if specified
+set wrapscan                    " Set the search scan to wrap lines
+set hlsearch                    " Highlight search results
+
+set autoindent                  " Inherit current indentation in the next line
+set expandtab                   " Insert space instead the tab
+set softtabstop=4               " Always insert spaces instead of tabs (if expandtab)
+set shiftwidth=4                " Shift lines by 4 spaces
+set tabstop=4                   " Set tab width
+set smarttab                    " Align tab instead of just inserting 4 spaces
+set backspace=indent,eol,start  " Allow backspacing over indent, eol, and the start
 
 if has('mac')
     set clipboard=unnamed       " use system clipboard on windows/mac
@@ -62,24 +67,3 @@ endif
 
 set backupdir=$VIMHOME/backup     " Directory for backup storing
 set directory=$VIMHOME/swap       " Directory for storing swaps
-
-
-" Search settings
-" ---------------
-
-set incsearch           " Enable incremental search
-set ignorecase          " Ignore search case
-set smartcase           " Match upper case in the search string if specified
-set wrapscan            " Set the search scan to wrap lines
-set hlsearch            " Highlight search results
-
-
-" Indentation settings
-" --------------------
-
-set autoindent          " inherit current indentation in the next line
-set tabstop=4           " set tab size
-set softtabstop=4       " always insert spaces instead of tabs (if expandtab)
-set shiftwidth=4        " shift lines by 4 spaces
-set expandtab           " insert space instead the tab
-set smarttab            " align tab instead of just inserting 4 spaces

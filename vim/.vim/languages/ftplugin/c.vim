@@ -6,6 +6,5 @@
 " F4 - switching between .hpp and .cpp
 map <F4> :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<cr>
 
-
 " check errors before saving file
-autocmd BufWritePost <buffer> :call g:ClangUpdateQuickFix()
+autocmd BufWritePost <buffer> silent! call g:ClangUpdateQuickFix()

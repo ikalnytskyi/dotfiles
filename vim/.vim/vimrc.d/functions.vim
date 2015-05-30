@@ -5,14 +5,13 @@
 
 " Function aliases
 " ----------------
-command -bar Hexmode call ToggleHex()
-command -bar Spell call ToggleSpell()
-command -bar Compile call Compile()
+command! -bar Hexmode call ToggleHex()
+command! -bar Spell call ToggleSpell()
 
 
 " Helper function to toggle hex mode
 " ----------------------------------
-function ToggleHex()
+function! ToggleHex()
   " hex mode should be considered a read-only operation
   " save values for modified and read-only for restoration later,
   " and clear the read-only flag for now
@@ -52,7 +51,7 @@ endfunction
 
 " Spell checker function
 " ----------------------
-function ToggleSpell()
+function! ToggleSpell()
     if !exists("b:isChecked") || !b:isChecked
         set spl=en,uk,ru spell
         let b:isChecked = 1
@@ -60,32 +59,4 @@ function ToggleSpell()
         set nospell
         let b:isChecked = 0
     endif
-endfunction
-
-
-" Recursively look for Makefile or SConstruct and perform build accordingly
-" -------------------------------------------------------------------------
-function! Compile()
-    let origcurdir = getcwd()
-    let curdir     = origcurdir
-    while curdir != "/"
-        if filereadable("Makefile")
-            break
-        elseif filereadable("SConstruct")
-            break
-        endif
-        cd ..
-        let curdir= getcwd()
-    endwhile
-    if filereadable('Makefile')
-        set makeprg=make
-    elseif filereadable('SConstruct')
-        set makeprg=scons
-    else
-        set makeprg=make
-    endif
-    echo "now building..."
-    silent w
-    make
-    echo "build finished"
 endfunction

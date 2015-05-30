@@ -27,3 +27,10 @@ source $VIMHOME/vimrc.d/keybindings.vim
 source $VIMHOME/vimrc.d/plugins.vim
 source $VIMHOME/vimrc.d/syntax.vim
 source $VIMHOME/vimrc.d/functions.vim
+
+
+" Add aditional folder to Vim runtime
+" -----------------------------------------------
+
+set rtp+=$VIMHOME/templates     " user's snippets for XPTemplate
+set rtp+=$VIMHOME/languages     " language specified Vim settings

@@ -1,6 +1,7 @@
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"   DESCRIPTION: Vim's configuration file for JavaScript language
+"   DESCRIPTION: Vim's configuration file for HTML language
 "        AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-autocmd BufWritePost <buffer> silent! JSHint
+setlocal shiftwidth=2
+setlocal tabstop=2

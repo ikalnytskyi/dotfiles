@@ -4,12 +4,10 @@
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " navigate through windows
-" ------------------------
-nnoremap <silent> <C-k> :wincmd k<CR>
-nnoremap <silent> <C-j> :wincmd j<CR>
-nnoremap <silent> <C-h> :wincmd h<CR>
-nnoremap <silent> <C-l> :wincmd l<CR>
-
+nnoremap <silent> <leader>k :wincmd k<CR>
+nnoremap <silent> <leader>j :wincmd j<CR>
+nnoremap <silent> <leader>h :wincmd h<CR>
+nnoremap <silent> <leader>l :wincmd l<CR>
 
 " call file explorer
 nnoremap <leader>1  :NERDTreeToggle<CR>
@@ -20,12 +18,8 @@ nnoremap <leader>2  :TagbarToggle<CR>
 " show/hide quickfix lis
 nnoremap <leader>3  :QFix<CR>
 
-" recursively search Makefile and run last one
-nnoremap <leader>5  :Compile<CR>
-
 " turn on/off spellchecker
 nnoremap <leader>4 :Spell<CR>
-"nnoremap <C> z=<CR>
 
 " tab manipulations
 nmap <silent><C-t> :tabnew<CR>

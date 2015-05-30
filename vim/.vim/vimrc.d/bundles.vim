@@ -3,9 +3,6 @@
 "        AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" Initialize plugin manager
-" ------------------------
-
 filetype off
 
 if !isdirectory($VIMHOME . "/bundle")
@@ -20,8 +17,6 @@ endif
 set rtp+=$VIMHOME/bundle/Vundle.vim/
 
 
-" Plugins
-" -------
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
@@ -38,7 +33,6 @@ Plugin 'gitignore'
 Plugin 'AndrewRadev/linediff.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
-
 Plugin 'Rip-Rip/clang_complete'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'nvie/vim-flake8'
@@ -47,12 +41,15 @@ Plugin 'wting/rust.vim'
 Plugin 'mitsuhiko/vim-jinja'
 Plugin 'jnwhiteh/vim-golang'
 Plugin 'honza/dockerfile.vim'
+Plugin 'elzr/vim-json'
+Plugin 'rodjek/vim-puppet'
+
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'chriskempson/base16-vim'
+
 
 call vundle#end()
 
-
-" Helper messages for some dependencies
-" -------------------------------------
 
 if !executable('ctags')
     echo 'Need ctags for tagbar plugin!'
