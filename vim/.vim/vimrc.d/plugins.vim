@@ -17,6 +17,7 @@ let NERDTreeQuitOnOpen = 1
 " jedi-vim
 " --------
 let g:jedi#popup_on_dot = 1
+let g:jedi#use_tabs_not_buffers = 1
 
 
 " clang_complete
