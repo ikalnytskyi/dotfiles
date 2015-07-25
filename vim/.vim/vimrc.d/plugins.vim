@@ -42,6 +42,11 @@ let g:tagbar_autofocus = 1
 let g:tagbar_iconchars = ['+', '-']
 
 
+" vim-json
+" --------
+let g:vim_json_syntax_conceal = 0   " do not hide json's double quotes
+
+
 " Airline
 " -------
 if has('gui_running')

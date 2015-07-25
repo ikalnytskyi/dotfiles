@@ -44,8 +44,8 @@ Plugin 'honza/dockerfile.vim'
 Plugin 'elzr/vim-json'
 Plugin 'rodjek/vim-puppet'
 
-Plugin 'nanotech/jellybeans.vim'
 Plugin 'chriskempson/base16-vim'
+Plugin 'nanotech/jellybeans.vim'
 
 
 call vundle#end()
