@@ -58,6 +58,22 @@ let g:tagbar_type_markdown = {
     \ 'sort': 0,
 \ }
 
+" add support for restructuredtext files in tagbar
+" rst2ctags is required
+let g:tagbar_type_rst = {
+    \ 'ctagstype': 'rst',
+    \ 'ctagsbin' : '$VIMHOME/bundle/rst2ctags/rst2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
 
 " vim-json
 " --------

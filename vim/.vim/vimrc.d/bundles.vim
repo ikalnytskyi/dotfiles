@@ -44,6 +44,7 @@ Plugin 'honza/dockerfile.vim'
 Plugin 'elzr/vim-json'
 Plugin 'rodjek/vim-puppet'
 Plugin 'jszakmeister/markdown2ctags'
+Plugin 'jszakmeister/rst2ctags'
 
 Plugin 'chriskempson/base16-vim'
 Plugin 'nanotech/jellybeans.vim'
