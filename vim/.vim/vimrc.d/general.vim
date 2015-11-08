@@ -26,7 +26,6 @@ set autoread                    " Automatically read files, edited outside of Vi
 set showcmd                     " Show current command buffer
 set splitbelow                  " Put the new window below when vertical splitting
 set splitright                  " Put the new window right when horizontal splitting
-set backup                      " Save file backups
 set iminsert=0                  " Turn of :lmap and Input Method
 set imsearch=-1                 " Set search layout same is iminsert
 set lazyredraw                  " Don't update the display while executing macros
@@ -57,13 +56,11 @@ else
     set clipboard=unnamedplus   " use system clipboard on unix/linux
 endif
 
-
 if !isdirectory($VIMHOME . "/swap")
     call mkdir($VIMHOME . "/swap", "p")
 endif
-if !isdirectory($VIMHOME . "/backup")
-    call mkdir($VIMHOME . "/backup", "p")
-endif
+set directory=$VIMHOME/swap     " Directory for storing swaps
 
-set backupdir=$VIMHOME/backup     " Directory for backup storing
-set directory=$VIMHOME/swap       " Directory for storing swaps
+set nobackup                    " Don't make backup
+set nowritebackup               " Don't make backup for backup
+set backupdir=$VIMHOME/backup   " Directory for backup storing

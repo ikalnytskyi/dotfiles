@@ -27,8 +27,6 @@ set background=dark
 colorscheme jellybeans
 
 if has('gui_running')
-    colorscheme base16-default
-
     set guioptions-=m       " remove menu bar
     set guioptions-=T       " remove toolbar
 
