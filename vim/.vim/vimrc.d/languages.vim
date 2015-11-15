@@ -12,7 +12,7 @@ autocmd BufReadPre SConscript set filetype=python
 
 augroup PYTHON
     autocmd!
-    autocmd BufWritePost *.py call Flake8()
+    autocmd BufWritePost *.py silent! call Flake8()
 augroup END
 
 
@@ -31,5 +31,5 @@ augroup END
 augroup CPP
     autocmd!
     autocmd BufWritePost *.c,*.cc,*.cpp,*.cxx,*.h,*.hpp,*.hxx
-       \ call g:ClangUpdateQuickFix()
+       \ silent! call g:ClangUpdateQuickFix()
 augroup END

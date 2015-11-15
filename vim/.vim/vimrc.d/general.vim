@@ -3,6 +3,8 @@
 "        AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+scriptencoding utf-8
+
 syntax on
 filetype plugin indent on
 
@@ -35,6 +37,12 @@ set nowrap                      " Turn off 'visual' wrapping
 set nofoldenable                " Turn off code folding
 set nrformats-=octal            " Consider Dec as default number format
 set completeopt=longest,menuone " Use popup even if there's only one match
+set nobackup                    " Don't make backup
+set nowritebackup               " Don't make backup for backup
+set backupdir=$VIMHOME/backup   " Directory for backup storing
+set directory=$VIMHOME/swap     " Directory for storing swaps
+set mouse=a                     " Enable mouse for all modes
+set mousemodel=popup_setpos     " RMB triggers popup, and set position to clicked item
 
 set incsearch                   " Enable incremental search
 set ignorecase                  " Ignore search case
@@ -50,6 +58,38 @@ set tabstop=4                   " Set tab width
 set smarttab                    " Align tab instead of just inserting 4 spaces
 set backspace=indent,eol,start  " Allow backspacing over indent, eol, and the start
 
+set t_Co=256                    " Enable 256 color mode
+set cursorline                  " Highlight the line with cursor
+set colorcolumn=80              " Highlight 80 column
+set cursorcolumn                " Highlight the column with cursor
+set number                      " Enable line numbering
+set synmaxcol=2048              " Syntax coloring long lines slows down the vim
+set mousehide                   " Hide mouse cursor while typing
+set timeoutlen=500              " Timeout between keystrokes on shortcuts
+set fillchars=""                " Get rid of characters in windows separators
+set list                        " Show unprintable characters
+set listchars=tab:»·,trail:·    " Set unprintable characters
+set laststatus=2
+
+" the status line will be overridden by vim-airline. it's kept here just
+" in case - if one day i'll want to use vanilla vim. :)
+set statusline=%f\ %m\ %r\ %y\ [%{&fileencoding}]\ [len\ %L:%p%%]
+set statusline+=\ [pos\ %02l:%02c\ 0x%O]\ [%3b\ 0x%02B]\ [buf\ #%n]
+
+set background=dark
+colorscheme jellybeans
+
+if has('gui_running')
+    set guioptions-=m       " remove menu bar
+    set guioptions-=T       " remove toolbar
+
+    if has('mac')
+        set guifont=Monaco:h13
+    else
+        set guifont=Ubuntu\ Mono\ 13
+    endif
+endif
+
 if has('mac')
     set clipboard=unnamed       " use system clipboard on windows/mac
 else
@@ -59,8 +99,3 @@ endif
 if !isdirectory($VIMHOME . "/swap")
     call mkdir($VIMHOME . "/swap", "p")
 endif
-set directory=$VIMHOME/swap     " Directory for storing swaps
-
-set nobackup                    " Don't make backup
-set nowritebackup               " Don't make backup for backup
-set backupdir=$VIMHOME/backup   " Directory for backup storing

@@ -3,6 +3,8 @@
 "        AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+scriptencoding utf-8
+
 set nocompatible
 filetype off
 
@@ -23,13 +25,15 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'AndrewRadev/linediff.vim'
+Plugin 'SirVer/ultisnips'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
-Plugin 'drmingdrmer/xptemplate'
 Plugin 'gitignore'
+Plugin 'honza/vim-snippets'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
+Plugin 'sjl/gundo.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-fugitive'
 Plugin 'xsnippet/vim-xsnippet'
@@ -58,6 +62,14 @@ if !executable('ctags')
 endif
 
 
+" ultisnips
+" ---------
+
+let g:UltiSnipsExpandTrigger = '<C-\>'
+let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+
+
 " vim-airline
 " -----------
 
@@ -73,13 +85,6 @@ let g:airline_symbols.linenr = ''
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = '·'
-
-
-" xptemplate
-" ----------
-
-let g:xptemplate_vars = 'SParg='
-let g:xptemplate_brace_complete = ''
 
 
 " tagbar
