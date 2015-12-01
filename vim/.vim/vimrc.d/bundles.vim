@@ -28,7 +28,6 @@ Plugin 'AndrewRadev/linediff.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
-Plugin 'gitignore'
 Plugin 'honza/vim-snippets'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
@@ -85,6 +84,17 @@ let g:airline_symbols.linenr = ''
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = '·'
+
+
+" ctrlp.vim
+" ---------
+
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['.git', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'],
+        \ 2: ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'],
+    \ },
+\ }
 
 
 " tagbar
