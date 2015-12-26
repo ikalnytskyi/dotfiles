@@ -9,7 +9,7 @@ command -bar Spell call ToggleSpell()
 
 function! ToggleSpell()
     if !exists("b:isChecked") || !b:isChecked
-        set spl=en,uk,ru spell
+        set spell
         let b:isChecked = 1
     else
         set nospell
