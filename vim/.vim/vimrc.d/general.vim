@@ -86,7 +86,7 @@ if has('gui_running')
     set guioptions-=T       " remove toolbar
 
     if has('mac')
-        set guifont=Monaco:h13
+        set guifont=Menlo:h13
     else
         set guifont=Ubuntu\ Mono\ 13
     endif
