@@ -22,6 +22,12 @@ augroup HTML
 augroup END
 
 
+augroup CSS
+    autocmd!
+    autocmd FileType css setlocal shiftwidth=2 tabstop=2
+augroup END
+
+
 augroup JAVASCRIPT
     autocmd!
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
