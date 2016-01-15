@@ -5,7 +5,7 @@
 
 #
 # GENERAL SETTINGS
-# ````````````````
+#
 
 # If not running interactively, don't do anything.
 case $- in
@@ -13,34 +13,20 @@ case $- in
     *) return;;
 esac
 
-
-# Don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for details.
 HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-
-# Append to the history file, don't overwrite it.
 shopt -s histappend
-
-# Check the window size after each command and, if necessary, update
-# the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-
-# Trick to enable color support in some programs (Linux only).
+# Enable color support in some programs by default (Linux only).
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" \
        || eval "$(dircolors -b)"
-
-  alias ls='ls --color=auto --group-directories-first'
-  alias dir='dir --color=auto'
-  alias grep='grep --color=auto'
 fi
 
-
-# Enable Bash auto completion on Linux and/or OS X.
+# Enable Bash auto completion.
 if [ -f /usr/share/bash-completion/bash_completion ]; then
   . /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
@@ -50,8 +36,6 @@ elif which brew >/dev/null; then
     . $(brew --prefix)/etc/bash_completion
   fi
 fi
-
-# Enable pip auto completion for Bash.
 _pip_completion()
 {
   COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
@@ -61,68 +45,79 @@ _pip_completion()
 complete -o default -F _pip_completion pip
 
 
-# When open a new tab copy settings from the previous
-# (current directory, and so on). Works on Linux systems.
-if [ -f /etc/profile.d/vte.sh ]; then
-  . /etc/profile.d/vte.sh
+#
+# ALIASES
+#
+
+alias runhttp='python -m SimpleHTTPServer'
+alias tree='tree --dirsfirst -C'
+
+if [ `uname` == "Linux" ]; then
+  alias ls='ls --color=auto --group-directories-first'
+  alias dir='dir --color=auto'
+  alias grep='grep --color=auto'
 fi
 
 
 #
 # EXPORT DEFINITIONS
-# ``````````````````
+#
 
-# Define UTF-8 based locale settings on OS X.
+# Default OS X locale is incompatible with Linux, because it doesn't have
+# encoding part. It breaks some things when you deal with remote Linux
+# machine using SSH - SSH client passes wrong locale to remote machine,
+# and some programs fail to use it.
 if [ `uname` == "Darwin" ]; then
   export LC_ALL=en_US.utf-8
   export LANG=en_US.utf-8
 fi
 
-# Add ~/.bin folder to $PATH environment. It's very convenient to keep
-# user executables here.
-export PATH=~/.bin:$PATH
-export PATH=~/.local/bin:$PATH
+# Add local bin folders to $PATH. It's very convenient to keep
+# manually built or locally installed executable here.
+export PATH=~/.bin:~/.local/bin:$PATH
 
-export EDITOR=vim
-export TERM=xterm-256color
-export CC=clang
-export CXX=clang++
+export EDITOR=vim                   # prefer vim as default editor
+export TERM=xterm-256color          # yep, we have 256color compatible terminal
+export CC=clang                     # use clang as default C compiler
+export CXX=clang++                  # use clang as default C++ compiler
 
-# Don't generate *.pyc and *.pyo.
-export PYTHONDONTWRITEBYTECODE=1
-# Don't show active virtualenv in Bash prompt.
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-
-# Enable colors in some BSD tools (ls, etc).
-export CLICOLOR=1
+export PYTHONDONTWRITEBYTECODE=1    # do not produce .pyc/.pyo files
+export CLICOLOR=1                   # turn on colors for some BSD tools
 
 
 #
-# SETUP BASH PROMPT
-# `````````````````
+# SETUP BASH PROMPT WITH BLACKJACK AND HOOKERS
+#
 
-function __extprompt {
-  # show current vcs information
+function __setup_prompt {
+  # ANSI CODES - SEPARATE MULTIPLE VALUES WITH ;
+  #
+  #  0  reset          4  underline
+  #  1  bold           7  inverse
+  #
+  # FG  BG  COLOR     FG  BG  COLOR
+  # 30  40  black     34  44  blue
+  # 31  41  red       35  45  magenta
+  # 32  42  green     36  46  cyan
+  # 33  43  yellow    37  47  white
+
+  # show username and cwd
+  local BASEPROMPT='\n\e[1;31m\u\e[0m \e[1;33m@\h\e[0m \e[1;32m\w\e[0m'
+
+  # show current vcs information if any
   if which vcprompt >/dev/null; then
-    prompt=$' on \e[1m\e[34m%n\e[0m:\e[0m%b\e[0m\e[36m%m\e[0m'
-    vcprompt -f "$prompt"
+    local prompt=" \e[1;34m%n:\e[0m%b\e[34m%m\e[0m"
+    BASEPROMPT+=$(vcprompt -f "$prompt")
   fi
 
-  # show current active virtualenv
+  # show active virtualenv if any
   if [ x$VIRTUAL_ENV != x ]; then
-    folder=`dirname "${VIRTUAL_ENV}"`
-    ENV_NAME=`basename "$folder"`
-
-    echo -n $' \033[00mworkon \033[1m\033[35m'
-    echo -n $ENV_NAME
-    echo -n $'\033[00m'
+    local ENV_NAME=$(basename `dirname "$VIRTUAL_ENV"`)
+    BASEPROMPT+=" \e[1;35mvenv:\e[0m$ENV_NAME"
   fi
+
+  # show prompt on a new line
+  BASEPROMPT+='\n\e[1;34m→\e[0m '
+  export PS1=$BASEPROMPT
 }
-
-
-export BASEPROMPT="\e[1m\e[31m\u\e[0m "         # username > bold and red
-export BASEPROMPT+="at \e[1m\e[33m\h\e[0m "     # hostname > bold and yellow
-export BASEPROMPT+="in \e[1m\e[32m\w\e[0m"      # curr dir > bold and green
-
-export BASEPROMPT=$BASEPROMPT'`__extprompt`'
-export PS1="\n\[\e[G\]${BASEPROMPT}\n\$ "
+PROMPT_COMMAND="$PROMPT_COMMAND; __setup_prompt"
