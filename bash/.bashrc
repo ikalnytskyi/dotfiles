@@ -120,4 +120,4 @@ function __setup_prompt {
   BASEPROMPT+='\n\e[1;34m→\e[0m '
   export PS1=$BASEPROMPT
 }
-PROMPT_COMMAND="$PROMPT_COMMAND; __setup_prompt"
+PROMPT_COMMAND="${PROMPT_COMMAND:-true}; __setup_prompt"
