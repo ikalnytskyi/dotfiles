@@ -101,23 +101,26 @@ function __setup_prompt {
   # 32  42  green     36  46  cyan
   # 33  43  yellow    37  47  white
 
-  # show username and cwd
-  local BASEPROMPT='\n\e[1;31m\u\e[0m \e[1;33m@\h\e[0m \e[1;32m\w\e[0m'
-
-  # show current vcs information if any
+  # retrieve vcs information if available
   if which vcprompt >/dev/null; then
-    local prompt=" \e[1;34m%n:\e[0m%b\e[34m%m\e[0m"
-    BASEPROMPT+=$(vcprompt -f "$prompt")
+    local vcs=$(vcprompt -f "\[\e[1;34m\]%n:\[\e[0m\]%b\[\e[34m\]%m\[\e[0m\]")
   fi
 
-  # show active virtualenv if any
+  # retrieve virtualenv information if available
   if [ x$VIRTUAL_ENV != x ]; then
-    local ENV_NAME=$(basename `dirname "$VIRTUAL_ENV"`)
-    BASEPROMPT+=" \e[1;35mvenv:\e[0m$ENV_NAME"
+    local venv=$(basename `dirname "$VIRTUAL_ENV"`)
+    venv="\[\e[1;35m\]venv:\[\e[0m\]$venv"
   fi
 
-  # show prompt on a new line
-  BASEPROMPT+='\n\e[1;34m→\e[0m '
-  export PS1=$BASEPROMPT
+  local STATUSLINE=(
+    '\[\e[1;31m\]\u\[\e[0m\]'           # username, bold & red
+    '\[\e[1;33m\]@\h\[\e[0m\]'          # hostname, bold & yellow
+    '\[\e[1;32m\]\w\[\e[0m\]'           # curr dir, bold & green
+    $vcs                                # vcs:branch(+dirty), bold & blue
+    $venv                               # active virtualenv, bold & maroon
+  )
+
+  PS1="\n${STATUSLINE[*]}"              # show status line on first line
+  PS1+='\n\[\e[1;34m\]→\[\e[0m\] '      # show prompt on second one
 }
-PROMPT_COMMAND="${PROMPT_COMMAND:-true}; __setup_prompt"
+PROMPT_COMMAND="${PROMPT_COMMAND:-:}; __setup_prompt"
