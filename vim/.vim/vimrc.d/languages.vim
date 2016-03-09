@@ -34,6 +34,18 @@ augroup JAVASCRIPT
 augroup END
 
 
+augroup RESTRUCTUREDTEXT
+    autocmd!
+    autocmd FileType rst setlocal shiftwidth=3 tabstop=3
+augroup END
+
+
+augroup YAML
+    autocmd!
+    autocmd FileType yaml setlocal shiftwidth=3 tabstop=3
+augroup END
+
+
 augroup CPP
     autocmd!
     autocmd BufWritePost *.c,*.cc,*.cpp,*.cxx,*.h,*.hpp,*.hxx
