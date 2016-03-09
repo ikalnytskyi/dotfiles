@@ -11,6 +11,7 @@
     discard-changes = checkout --
     branches = branch -vv
     history = log --graph --decorate --oneline
+    authors = shortlog -sne
     filelog = log -u
 
 [push]
