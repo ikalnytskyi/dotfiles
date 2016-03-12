@@ -81,6 +81,7 @@ export TERM=xterm-256color          # yep, we have 256color compatible terminal
 export CC=clang                     # use clang as default C compiler
 export CXX=clang++                  # use clang as default C++ compiler
 
+export PYTHONSTARTUP=~/.pythonrc    # enable python shell auto completion
 export PYTHONDONTWRITEBYTECODE=1    # do not produce .pyc/.pyo files
 export CLICOLOR=1                   # turn on colors for some BSD tools
 
