@@ -154,9 +154,9 @@ let g:clang_use_library = 1
 let g:clang_user_options = "-std=c++14 -Wall -Wextra -pedantic"
 
 if has('mac')
-    let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
+    let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/'
 else
-    let g:clang_library_path = "/usr/lib"
+    let g:clang_library_path = '/usr/lib'
 endif
 
 
@@ -183,3 +183,9 @@ let python_highlight_all = 1
 " ------------
 
 let g:vim_markdown_frontmatter = 1
+
+
+" jellybeans.vim
+" --------------
+
+let g:jellybeans_use_term_background_color = 0
