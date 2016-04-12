@@ -77,7 +77,6 @@ fi
 export PATH=~/.bin:~/.local/bin:$PATH
 
 export EDITOR=vim                   # prefer vim as default editor
-export TERM=xterm-256color          # yep, we have 256color compatible terminal
 export CC=clang                     # use clang as default C compiler
 export CXX=clang++                  # use clang as default C++ compiler
 
