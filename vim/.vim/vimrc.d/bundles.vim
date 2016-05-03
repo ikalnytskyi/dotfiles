@@ -41,10 +41,10 @@ Plugin 'xsnippet/vim-xsnippet'
 Plugin 'Rip-Rip/clang_complete'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'nvie/vim-flake8'
+Plugin 'alfredodeza/pytest.vim'
 
 Plugin 'docker/docker', {'rtp': '/contrib/syntax/vim/'}
 Plugin 'elzr/vim-json'
-Plugin 'hdima/python-syntax'
 Plugin 'jszakmeister/markdown2ctags'
 Plugin 'jszakmeister/rst2ctags'
 Plugin 'mitsuhiko/vim-jinja'
@@ -171,12 +171,6 @@ let g:jedi#use_tabs_not_buffers = 1
 " --------
 
 let g:vim_json_syntax_conceal = 0       " do not hide json's double quotes
-
-
-" python-syntax
-" -------------
-
-let python_highlight_all = 1
 
 
 " vim-markdown
