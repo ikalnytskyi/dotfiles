@@ -17,7 +17,7 @@ nnoremap <leader>4 :Spell<CR>
 
 " use autocomplete
 if has("gui_running")
-    imap <silent> <buffer> <C-Space>  <C-X><C-O>
+  imap <silent> <buffer> <C-Space>  <C-X><C-O>
 else
-    imap <silent> <buffer> <C-@>  <C-X><C-O>
+  imap <silent> <buffer> <C-@>  <C-X><C-O>
 endif

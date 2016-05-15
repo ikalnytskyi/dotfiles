@@ -73,27 +73,35 @@ set list                        " Show unprintable characters
 set listchars=tab:»·,trail:·    " Set unprintable characters
 set laststatus=2
 
+" since patch #1799 Vim supports truecolor; that basicall means we are free
+" to use GVim colorschemes in console Vim as long as your terminal supports
+" truecolor.
+if has('patch-7.4.1799')
+  set termguicolors
+endif
+
 " the status line will be overridden by vim-airline. it's kept here just
 " in case - if one day i'll want to use vanilla vim. :)
 set statusline=%f\ %m\ %r\ %y\ [%{&fileencoding}]\ [len\ %L:%p%%]
 set statusline+=\ [pos\ %02l:%02c\ 0x%O]\ [%3b\ 0x%02B]\ [buf\ #%n]
 
 set background=dark
-colorscheme jellybeans
+colorscheme hybrid
+let g:airline_theme = "hybrid"
 
 if has('gui_running')
-    set guioptions-=m       " remove menu bar
-    set guioptions-=T       " remove toolbar
+  set guioptions-=m       " remove menu bar
+  set guioptions-=T       " remove toolbar
 
-    if has('mac')
-        set guifont=Menlo:h13
-    else
-        set guifont=Ubuntu\ Mono\ 13
-    endif
+  if has('mac')
+    set guifont=Menlo:h13
+  else
+    set guifont=Ubuntu\ Mono\ 13
+  endif
 endif
 
 if has('mac')
-    set clipboard=unnamed       " use system clipboard on windows/mac
+  set clipboard=unnamed       " use system clipboard on windows/mac
 else
-    set clipboard=unnamedplus   " use system clipboard on unix/linux
+  set clipboard=unnamedplus   " use system clipboard on unix/linux
 endif
