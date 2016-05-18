@@ -209,13 +209,13 @@ let g:tagbar_type_go = {
   \ 'ctagstype' : 'go',
   \ 'kinds': [
     \ 'p:packages',
-    \ 'f:functions',
     \ 'c:constants',
     \ 't:types',
-    \ 'v:variables',
     \ 's:structs',
-    \ 'i:interfaces',
     \ 'm:struct members',
+    \ 'v:variables',
+    \ 'i:interfaces',
+    \ 'f:functions',
   \ ],
   \ 'sro': '.',
   \ 'kind2scope': {
