@@ -63,23 +63,26 @@ fi
 # EXPORT DEFINITIONS
 #
 
-# Default OS X locale is incompatible with Linux, because it doesn't have
-# encoding part. It breaks some things when you deal with remote Linux
-# machine using SSH - SSH client passes wrong locale to remote machine,
-# and some programs fail to use it.
 if [ `uname` == "Darwin" ]; then
+  # By default, OS X locale is incompatible with Linux since it doesn't
+  # have encoding part (e.g. "en_US"). It breaks some programs when we
+  # SSH to Linux machine via OS X, since wrong locale will be passed.
+  # So let's setup locale in compatible way.
   export LC_ALL=en_US.utf-8
   export LANG=en_US.utf-8
+
+  # By default, pip on OS X installs binaries here. So we need to add
+  # those paths to PATH in order to make available installed scripts
+  # from shell.
+  export PATH=~/Library/Python/2.7/bin/:~/Library/Python/3.5/bin/:$PATH
 fi
 
-# Add local bin folders to $PATH. It's very convenient to keep
-# manually built or locally installed executable here.
-export PATH=~/.bin:~/.local/bin:$PATH
+export PATH=~/.local/bin:$PATH      # scripts installed by pip (python)
+export PATH=~/.cargo/bin:$PATH      # binaries installed by cargo (rust)
 
 export EDITOR=vim                   # prefer vim as default editor
 export CC=clang                     # use clang as default C compiler
 export CXX=clang++                  # use clang as default C++ compiler
-
 export PYTHONSTARTUP=~/.pythonrc    # enable python shell auto completion
 export PYTHONDONTWRITEBYTECODE=1    # do not produce .pyc/.pyo files
 export CLICOLOR=1                   # turn on colors for some BSD tools
