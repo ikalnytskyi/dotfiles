@@ -105,8 +105,8 @@ function __setup_prompt {
   # 33  43  yellow    37  47  white
 
   # retrieve vcs information if available
-  if which vcprompt >/dev/null; then
-    local vcs=$(vcprompt -f "\[\e[1;34m\]%n:\[\e[0m\]%b\[\e[34m\]%m\[\e[0m\]")
+  if which vcstatus &>/dev/null; then
+    local vcs=$(vcstatus -q -f "\[\e[1;34m\]%n:\[\e[0m\]%b\[\e[34m\]%m\[\e[0m\]")
   fi
 
   # retrieve virtualenv information if available
