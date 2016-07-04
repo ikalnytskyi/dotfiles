@@ -19,6 +19,7 @@ augroup END
 augroup HTML
   autocmd!
   autocmd FileType html setlocal shiftwidth=2 tabstop=2
+  autocmd FileType htmljinja setlocal shiftwidth=2 tabstop=2
 augroup END
 
 
@@ -42,7 +43,7 @@ augroup END
 
 augroup YAML
   autocmd!
-  autocmd FileType yaml setlocal shiftwidth=3 tabstop=3
+  autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 augroup END
 
 
@@ -56,4 +57,10 @@ augroup END
 augroup VIM
   autocmd!
   autocmd FileType vim setlocal shiftwidth=2 tabstop=2
+augroup END
+
+
+augroup SHELL
+  autocmd!
+  autocmd FileType sh setlocal shiftwidth=2 tabstop=2
 augroup END
