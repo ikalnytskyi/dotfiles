@@ -5,39 +5,28 @@
 
 ~ Requirements
 
-  The repo is formed to be deployed using GNU Stow tool. So please make
-  sure you've installed it already.
-
-  Debian-based receipt:
-
-      $ [sudo] apt-get install stow
-
-  OS X receipt:
-
-      $ [sudo] brew install stow
+  Despite dotfiles can be installed independently by copying files manually,
+  it's a recommended way to install them using GNU Stow tool.
 
 
 ~ Installation
 
-  Clone the repo and change dir to it:
+  First, you've got to clone the repo and switch to its root directory.
 
-      $ git clone https://github.com/ikalnitsky/dotfiles.git
-      $ cd dotfiles
+    $ git clone git://github.com/ikalnitsky/dotfiles.git && cd dotfiles
 
-  Certain package can be installed by the following command:
+  Second, choose the package (dotfles) you want to install and run the
+  following command:
 
-      $ stow -t ~ {package_name}
+    $ stow -t ~ {package_name}
 
   where
 
       {package_name} - a package to install; for instance, bash or vim
 
 
-~ Bootstraps
+~ Dependencies
 
-  The repo has _bootstrap/ directory with helper scripts, that are used
-  to configure environment.
+  -> bash
 
-  For instance, bash package depends on vcprompt program. So we have
-  the vcprompt.sh script, that downloads a latest sources, compile it
-  and install a result binary into .bin/ folder.
+     Depends on vcstatus project in order to show VCS hints in your prompt.
