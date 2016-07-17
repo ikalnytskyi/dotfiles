@@ -12,7 +12,7 @@ if !isdirectory($VIMHOME . "/bundle")
   call mkdir($VIMHOME . "/bundle", "p")
   cd $VIMHOME/bundle
   if executable('git')
-    !git clone git@github.com:VundleVim/Vundle.vim.git
+    !git clone git://github.com/VundleVim/Vundle.vim.git
   else
     echo 'WARNING: Git is missing! Cannot pull Vundle plugin.'
   endif
