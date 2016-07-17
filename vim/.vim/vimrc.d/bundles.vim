@@ -39,6 +39,7 @@ Plugin 'AndrewRadev/linediff.vim'
 Plugin 'xsnippet/vim-xsnippet'
 Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
+Plugin 'editorconfig/editorconfig-vim'
 
 Plugin 'davidhalter/jedi-vim'
 Plugin 'nvie/vim-flake8'
