@@ -60,11 +60,6 @@ Plugin 'w0ng/vim-hybrid'
 call vundle#end()
 
 
-if !executable('ctags')
-  echo 'Need ctags for tagbar plugin!'
-endif
-
-
 " ultisnips
 " ---------
 
@@ -142,12 +137,6 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_conceal = 0
 
 
-" jellybeans.vim
-" --------------
-
-let g:jellybeans_use_term_background_color = 0
-
-
 " hybrid.vim
 " ----------
 
@@ -160,7 +149,7 @@ let g:hybrid_reduced_contrast = 1
 let g:tagbar_width = 30
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
-let g:tagbar_iconchars = ['+', '-']
+let g:tagbar_iconchars = ['▸', '▾']
 
 let g:tagbar_type_rst = {
   \ 'ctagstype': 'restructuredtext',
