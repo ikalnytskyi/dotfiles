@@ -74,7 +74,7 @@ if [ `uname` == "Darwin" ]; then
   # By default, pip on OS X installs binaries here. So we need to add
   # those paths to PATH in order to make available installed scripts
   # from shell.
-  export PATH=~/Library/Python/2.7/bin/:~/Library/Python/3.5/bin/:$PATH
+  export PATH=~/Library/Python/2.7/bin:~/Library/Python/3.5/bin:$PATH
 fi
 
 export PATH=~/.local/bin:$PATH      # scripts installed by pip (python)
