@@ -53,9 +53,14 @@ alias runhttp='python -m SimpleHTTPServer'
 alias tree='tree --dirsfirst -C'
 
 if [ `uname` == "Linux" ]; then
+  # pretty colorful output of popular tools
   alias ls='ls --color=auto --group-directories-first'
   alias dir='dir --color=auto'
   alias grep='grep --color=auto'
+
+  # clipboard management similar to os x
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
 fi
 
 
