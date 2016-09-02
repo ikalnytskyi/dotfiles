@@ -1,7 +1,7 @@
 [user]
     name = Igor Kalnitsky
     email = igor@kalnitsky.org
-    signingkey = 8910196E
+    signingkey = FABF2F957E94DBC103EC3EA4F05067E18910196E
 
 [color]
     ui = true
