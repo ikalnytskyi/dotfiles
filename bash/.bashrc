@@ -80,6 +80,10 @@ if [ `uname` == "Darwin" ]; then
   # those paths to PATH in order to make available installed scripts
   # from shell.
   export PATH=~/Library/Python/2.7/bin:~/Library/Python/3.5/bin:$PATH
+
+  # Homebrew's sbin path is unusual for *nix systems so it got to be
+  # added explicitly.
+  export PATH=/usr/local/sbin:$PATH
 fi
 
 export PATH=~/.local/bin:$PATH      # scripts installed by pip (python)
