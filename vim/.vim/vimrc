@@ -6,7 +6,7 @@
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-let $VIMHOME=fnamemodify($MYVIMRC, ':h') . '/.vim'
+let $VIMHOME=fnamemodify($MYVIMRC, ':h')
 if has('win32') || has('win64')
     set rtp+=$VIMHOME/
 endif
