@@ -49,7 +49,7 @@ complete -o default -F _pip_completion pip
 # ALIASES
 #
 
-alias runhttp='python -m SimpleHTTPServer'
+alias runhttp='python3 -m http.server'
 alias tree='tree --dirsfirst -C'
 
 if [ `uname` == "Linux" ]; then
