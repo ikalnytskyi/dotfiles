@@ -99,7 +99,9 @@ let g:ctrlp_user_command = {
 " nerdtree
 " --------
 
-let NERDTreeQuitOnOpen = 1
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '~'
 
 
 " clang_complete
@@ -149,7 +151,8 @@ let g:hybrid_reduced_contrast = 1
 let g:tagbar_width = 30
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
-let g:tagbar_iconchars = ['▸', '▾']
+let g:tagbar_iconchars = ['+ ', '~ ']
+let g:tagbar_show_visibility = 0
 
 let g:tagbar_type_rst = {
   \ 'ctagstype': 'restructuredtext',
