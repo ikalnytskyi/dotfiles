@@ -120,9 +120,15 @@ function __setup_prompt {
   fi
 
   # retrieve virtualenv information if available
-  if [ x$VIRTUAL_ENV != x ]; then
+  if [ ! -z $VIRTUAL_ENV ]; then
     local venv=$(basename `dirname "$VIRTUAL_ENV"`)
-    venv="\[\e[1;35m\]venv:\[\e[0m\]$venv"
+
+    # special case: show tox venvs as 'tox/venv' instead of '.tox'
+    if [ $venv == '.tox' ]; then
+      local venv="tox/`basename $VIRTUAL_ENV`"
+    fi
+
+    local venv="\[\e[1;35m\]venv:\[\e[0m\]$venv"
   fi
 
   local STATUSLINE=(
