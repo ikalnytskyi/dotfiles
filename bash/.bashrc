@@ -140,6 +140,6 @@ function __setup_prompt {
   )
 
   PS1="\n${STATUSLINE[*]}"              # show status line on first line
-  PS1+='\n\[\e[1;34m\]→\[\e[0m\] '      # show prompt on second one
+  PS1+='\n\[\e[1;34m\]$\[\e[0m\] '      # show prompt on second one
 }
 PROMPT_COMMAND="${PROMPT_COMMAND:-:}; __setup_prompt"
