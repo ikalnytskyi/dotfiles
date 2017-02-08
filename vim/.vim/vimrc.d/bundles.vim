@@ -44,7 +44,8 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'alfredodeza/pytest.vim'
-Plugin 'Rip-Rip/clang_complete'
+Plugin 'justmao945/vim-clang'
+Plugin 'fatih/vim-go'
 
 Plugin 'docker/docker', {'rtp': '/contrib/syntax/vim/'}
 Plugin 'rust-lang/rust.vim'
@@ -56,6 +57,7 @@ Plugin 'rodjek/vim-puppet'
 
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'w0ng/vim-hybrid'
+Plugin 'kristijanhusak/vim-hybrid-material'
 
 call vundle#end()
 
@@ -104,19 +106,11 @@ let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '~'
 
 
-" clang_complete
-" --------------
+" vim-clang
+" ---------
 
-let g:clang_periodic_quickfix = 1
-let g:clang_hl_errors = 1
-let g:clang_use_library = 1
-let g:clang_user_options = "-std=c++14 -Wall -Wextra -pedantic"
-
-if has('mac')
-    let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/'
-else
-    let g:clang_library_path = '/usr/lib'
-endif
+let g:clang_cpp_options = "-std=c++14 -Wall -Wextra -pedantic"
+let g:clang_check_syntax_auto = 1
 
 
 " jedi-vim
@@ -151,7 +145,7 @@ let g:hybrid_reduced_contrast = 1
 let g:tagbar_width = 30
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
-let g:tagbar_iconchars = ['+ ', '~ ']
+let g:tagbar_iconchars = ['+', '~']
 let g:tagbar_show_visibility = 0
 
 let g:tagbar_type_rst = {
@@ -195,26 +189,6 @@ let g:tagbar_type_rust = {
     \ 'g': 'enum',
     \ 'i': 'interface',
     \ 'c': 'implementation',
-  \ },
-\ }
-
-let g:tagbar_type_go = {
-  \ 'ctagstype' : 'go',
-  \ 'kinds': [
-    \ 'p:packages',
-    \ 'c:constants',
-    \ 't:types',
-    \ 's:structs',
-    \ 'm:struct members',
-    \ 'v:variables',
-    \ 'i:interfaces',
-    \ 'f:functions',
-  \ ],
-  \ 'sro': '.',
-  \ 'kind2scope': {
-    \ 'p': 'package',
-    \ 's': 'struct',
-    \ 'i': 'interface',
   \ },
 \ }
 

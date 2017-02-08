@@ -86,7 +86,7 @@ set statusline=%f\ %m\ %r\ %y\ [%{&fileencoding}]\ [len\ %L:%p%%]
 set statusline+=\ [pos\ %02l:%02c\ 0x%O]\ [%3b\ 0x%02B]\ [buf\ #%n]
 
 set background=dark
-colorscheme hybrid
+colorscheme hybrid_material
 let g:airline_theme = "hybrid"
 
 if has('gui_running')
