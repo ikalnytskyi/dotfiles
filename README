@@ -1,6 +1,6 @@
                              //  dotfiles  //
 
-                      ikalnitsky's personal dotfiles
+                      ikalnytskyi's personal dotfiles
 
 
 ~ Requirements
@@ -13,7 +13,7 @@
 
   First, you've got to clone the repo and switch to its root directory.
 
-    $ git clone git://github.com/ikalnitsky/dotfiles.git && cd dotfiles
+    $ git clone git://github.com/ikalnytskyi/dotfiles.git && cd dotfiles
 
   Second, choose the package (dotfles) you want to install and run the
   following command:
