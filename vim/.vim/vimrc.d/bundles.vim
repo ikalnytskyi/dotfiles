@@ -51,9 +51,8 @@ Plugin 'docker/docker', {'rtp': '/contrib/syntax/vim/'}
 Plugin 'rust-lang/rust.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'elzr/vim-json'
-Plugin 'othree/yajs.vim'
+Plugin 'pangloss/vim-javascript'
 Plugin 'mitsuhiko/vim-jinja'
-Plugin 'rodjek/vim-puppet'
 
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'w0ng/vim-hybrid'
@@ -102,8 +101,6 @@ let g:ctrlp_user_command = {
 " --------
 
 let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeDirArrowExpandable = '+'
-let g:NERDTreeDirArrowCollapsible = '~'
 
 
 " vim-clang
@@ -145,7 +142,7 @@ let g:hybrid_reduced_contrast = 1
 let g:tagbar_width = 30
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
-let g:tagbar_iconchars = ['+', '~']
+let g:tagbar_iconchars = ['▸', '▾']
 let g:tagbar_show_visibility = 0
 
 let g:tagbar_type_rst = {
