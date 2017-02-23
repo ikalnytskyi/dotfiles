@@ -1,8 +1,3 @@
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"   DESCRIPTION: General settings for Vim
-"        AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 scriptencoding utf-8
 
 syntax on

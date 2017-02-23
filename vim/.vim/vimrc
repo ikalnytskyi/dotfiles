@@ -1,16 +1,7 @@
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"   DESCRIPTION: Vim configuration file
-"        AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
-"
-"   All settings are stored in `$VIMHOME/vimrc.d/` folder
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 let $VIMHOME=fnamemodify($MYVIMRC, ':h')
 if has('win32') || has('win64')
     set rtp+=$VIMHOME/
 endif
-
 
 source $VIMHOME/vimrc.d/plugins.vim
 source $VIMHOME/vimrc.d/general.vim

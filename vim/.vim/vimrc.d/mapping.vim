@@ -1,8 +1,3 @@
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"   DESCRIPTION: Key mapping settings
-"        AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 " call file explorer
 nnoremap <leader>1 :NERDTreeToggle<CR>
 

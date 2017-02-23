@@ -1,8 +1,3 @@
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"   DESCRIPTION: Plugin list which will be install via Vundle
-"        AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 scriptencoding utf-8
 
 set nocompatible
