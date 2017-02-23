@@ -8,57 +8,49 @@ scriptencoding utf-8
 set nocompatible
 filetype off
 
-if !isdirectory($VIMHOME . "/bundle")
-  call mkdir($VIMHOME . "/bundle", "p")
-  cd $VIMHOME/bundle
-  if executable('git')
-    !git clone git://github.com/VundleVim/Vundle.vim.git
-  else
-    echo 'WARNING: Git is missing! Cannot pull Vundle plugin.'
+if !filereadable($VIMHOME . '/autoload/plug.vim')
+  if executable('curl')
+    !curl -fLo $VIMHOME/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   endif
 endif
-set rtp+=$VIMHOME/bundle/Vundle.vim/
 
+call plug#begin($VIMHOME . '/plugins')
 
-call vundle#begin()
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-Plugin 'VundleVim/Vundle.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'godlygeek/tabular'
+Plug 'sjl/gundo.vim'
+Plug 'AndrewRadev/linediff.vim'
+Plug 'xsnippet/vim-xsnippet'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'editorconfig/editorconfig-vim'
 
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'davidhalter/jedi-vim'
+Plug 'nvie/vim-flake8'
+Plug 'alfredodeza/pytest.vim'
+Plug 'justmao945/vim-clang'
+Plug 'fatih/vim-go'
 
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'godlygeek/tabular'
-Plugin 'sjl/gundo.vim'
-Plugin 'AndrewRadev/linediff.vim'
-Plugin 'xsnippet/vim-xsnippet'
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'docker/docker', {'rtp': '/contrib/syntax/vim/'}
+Plug 'rust-lang/rust.vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'elzr/vim-json'
+Plug 'pangloss/vim-javascript'
+Plug 'mitsuhiko/vim-jinja'
 
-Plugin 'davidhalter/jedi-vim'
-Plugin 'nvie/vim-flake8'
-Plugin 'alfredodeza/pytest.vim'
-Plugin 'justmao945/vim-clang'
-Plugin 'fatih/vim-go'
+Plug 'nanotech/jellybeans.vim'
+Plug 'w0ng/vim-hybrid'
+Plug 'kristijanhusak/vim-hybrid-material'
 
-Plugin 'docker/docker', {'rtp': '/contrib/syntax/vim/'}
-Plugin 'rust-lang/rust.vim'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'elzr/vim-json'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mitsuhiko/vim-jinja'
-
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'kristijanhusak/vim-hybrid-material'
-
-call vundle#end()
+call plug#end()
 
 
 " ultisnips

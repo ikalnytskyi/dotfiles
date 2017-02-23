@@ -12,8 +12,7 @@ if has('win32') || has('win64')
 endif
 
 
-source $VIMHOME/vimrc.d/bundles.vim
-
+source $VIMHOME/vimrc.d/plugins.vim
 source $VIMHOME/vimrc.d/general.vim
 source $VIMHOME/vimrc.d/commands.vim
 source $VIMHOME/vimrc.d/mapping.vim

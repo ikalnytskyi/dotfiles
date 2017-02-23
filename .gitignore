@@ -2,7 +2,8 @@
 vim/.vim/swap/
 vim/.vim/backup/
 vim/.vim/spell/
-vim/.vim/bundle/
+vim/.vim/plugins/
+vim/.vim/autoload/plug.vim
 
 # temporary mutt
 mutt/.mutt/temp/
