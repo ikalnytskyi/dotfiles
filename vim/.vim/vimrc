@@ -1,6 +1,6 @@
 "
 " Author: Ihor Kalnytskyi <ihor@kalnytskyi.com>
-" Source: https://github.com/ikalnytskyi/dotfiles/vim/vimrc
+" Source: https://github.com/ikalnytskyi/dotfiles/blob/master/vim/.vim/vimrc
 "
 
 scriptencoding utf-8
