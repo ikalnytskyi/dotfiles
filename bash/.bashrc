@@ -116,7 +116,7 @@ function __setup_prompt {
 
   # retrieve vcs information if available
   if which vcstatus &>/dev/null; then
-    local vcs=$(vcstatus -q -f "\[\e[1;34m\]%n:\[\e[0m\]%b\[\e[34m\]%m\[\e[0m\]")
+    local vcs=$(vcstatus -q -f "\[\e[0;34m\]%n:\[\e[0m\]%b\[\e[34m\]%m\[\e[0m\]")
   fi
 
   # retrieve virtualenv information if available
@@ -132,14 +132,14 @@ function __setup_prompt {
   fi
 
   local STATUSLINE=(
-    '\[\e[1;31m\]\u\[\e[0m\]'           # username, bold & red
-    '\[\e[1;33m\]@\h\[\e[0m\]'          # hostname, bold & yellow
-    '\[\e[1;32m\]\w\[\e[0m\]'           # curr dir, bold & green
+    '\[\e[0;31m\]\u\[\e[0m\]'           # username, bold & red
+    '\[\e[0;33m\]@\h\[\e[0m\]'          # hostname, bold & yellow
+    '\[\e[0;32m\]\w\[\e[0m\]'           # curr dir, bold & green
     $vcs                                # vcs:branch(+dirty), bold & blue
     $venv                               # active virtualenv, bold & maroon
   )
 
   PS1="\n${STATUSLINE[*]}"              # show status line on first line
-  PS1+='\n\[\e[1;34m\]$\[\e[0m\] '      # show prompt on second one
+  PS1+='\n\[\e[0;34m\]$\[\e[0m\] '      # show prompt on second one
 }
 PROMPT_COMMAND="${PROMPT_COMMAND:-:}; __setup_prompt"
