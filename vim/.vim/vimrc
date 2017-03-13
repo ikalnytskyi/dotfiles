@@ -233,6 +233,7 @@ autocmd BufReadPre SConscript set filetype=python
 
 augroup PYTHON
   autocmd!
+  autocmd FileType python setlocal comments+=b:#:   " sphinx (#:) comments
   autocmd BufWritePost *.py silent! call Flake8()
 augroup END
 
