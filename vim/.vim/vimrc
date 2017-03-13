@@ -42,6 +42,7 @@ set nofoldenable                " no code folding, I hate it
 set cb=unnamed,unnamedplus      " use system clipboard on macOS and Linux
 set complete-=i                 " do not scan included files
 set completeopt=longest,menuone " use popup even if there's only one match
+set formatoptions+=r            " auto insert comment leader on <enter>
 set mouse=a                     " enable mouse support in all Vim modes
 set mousehide                   " hide mouse cursor when typing
 set cursorline                  " highlight the line with cursor
