@@ -45,7 +45,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'ap/vim-css-color', { 'for': 'css' }
 
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-  Plug 'rust-lang/rust.vim'
   Plug 'mitsuhiko/vim-jinja'
   Plug 'cespare/vim-toml'
 
