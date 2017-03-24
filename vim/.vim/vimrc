@@ -42,6 +42,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'alfredodeza/pytest.vim', { 'for': 'python' }
   Plug 'justmao945/vim-clang', { 'for': 'c' }
   Plug 'fatih/vim-go', { 'for': 'go' }
+  Plug 'ap/vim-css-color', { 'for': 'css' }
 
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
   Plug 'rust-lang/rust.vim'
