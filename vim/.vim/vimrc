@@ -23,6 +23,7 @@ endif
 
 silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'wincent/terminus'
   Plug 'scrooloose/nerdtree'
   Plug 'majutsushi/tagbar'
   Plug 'tpope/vim-fugitive'
