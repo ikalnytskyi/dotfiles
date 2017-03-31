@@ -33,6 +33,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'neomake/neomake'
   Plug 'dojoteef/neomake-autolint'
   Plug 'terryma/vim-multiple-cursors'
+  Plug 'Valloric/ListToggle'
   Plug 'godlygeek/tabular'
   Plug 'sjl/gundo.vim'
   Plug 'AndrewRadev/linediff.vim'
@@ -127,6 +128,11 @@ silent! if plug#begin($VIMHOME . '/plugins')
   " ~ neomake/neomake
 
   let g:airline#extensions#neomake#enabled = 1
+
+  " ~ Valloric/ListToggle
+
+  let g:lt_location_list_toggle_map = '<leader>l'
+  let g:lt_quickfix_list_toggle_map = '<leader>q'
 
   " ~ w0ng/vim-hybrid
 
