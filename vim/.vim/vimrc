@@ -30,6 +30,8 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'airblade/vim-gitgutter'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'neomake/neomake'
+  Plug 'dojoteef/neomake-autolint'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'godlygeek/tabular'
   Plug 'sjl/gundo.vim'
@@ -39,7 +41,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'w0ng/vim-hybrid'
 
   Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-  Plug 'nvie/vim-flake8', { 'for': 'python' }
   Plug 'alfredodeza/pytest.vim', { 'for': 'python' }
   Plug 'justmao945/vim-clang', { 'for': 'c' }
   Plug 'fatih/vim-go', { 'for': 'go' }
@@ -122,6 +123,10 @@ silent! if plug#begin($VIMHOME . '/plugins')
     \ ],
     \ 'sort': 0,
   \ }
+
+  " ~ neomake/neomake
+
+  let g:airline#extensions#neomake#enabled = 1
 
   " ~ w0ng/vim-hybrid
 
@@ -235,7 +240,6 @@ autocmd BufReadPre SConscript set filetype=python
 augroup PYTHON
   autocmd!
   autocmd FileType python setlocal comments+=b:#:   " sphinx (#:) comments
-  autocmd BufWritePost *.py silent! call Flake8()
 augroup END
 
 augroup HTML
