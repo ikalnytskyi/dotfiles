@@ -26,6 +26,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'wincent/terminus'
   Plug 'scrooloose/nerdtree'
   Plug 'majutsushi/tagbar'
+  Plug 'mhinz/vim-grepper'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
   Plug 'vim-airline/vim-airline'
@@ -122,6 +123,13 @@ silent! if plug#begin($VIMHOME . '/plugins')
       \ 'i:identities',
     \ ],
     \ 'sort': 0,
+  \ }
+
+  " ~ mhinz/vim-grepper
+
+  let g:grepper = {
+    \ 'dir': 'repo,file',
+    \ 'tools': ['git', 'rg', 'ag', 'grep'],
   \ }
 
   " ~ neomake/neomake
@@ -231,6 +239,7 @@ endfor
 nnoremap <leader>1 :NERDTreeToggle<CR>
 nnoremap <leader>2 :TagbarToggle<CR>
 nnoremap <leader>3 :set spell!<CR>
+nnoremap <leader>g :Grepper<CR>
 
 "
 " // LANGUAGES //
