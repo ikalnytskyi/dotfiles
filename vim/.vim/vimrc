@@ -38,7 +38,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'sjl/gundo.vim'
   Plug 'AndrewRadev/linediff.vim'
   Plug 'xsnippet/vim-xsnippet'
-  Plug 'editorconfig/editorconfig-vim'
   Plug 'w0ng/vim-hybrid'
 
   Plug 'davidhalter/jedi-vim', { 'for': 'python' }
