@@ -28,7 +28,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'majutsushi/tagbar'
   Plug 'mhinz/vim-grepper'
   Plug 'tpope/vim-fugitive'
-  Plug 'airblade/vim-gitgutter'
+  Plug 'mhinz/vim-signify'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'neomake/neomake'
