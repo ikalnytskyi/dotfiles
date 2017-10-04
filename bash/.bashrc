@@ -73,8 +73,8 @@ if [ `uname` == "Darwin" ]; then
   # have encoding part (e.g. "en_US"). It breaks some programs when we
   # SSH to Linux machine via OS X, since wrong locale will be passed.
   # So let's setup locale in compatible way.
-  export LC_ALL=en_US.utf-8
-  export LANG=en_US.utf-8
+  export LC_ALL=en_US.UTF-8
+  export LANG=en_US.UTF-8
 
   # By default, pip on OS X installs binaries here. So we need to add
   # those paths to PATH in order to make available installed scripts
