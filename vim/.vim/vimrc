@@ -36,7 +36,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'Valloric/ListToggle'
   Plug 'godlygeek/tabular'
-  Plug 'sjl/gundo.vim'
+  Plug 'mbbill/undotree'
   Plug 'AndrewRadev/linediff.vim'
   Plug 'xsnippet/vim-xsnippet'
   Plug 'w0ng/vim-hybrid'
@@ -241,6 +241,7 @@ endfor
 nnoremap <leader>1 :NERDTreeToggle<CR>
 nnoremap <leader>2 :TagbarToggle<CR>
 nnoremap <leader>3 :set spell!<CR>
+nnoremap <leader>4 :UndotreeToggle<CR>
 nnoremap <leader>g :Grepper<CR>
 
 "
