@@ -32,7 +32,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'neomake/neomake'
-  Plug 'dojoteef/neomake-autolint'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'Valloric/ListToggle'
   Plug 'godlygeek/tabular'
