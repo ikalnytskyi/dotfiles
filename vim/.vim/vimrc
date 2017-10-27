@@ -37,6 +37,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'godlygeek/tabular'
   Plug 'mbbill/undotree'
   Plug 'AndrewRadev/linediff.vim'
+  Plug 'kshenoy/vim-signature'
   Plug 'xsnippet/vim-xsnippet'
   Plug 'w0ng/vim-hybrid'
 
@@ -242,6 +243,7 @@ nnoremap <leader>1 :NERDTreeToggle<CR>
 nnoremap <leader>2 :TagbarToggle<CR>
 nnoremap <leader>3 :set spell!<CR>
 nnoremap <leader>4 :UndotreeToggle<CR>
+nnoremap <leader>5 :SignatureListBufferMarks<CR>
 nnoremap <leader>g :Grepper<CR>
 
 "
