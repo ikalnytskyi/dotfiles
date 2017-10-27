@@ -198,6 +198,7 @@ set ttimeoutlen=100             " timeout in ms
 set spelllang=en,ru             " languages to spellcheck
 set nowrap                      " do not wrap lines visually
 set nofoldenable                " no code folding, I hate it
+set noshowmode                  " do not show Vim mode, airline shows it
 set cb=unnamed,unnamedplus      " use system clipboard on macOS and Linux
 set complete-=i                 " do not scan included files
 set completeopt=longest,menuone " use popup even if there's only one match
