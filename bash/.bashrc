@@ -91,12 +91,18 @@ export PATH=~/.cargo/bin:$PATH      # binaries installed by cargo (rust)
 export PATH=~/.go/bin:$PATH         # binaries built by go (golang)
 
 export EDITOR=vim                   # prefer vim as default editor
-export CC=clang                     # use clang as default C compiler
-export CXX=clang++                  # use clang as default C++ compiler
 export PYTHONDONTWRITEBYTECODE=1    # do not produce .pyc/.pyo files
 export CLICOLOR=1                   # turn on colors for some BSD tools
 export GPG_TTY=`tty`                # setup tty for gpg2's pinetry
 export GOPATH=~/.go
+
+if which clang &>/dev/null; then
+  export CC=clang                   # use clang as default C compiler
+fi
+
+if which clang++ &>/dev/null; then
+  export CXX=clang++                # use clang as default C++ compiler
+fi
 
 if [ -f ~/.pythonrc ]; then
   export PYTHONSTARTUP=~/.pythonrc  # enable python shell auto completion
