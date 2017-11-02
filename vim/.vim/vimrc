@@ -47,6 +47,9 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'fatih/vim-go', { 'for': 'go' }
   Plug 'ap/vim-css-color', { 'for': 'css' }
 
+  Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+  Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
+  Plug 'wavded/vim-stylus', { 'for': 'stylus' }
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
   Plug 'mitsuhiko/vim-jinja'
   Plug 'cespare/vim-toml'
@@ -162,6 +165,11 @@ silent! if plug#begin($VIMHOME . '/plugins')
   let g:clang_cpp_options = "-std=c++14 -Wall -Wextra -pedantic"
   let g:clang_check_syntax_auto = 1
 
+  " ~ pangloss/vim-javascript
+
+  let g:javascript_plugin_jsdoc = 1
+  let g:javascript_plugin_flow = 1
+
   " ~ plasticboy/vim-markdown
 
   let g:vim_markdown_frontmatter = 1
@@ -256,6 +264,9 @@ autocmd BufReadPost *.qrc set filetype=xml
 autocmd BufReadPre SConstruct set filetype=python
 autocmd BufReadPre SConscript set filetype=python
 
+autocmd BufReadPost .babelrc set filetype=json
+autocmd BufReadPost .eslintrc set filetype=json
+
 augroup PYTHON
   autocmd!
   autocmd FileType python setlocal comments+=b:#:   " sphinx (#:) comments
@@ -275,6 +286,7 @@ augroup END
 augroup JAVASCRIPT
   autocmd!
   autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+  autocmd FileType javascript.jsx setlocal shiftwidth=2 tabstop=2
 augroup END
 
 augroup YAML
