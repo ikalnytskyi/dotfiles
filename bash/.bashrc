@@ -63,6 +63,10 @@ if [ `uname` == "Linux" ]; then
   alias pbpaste='xclip -selection clipboard -o'
 fi
 
+if [ `uname` == "Darwin" ]; then
+  alias grep='grep --color=auto'
+fi
+
 
 #
 # EXPORT DEFINITIONS
