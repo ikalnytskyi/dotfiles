@@ -255,6 +255,8 @@ nnoremap <leader>4 :UndotreeToggle<CR>
 nnoremap <leader>5 :SignatureListBufferMarks<CR>
 nnoremap <leader>g :Grepper<CR>
 
+cmap w!! w !sudo tee % >/dev/null
+
 "
 " // LANGUAGES //
 "
