@@ -48,7 +48,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
 
   Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
   Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
-  Plug 'wavded/vim-stylus', { 'for': 'stylus' }
+  Plug 'iloginow/vim-stylus', { 'for': 'stylus' }
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
   Plug 'mitsuhiko/vim-jinja'
   Plug 'cespare/vim-toml'
