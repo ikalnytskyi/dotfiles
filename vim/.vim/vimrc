@@ -42,10 +42,11 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'w0ng/vim-hybrid'
   Plug 'tpope/vim-sleuth'
 
-  Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-  Plug 'alfredodeza/pytest.vim', { 'for': 'python' }
-  Plug 'justmao945/vim-clang', { 'for': 'c' }
-  Plug 'fatih/vim-go', { 'for': 'go' }
+  Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  Plug 'yami-beta/asyncomplete-omni.vim'
 
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
   Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -56,6 +57,54 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'cespare/vim-toml'
 
   call plug#end()
+
+  " ~ prabirshrestha/vim-lsp
+
+  augroup LSP
+    autocmd!
+
+    if executable('pyls')
+      autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ 'priority': 1,
+      \ })
+    endif
+
+    if executable('clangd')
+      autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ 'priority': 1,
+      \ })
+    endif
+
+    if executable('rls')
+      autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rls']},
+        \ 'whitelist': ['rust'],
+        \ 'priority': 1,
+      \ })
+    endif
+  augroup END
+
+  " ~ prabirshrestha/asyncomplete.vim
+
+  let g:asyncomplete_remove_duplicates = 1
+
+  augroup ASYNCOMPLETE
+    autocmd!
+    autocmd User asyncomplete_setup call asyncomplete#register_source(
+      \ asyncomplete#sources#omni#get_source_options({
+          \ 'name': 'omni',
+          \ 'whitelist': ['*'],
+          \ 'blacklist': ['c', 'cpp', 'html'],
+          \ 'completor': function('asyncomplete#sources#omni#completor')
+      \ }))
+  augroup END
 
   " ~ ctrlpvim/ctrlp.vim
 
@@ -156,17 +205,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
   set background=dark
   silent! colorscheme hybrid
 
-  " ~ davidhalter/jedi-vim'
-
-  let g:jedi#popup_on_dot = 1
-  let g:jedi#use_tabs_not_buffers = 1
-  let g:jedi#smart_auto_mappings = 0
-
-  " ~ justmao945/vim-clang
-
-  let g:clang_cpp_options = "-std=c++14 -Wall -Wextra -pedantic"
-  let g:clang_check_syntax_auto = 1
-
   " ~ pangloss/vim-javascript
 
   let g:javascript_plugin_jsdoc = 1
@@ -255,6 +293,9 @@ nnoremap <leader>3 :set spell!<CR>
 nnoremap <leader>4 :UndotreeToggle<CR>
 nnoremap <leader>5 :SignatureListBufferMarks<CR>
 nnoremap <leader>g :Grepper<CR>
+nnoremap <leader>d :LspDefinition<CR>
+nnoremap <leader>h :LspHover<CR>
+nnoremap <leader>r :LspReferences<CR>
 
 cmap w!! w !sudo tee % >/dev/null
 
@@ -306,4 +347,9 @@ augroup END
 augroup SHELL
   autocmd!
   autocmd FileType sh setlocal shiftwidth=2 tabstop=2
+augroup END
+
+augroup LSP-HOVER-ON-RIGHT
+  autocmd!
+  autocmd FileType *.lsp-hover wincmd L
 augroup END
