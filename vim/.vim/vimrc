@@ -40,6 +40,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'kshenoy/vim-signature'
   Plug 'xsnippet/vim-xsnippet'
   Plug 'w0ng/vim-hybrid'
+  Plug 'tpope/vim-sleuth'
 
   Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   Plug 'alfredodeza/pytest.vim', { 'for': 'python' }
