@@ -224,7 +224,6 @@ endif
 set encoding=utf-8                  " do not rely on locale on this default
 set visualbell                      " flash screen instead of beep
 set showcmd                         " show typing command in bottom right corner
-set laststatus=2                    " always show a status line
 set hidden                          " do not abandon buffers, hid them instead
 set scrolloff=3                     " start scrolling 3 lines ahead
 set sidescroll=1                    " scroll horizontally by 1 column
@@ -232,14 +231,11 @@ set sidescrolloff=3                 " start scrolling 3 columns ahead
 set autoread                        " reread file when modified outside vim
 set backspace=indent,eol,start      " smart backspace
 set number                          " show line numbers
-set history=1000                    " amount of commands to remember
 set showbreak=↪                     " character to mark wrapped line
 set lazyredraw                      " do not redraw screen on macros execution, etc
 set title                           " propagate useful info to window title
 set colorcolumn=80,100              " show columns at 80 & 100 characters
-set nrformats-=octal                " use decimal as default
 set autochdir                       " change cwd to current file
-set virtualedit=all                 " free cursor position in all Vim modes
 set wildmenu                        " enhanced command line completion
 set notimeout                       " no timeout on keybindings (aka mappings)
 set ttimeout                        " do timeout on key codes
@@ -256,7 +252,6 @@ set mouse=a                         " enable mouse support in all Vim modes
 set mousehide                       " hide mouse cursor when typing
 set cursorline                      " highlight the line with cursor
 set cursorcolumn                    " highlight the column with cursor
-set synmaxcol=1000                  " syntax coloring long lines slows down Vim
 set list                            " show unprintable characters
 set listchars=tab:»·,trail:·        " set unprintable characters
 set incsearch                       " search result as you typing
