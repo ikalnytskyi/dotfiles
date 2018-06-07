@@ -31,14 +31,11 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'mhinz/vim-signify'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'neomake/neomake'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'Valloric/ListToggle'
   Plug 'godlygeek/tabular'
-  Plug 'mbbill/undotree'
   Plug 'AndrewRadev/linediff.vim'
   Plug 'kshenoy/vim-signature'
-  Plug 'xsnippet/vim-xsnippet'
   Plug 'w0ng/vim-hybrid'
   Plug 'tpope/vim-sleuth'
 
@@ -48,13 +45,12 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
   Plug 'yami-beta/asyncomplete-omni.vim'
 
-  Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-  Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-  Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
-  Plug 'iloginow/vim-stylus', { 'for': 'stylus' }
-  Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-  Plug 'mitsuhiko/vim-jinja'
-  Plug 'cespare/vim-toml'
+  Plug 'cespare/vim-toml', {'for': ['toml']}
+  Plug 'iloginow/vim-stylus', {'for': ['stylus']}
+  Plug 'leafgarland/typescript-vim', {'for': ['typescript']}
+  Plug 'octol/vim-cpp-enhanced-highlight',{ 'for': ['cpp']}
+  Plug 'pangloss/vim-javascript', {'for': ['javascript']}
+  Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
 
   call plug#end()
 
@@ -185,10 +181,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
     \ 'tools': ['git', 'rg', 'ag', 'grep'],
   \ }
 
-  " ~ neomake/neomake
-
-  let g:airline#extensions#neomake#enabled = 1
-
   " ~ Valloric/ListToggle
 
   let g:lt_location_list_toggle_map = '<leader>l'
@@ -285,8 +277,7 @@ endfor
 nnoremap <leader>1 :NERDTreeToggle<CR>
 nnoremap <leader>2 :TagbarToggle<CR>
 nnoremap <leader>3 :set spell!<CR>
-nnoremap <leader>4 :UndotreeToggle<CR>
-nnoremap <leader>5 :SignatureListBufferMarks<CR>
+nnoremap <leader>4 :SignatureListBufferMarks<CR>
 nnoremap <leader>g :Grepper<CR>
 nnoremap <leader>d :LspDefinition<CR>
 nnoremap <leader>h :LspHover<CR>
