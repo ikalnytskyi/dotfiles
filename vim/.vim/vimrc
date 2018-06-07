@@ -289,50 +289,15 @@ cmap w!! w !sudo tee % >/dev/null
 " // LANGUAGES //
 "
 
-autocmd BufReadPost *.qss set filetype=css
-autocmd BufReadPost *.qrc set filetype=xml
-
-autocmd BufReadPre SConstruct set filetype=python
-autocmd BufReadPre SConscript set filetype=python
-
-autocmd BufReadPost .babelrc set filetype=json
-autocmd BufReadPost .eslintrc set filetype=json
+augroup FILETYPES
+  autocmd!
+  autocmd BufReadPost .babelrc setlocal filetype=json
+  autocmd BufReadPost .eslintrc setlocal filetype=json
+augroup END
 
 augroup PYTHON
   autocmd!
   autocmd FileType python setlocal comments+=b:#:   " sphinx (#:) comments
-augroup END
-
-augroup HTML
-  autocmd!
-  autocmd FileType html setlocal shiftwidth=2 tabstop=2
-  autocmd FileType htmljinja setlocal shiftwidth=2 tabstop=2
-augroup END
-
-augroup CSS
-  autocmd!
-  autocmd FileType css setlocal shiftwidth=2 tabstop=2
-augroup END
-
-augroup JAVASCRIPT
-  autocmd!
-  autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-  autocmd FileType javascript.jsx setlocal shiftwidth=2 tabstop=2
-augroup END
-
-augroup YAML
-  autocmd!
-  autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
-augroup END
-
-augroup VIM
-  autocmd!
-  autocmd FileType vim setlocal shiftwidth=2 tabstop=2
-augroup END
-
-augroup SHELL
-  autocmd!
-  autocmd FileType sh setlocal shiftwidth=2 tabstop=2
 augroup END
 
 augroup LSP-HOVER-ON-RIGHT
