@@ -66,6 +66,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
         \ 'whitelist': ['python'],
         \ 'priority': 1,
       \ })
+      autocmd FileType python setlocal omnifunc=lsp#complete
     endif
 
     if executable('clangd')
@@ -75,6 +76,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
         \ 'priority': 1,
       \ })
+      autocmd FileType c,cpp,objc,objcpp setlocal omnifunc=lsp#complete
     endif
 
     if executable('rls')
@@ -84,6 +86,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
         \ 'whitelist': ['rust'],
         \ 'priority': 1,
       \ })
+      autocmd FileType rust setlocal omnifunc=lsp#complete
     endif
   augroup END
 
