@@ -287,8 +287,6 @@ nnoremap <leader>h :LspHover<CR>
 nnoremap <leader>r :LspReferences<CR>
 nnoremap <leader>i :LspDocumentDiagnostics<CR>
 
-cmap w!! w !sudo tee % >/dev/null
-
 "
 " // LANGUAGES //
 "
