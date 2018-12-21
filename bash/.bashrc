@@ -1,9 +1,4 @@
 #
-# DESCRIPTION: My awesome bash prompt with additional information.
-#      AUTHOR: Igor Kalnitsky <igor@kalnitsky.org>
-#
-
-#
 # GENERAL SETTINGS
 #
 
@@ -19,6 +14,12 @@ HISTFILESIZE=2000
 
 shopt -s histappend
 shopt -s checkwinsize
+
+# Preserve the current working directory in new tabs in VTE based terminal
+# emulators.
+if [ -x /etc/profile.d/vte.sh ]; then
+  . /etc/profile.d/vte.sh
+fi
 
 # Enable color support in some programs by default (Linux only).
 if [ -x /usr/bin/dircolors ]; then
