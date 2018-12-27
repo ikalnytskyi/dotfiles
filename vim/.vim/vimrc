@@ -142,40 +142,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
     \ },
     \ 'sort': 0,
   \ }
-  let g:tagbar_type_rust = {
-    \ 'ctagstype' : 'rust',
-    \ 'kinds': [
-      \ 'n:modules',
-      \ 's:structs',
-      \ 'i:traits',
-      \ 'c:implementations',
-      \ 'f:functions',
-      \ 'g:enums',
-      \ 't:types',
-      \ 'v:variables',
-      \ 'M:macros',
-      \ 'm:struct members',
-      \ 'e:enumerators',
-      \ 'F:methods',
-    \ ],
-    \ 'sro': '.',
-    \ 'kind2scope': {
-      \ 'n': 'module',
-      \ 's': 'struct',
-      \ 'g': 'enum',
-      \ 'i': 'interface',
-      \ 'c': 'implementation',
-    \ },
-  \ }
-  let g:tagbar_type_css = {
-    \ 'ctagstype': 'css',
-    \ 'kinds': [
-      \ 'c:classes',
-      \ 's:selectors',
-      \ 'i:identities',
-    \ ],
-    \ 'sort': 0,
-  \ }
 
   " ~ mhinz/vim-grepper
 
