@@ -176,6 +176,8 @@ silent! if plug#begin($VIMHOME . '/plugins')
 
   let g:vim_markdown_frontmatter = 1
   let g:vim_markdown_conceal = 0
+  let g:vim_markdown_auto_insert_bullets = 0
+  let g:vim_markdown_new_list_item_indent = 0
 
 endif
 
@@ -208,7 +210,9 @@ set nofoldenable                    " no code folding, I hate it
 set noshowmode                      " do not show Vim mode, airline shows it
 set clipboard=unnamed,unnamedplus   " use system clipboard on macOS and Linux
 set complete-=i                     " do not scan included files
-set completeopt=longest,menuone     " use popup even if there's only one match
+set completeopt=menuone             " show completion menu even for one match
+set completeopt+=noinsert           " do not insert a match until user selects it
+set completeopt+=noselect           " do not select a match automatically
 set formatoptions+=r                " auto insert comment leader on <enter>
 set mouse=a                         " enable mouse support in all Vim modes
 set mousehide                       " hide mouse cursor when typing
@@ -253,6 +257,19 @@ nnoremap <leader>d :LspDefinition<CR>
 nnoremap <leader>h :LspHover<CR>
 nnoremap <leader>r :LspReferences<CR>
 nnoremap <leader>i :LspDocumentDiagnostics<CR>
+nnoremap <leader>s :LspDocumentSymbol<CR>
+nnoremap <leader>w :LspWorkspaceSymbols<CR>
+
+function! OnEnterPressed()
+  return empty(v:completed_item) ? "\<C-y>\<CR>" : "\<C-y>"
+endfunction
+
+inoremap <expr> <CR> pumvisible() ? OnEnterPressed() : "\<CR>"
+inoremap <expr> <Esc> pumvisible() ? "\<C-e>\<Esc>" : "\<Esc>"
+inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 "
 " // LANGUAGES //
