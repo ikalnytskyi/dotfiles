@@ -88,6 +88,15 @@ silent! if plug#begin($VIMHOME . '/plugins')
       \ })
       autocmd FileType rust setlocal omnifunc=lsp#complete
     endif
+
+    if executable('bash-language-server')
+      autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'bash-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
+        \ 'whitelist': ['sh'],
+        \ 'priority': 1,
+      \ })
+    endif
   augroup END
 
   " ~ prabirshrestha/asyncomplete.vim
