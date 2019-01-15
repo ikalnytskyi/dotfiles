@@ -48,7 +48,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'cespare/vim-toml', {'for': ['toml']}
   Plug 'iloginow/vim-stylus', {'for': ['stylus']}
   Plug 'leafgarland/typescript-vim', {'for': ['typescript']}
-  Plug 'octol/vim-cpp-enhanced-highlight',{ 'for': ['cpp']}
+  Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['cpp']}
   Plug 'pangloss/vim-javascript', {'for': ['javascript']}
   Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
 
@@ -219,9 +219,9 @@ set nofoldenable                    " no code folding, I hate it
 set noshowmode                      " do not show Vim mode, airline shows it
 set clipboard=unnamed,unnamedplus   " use system clipboard on macOS and Linux
 set complete-=i                     " do not scan included files
-set completeopt=menuone             " show completion menu even for one match
-set completeopt+=noinsert           " do not insert a match until user selects it
-set completeopt+=noselect           " do not select a match automatically
+set completeopt=menuone             " show menu even for a single match
+set completeopt+=noinsert,noselect  " do not auto- select/insert completions
+set shortmess+=c                    " supress 'match X of Y' message
 set formatoptions+=r                " auto insert comment leader on <enter>
 set mouse=a                         " enable mouse support in all Vim modes
 set mousehide                       " hide mouse cursor when typing
