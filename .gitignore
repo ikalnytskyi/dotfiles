@@ -1,8 +1,5 @@
-# temporary vim-files
-vim/.vim/tmp/
-vim/.vim/spell/
-vim/.vim/plugins/
-vim/.vim/autoload/plug.vim
+vim/.vim/*
+!vim/.vim/vimrc
 
-# temporary mutt
-mutt/.mutt/temp/
+nvim/.config/nvim/*
+!nvim/.config/nvim/init.vim
