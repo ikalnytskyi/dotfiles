@@ -1,12 +1,12 @@
 "
 " Author: Ihor Kalnytskyi <ihor@kalnytskyi.com>
-" Source: https://github.com/ikalnytskyi/dotfiles/blob/master/vim/.vim/vimrc
+" Source: https://raw.githubusercontent.com/ikalnytskyi/dotfiles/master/nvim/.config/nvim/init.vim
 "
 
 scriptencoding utf-8
 
-" VIMHOME should point to ~/.vim directory and is used as a general way
-" to retrieve a path to Vim goodies.
+" VIMHOME should point to ~/.config/nvim directory and is used as a general
+" way to retrieve a path to NeoVim goodies.
 let $VIMHOME=fnamemodify($MYVIMRC, ':h')
 
 "
@@ -21,21 +21,18 @@ if !filereadable($VIMHOME . '/autoload/plug.vim')
   endif
 endif
 
-if has('nvim')
-  if !filereadable($VIMHOME . '/tmp/runtime/py3/bin/python')
-    try
-      if executable('virtualenv')
-        !virtualenv -ppython3 $VIMHOME/tmp/runtime/py3
-      elseif executable('python3')
-        !python3 -m venv $VIMHOME/tmp/runtime/py3
-      endif
-    finally
-      !$VIMHOME/tmp/runtime/py3/bin/pip install pynvim
-    endtry
-  endif
-
-  let g:python3_host_prog = $VIMHOME . '/tmp/runtime/py3/bin/python'
+if !filereadable($VIMHOME . '/tmp/runtime/py3/bin/python')
+  try
+    if executable('virtualenv')
+      !virtualenv -ppython3 $VIMHOME/tmp/runtime/py3
+    elseif executable('python3')
+      !python3 -m venv $VIMHOME/tmp/runtime/py3
+    endif
+  finally
+    !$VIMHOME/tmp/runtime/py3/bin/pip install pynvim
+  endtry
 endif
+let g:python3_host_prog = $VIMHOME . '/tmp/runtime/py3/bin/python'
 
 try
   python3 import pynvim
@@ -44,7 +41,7 @@ catch
 endtry
 
 silent! if plug#begin($VIMHOME . '/plugins')
-  Plug 'srstevenson/vim-picker'
+  Plug 'ctrlpvim/ctrlp.vim'
   Plug 'wincent/terminus'
   Plug 'scrooloose/nerdtree'
   Plug 'liuchengxu/vista.vim'
@@ -77,6 +74,17 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'RRethy/vim-hexokinase'
 
   call plug#end()
+
+  " ~ ctrlpvim/ctrlp.vim
+
+  let g:ctrlp_user_command = {
+    \ 'types': {
+      \ 1: ['.git', 'git --git-dir=%s/.git ls-files -co --exclude-standard'],
+      \ 2: ['.hg', 'hg --cwd %s status -numac -I .'],
+    \ },
+    \ 'fallback': 'echo ""',
+  \ }
+  let g:ctrlp_match_window = 'results:0'
 
   " ~ ncm2/ncm2
 
@@ -292,8 +300,6 @@ nnoremap <leader>r :LspReferences<CR>
 nnoremap <leader>i :LspDocumentDiagnostics<CR>
 nnoremap <leader>s :LspDocumentSymbol<CR>
 nnoremap <leader>w :LspWorkspaceSymbols<CR>
-nnoremap <leader>p :PickerEdit<CR>
-nnoremap <C-p> :PickerEdit<CR>
 
 function! OnEnterPressed()
   return empty(v:completed_item) ? "\<C-y>\<CR>" : "\<C-y>"

@@ -58,10 +58,6 @@ if [ `uname` == "Linux" ]; then
   alias ls='ls --color=auto --group-directories-first'
   alias dir='dir --color=auto'
   alias grep='grep --color=auto'
-
-  # clipboard management similar to os x
-  alias pbcopy='xclip -selection clipboard'
-  alias pbpaste='xclip -selection clipboard -o'
 fi
 
 if [ `uname` == "Darwin" ]; then
