@@ -1,0 +1,6 @@
+### Input ###
+
+  input "2522:1359:A4TECH_USB_Device_Keyboard" {
+    xkb_layout us,ru
+    xkb_options grp:caps_toggle
+  }

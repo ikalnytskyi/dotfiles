@@ -1,0 +1,170 @@
+# Read `man 5 sway` for a complete reference.
+
+### Variables ###
+
+  set $mod Mod4
+
+  set $lock swaylock
+  set $appmenu rofi -show drun -drun-show-actions
+  set $winmenu rofi -show window
+  set $term tilix
+
+
+### Keybindings ###
+
+  # general
+  bindsym $mod+Return exec $term
+  bindsym $mod+d exec $appmenu
+  bindsym $mod+Shift+d exec $winmenu
+  bindsym $mod+l exec $lock
+  bindsym $mod+Shift+q kill
+
+  # sway
+  bindsym $mod+Shift+c reload
+  bindsym $mod+Shift+e exit
+
+  # containers
+  bindsym $mod+Left focus left
+  bindsym $mod+Down focus down
+  bindsym $mod+Up focus up
+  bindsym $mod+Right focus right
+
+  bindsym $mod+Shift+Left move left
+  bindsym $mod+Shift+Down move down
+  bindsym $mod+Shift+Up move up
+  bindsym $mod+Shift+Right move right
+
+  bindsym $mod+s layout stacking
+  bindsym $mod+w layout tabbed
+  bindsym $mod+e layout toggle split
+
+  bindsym $mod+b splith
+  bindsym $mod+v splitv
+
+  bindsym $mod+f fullscreen
+  bindsym $mod+Shift+space floating toggle
+  bindsym $mod+space focus mode_toggle
+  bindsym $mod+a focus parent
+
+  bindsym $mod+Shift+minus move scratchpad
+  bindsym $mod+minus scratchpad show
+
+  # workspaces
+  bindsym $mod+1 workspace 1
+  bindsym $mod+2 workspace 2
+  bindsym $mod+3 workspace 3
+  bindsym $mod+4 workspace 4
+  bindsym $mod+5 workspace 5
+  bindsym $mod+6 workspace 6
+  bindsym $mod+7 workspace 7
+  bindsym $mod+8 workspace 8
+  bindsym $mod+9 workspace 9
+  bindsym $mod+0 workspace 10
+  bindsym $mod+Tab workspace next
+
+  bindsym $mod+Shift+1 move container to workspace 1
+  bindsym $mod+Shift+2 move container to workspace 2
+  bindsym $mod+Shift+3 move container to workspace 3
+  bindsym $mod+Shift+4 move container to workspace 4
+  bindsym $mod+Shift+5 move container to workspace 5
+  bindsym $mod+Shift+6 move container to workspace 6
+  bindsym $mod+Shift+7 move container to workspace 7
+  bindsym $mod+Shift+8 move container to workspace 8
+  bindsym $mod+Shift+9 move container to workspace 9
+  bindsym $mod+Shift+0 move container to workspace 10
+
+  mode "resize" {
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+  }
+  bindsym $mod+r mode "resize"
+
+  # xf86
+  bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1%
+  bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1%
+  bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+  bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+  bindsym --locked XF86MonBrightnessDown exec light -U 5
+  bindsym --locked XF86MonBrightnessUp exec light -A 5
+
+  # screenshot
+  set $_screenshot_clipboard wl-copy
+  bindsym --release Print exec grim - | $_screenshot_clipboard
+  bindsym --release Shift+Print exec grim -g "`slurp`" - | $_screenshot_clipboard
+
+  set $_screenshot_path `xdg-user-dir PICTURES`/screenshot-`date +'%Y-%m-%dT%T'`.png
+  bindsym --release Ctrl+Print exec grim $_screenshot_path
+  bindsym --release Ctrl+Shift+Print exec slurp | grim -g - $_screenshot_path
+
+
+### Appearance ###
+
+  output * bg `xdg-user-dir PICTURES`/wallpapers/current fill
+
+    set $nord00 #2e3440fa
+    set $nord01 #3b4252fa
+    set $nord02 #434c5efa
+    set $nord03 #4c566afa
+
+    set $nord04 #d8dee9
+    set $nord05 #e5e9f0
+    set $nord06 #eceff4
+
+    set $nord07 #8fbcbb
+    set $nord08 #88c0d0
+    set $nord09 #81a1c1
+    set $nord10 #5e81ac
+
+    set $nord11 #bf616a
+    set $nord12 #d08770
+    set $nord13 #ebcb8b
+    set $nord14 #a3be8c
+    set $nord15 #b48ead
+
+  #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
+  client.focused          $nord00     $nord00     $nord04     $nord00     $nord00
+  client.unfocused        $nord01     $nord01     $nord04     $nord01     $nord01
+  client.focused_inactive $nord00     $nord00     $nord04     $nord00     $nord00
+  client.urgent           $nord11     $nord12     $nord06     $nord11     $nord11
+
+  font SF Mono 12
+  gaps inner 10
+  gaps outer 0
+
+  default_border pixel 1
+  for_window [class="^.*"] border pixel 1
+  for_window [urgent="latest"] focus
+
+  # hacks ;(
+  for_window [window_role="pop-up"] floating enable, move position center
+  for_window [window_role="bubble"] floating enable, move position center
+  for_window [window_role="task_dialog"] floating enable, move position center
+  for_window [window_role="Preferences"] floating enable, move position center
+  for_window [window_type="dialog"] floating enable, move position center
+  for_window [window_type="menu"] floating enable, move position center
+
+  # wl-paste (clipboard tool for wayland) has a hack that creates
+  # a temporary transparent window and we do not want to see this window
+  # flake in tiling layour
+  for_window [title="wl-clipboard"] floating enable
+
+
+### Autostart ###
+
+  exec --no-startup-id mako
+  exec --no-startup-id waybar
+  exec --no-startup-id swayidle \
+    timeout 160  'light -O && light -U 60' \
+         resume  'light -I' \
+    timeout 180  $lock \
+    timeout 180  'swaymsg "output * dpms off"' \
+         resume  'swaymsg "output * dpms on" && light -I' \
+    before-sleep $lock
+
+include ~/.config/sway/config.d/*
+include ~/.config/sway/config.`hostname`
