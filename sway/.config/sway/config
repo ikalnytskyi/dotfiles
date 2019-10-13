@@ -6,7 +6,6 @@
 
   set $lock swaylock
   set $appmenu rofi -show drun -drun-show-actions
-  set $winmenu rofi -show window
   set $term tilix
 
 
@@ -15,7 +14,6 @@
   # general
   bindsym $mod+Return exec $term
   bindsym $mod+d exec $appmenu
-  bindsym $mod+Shift+d exec $winmenu
   bindsym $mod+l exec $lock
   bindsym $mod+Shift+q kill
 
@@ -45,6 +43,7 @@
   bindsym $mod+Shift+space floating toggle
   bindsym $mod+space focus mode_toggle
   bindsym $mod+a focus parent
+  bindsym $mod+Shift+b border toggle
 
   bindsym $mod+Shift+minus move scratchpad
   bindsym $mod+minus scratchpad show
@@ -61,6 +60,11 @@
   bindsym $mod+9 workspace 9
   bindsym $mod+0 workspace 10
   bindsym $mod+Tab workspace next
+
+  bindsym $mod+Ctrl+Up move workspace to output up
+  bindsym $mod+Ctrl+Left move workspace to output left
+  bindsym $mod+Ctrl+Right move workspace to output right
+  bindsym $mod+Ctrl+Down move workspace to output down
 
   bindsym $mod+Shift+1 move container to workspace 1
   bindsym $mod+Shift+2 move container to workspace 2
@@ -93,13 +97,14 @@
   bindsym --locked XF86MonBrightnessUp exec light -A 5
 
   # screenshot
-  set $_screenshot_clipboard wl-copy
-  bindsym --release Print exec grim - | $_screenshot_clipboard
-  bindsym --release Shift+Print exec grim -g "`slurp`" - | $_screenshot_clipboard
+  set $_clipboard wl-copy
+  set $_screenshot grim -o `swaymsg -t get_outputs | jq -r ".[] | select(.focused) | .name"`
+  set $_screenshot_path `xdg-user-dir PICTURES`/screenshot-`date +"%Y-%m-%dT%T"`.png
 
-  set $_screenshot_path `xdg-user-dir PICTURES`/screenshot-`date +'%Y-%m-%dT%T'`.png
-  bindsym --release Ctrl+Print exec grim $_screenshot_path
-  bindsym --release Ctrl+Shift+Print exec slurp | grim -g - $_screenshot_path
+  bindsym --release Print exec $_screenshot - | $_clipboard
+  bindsym --release Shift+Print exec $_screenshot -g "`slurp`" - | $_clipboard
+  bindsym --release Ctrl+Print exec $_screenshot $_screenshot_path
+  bindsym --release Ctrl+Shift+Print exec slurp | $_screenshot -g - $_screenshot_path
 
 
 ### Appearance ###
@@ -136,8 +141,11 @@
   gaps inner 10
   gaps outer 0
 
-  default_border pixel 1
-  for_window [class="^.*"] border pixel 1
+  default_border none
+  default_floating_border pixel 1
+
+  for_window [class="^.*"] border csd
+  for_window [floating] border pixel 1
   for_window [urgent="latest"] focus
 
   # hacks ;(
@@ -159,10 +167,10 @@
   exec --no-startup-id mako
   exec --no-startup-id waybar
   exec --no-startup-id swayidle \
-    timeout 160  'light -O && light -U 60' \
+    timeout 280  'light -O && light -U 60' \
          resume  'light -I' \
-    timeout 180  $lock \
-    timeout 180  'swaymsg "output * dpms off"' \
+    timeout 300  $lock \
+    timeout 300  'swaymsg "output * dpms off"' \
          resume  'swaymsg "output * dpms on" && light -I' \
     before-sleep $lock
 

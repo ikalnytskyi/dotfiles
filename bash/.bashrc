@@ -45,6 +45,9 @@ _pip_completion()
 }
 complete -o default -F _pip_completion pip
 
+if which invoke &>/dev/null; then
+  source <(invoke --print-completion-script bash)
+fi
 
 #
 # ALIASES

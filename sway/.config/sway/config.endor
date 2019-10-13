@@ -1,6 +1,6 @@
 ### Input ###
 
-  input "2522:1359:A4TECH_USB_Device_Keyboard" {
+  input "4152:1559:SteelSeries_SteelSeries_Apex_M750_TKL" {
     xkb_layout us,ru
     xkb_options grp:caps_toggle
   }

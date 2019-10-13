@@ -42,7 +42,6 @@ endtry
 
 silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'wincent/terminus'
   Plug 'scrooloose/nerdtree'
   Plug 'liuchengxu/vista.vim'
   Plug 'mhinz/vim-grepper'
@@ -53,7 +52,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'Valloric/ListToggle'
   Plug 'godlygeek/tabular'
-  Plug 'w0ng/vim-hybrid'
   Plug 'arcticicestudio/nord-vim'
   Plug 'tpope/vim-sleuth'
 
@@ -64,6 +62,10 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'ncm2/ncm2-vim-lsp'
   Plug 'ncm2/ncm2-bufword'
 
+  if exists('*nvim_open_win')
+    Plug 'ncm2/float-preview.nvim'
+  endif
+
   Plug 'cespare/vim-toml', {'for': ['toml']}
   Plug 'iloginow/vim-stylus', {'for': ['stylus']}
   Plug 'leafgarland/typescript-vim', {'for': ['typescript']}
@@ -71,9 +73,19 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'pangloss/vim-javascript', {'for': ['javascript']}
   Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
   Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['jinja']}
-  Plug 'RRethy/vim-hexokinase'
 
   call plug#end()
+
+  " ~ ncm2/float-preview.nvim
+
+  let g:float_preview#docked = 0
+
+  function! DisableExtras()
+    call nvim_win_set_option(g:float_preview#win, 'cursorline', v:false)
+    call nvim_win_set_option(g:float_preview#win, 'cursorcolumn', v:false)
+  endfunction
+
+  autocmd User FloatPreviewWinOpen call DisableExtras()
 
   " ~ ctrlpvim/ctrlp.vim
 
@@ -105,7 +117,10 @@ silent! if plug#begin($VIMHOME . '/plugins')
 
   " ~ prabirshrestha/vim-lsp
 
+  let g:lsp_signs_enabled = 0
   let g:lsp_virtual_text_enabled = 0
+  let g:lsp_diagnostics_echo_cursor = 1
+  let g:lsp_highlights_enabled = 0
 
   augroup LSP
     autocmd!
@@ -233,10 +248,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
   let g:vim_markdown_auto_insert_bullets = 0
   let g:vim_markdown_new_list_item_indent = 0
 
-  " ~ RRethy/vim-hexokinase
-
-  let g:Hexokinase_ftAutoload = ['css', 'scss', 'less', 'stylus', 'vim']
-
 endif
 
 "
@@ -248,8 +259,6 @@ if $COLORTERM == 'truecolor' || $COLORTERM == '24bit'
 endif
 
 set autochdir                       " change cwd to current file
-"set backup                          " backups on write.. not sure why I need them
-set clipboard=unnamed,unnamedplus   " use system clipboard on macOS and Linux
 set colorcolumn=80,100              " show columns at 80 & 100 characters
 set completeopt=menuone             " show menu even for a single match
 set completeopt+=noinsert,noselect  " do not auto- select/insert completions
@@ -311,6 +320,11 @@ inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
+noremap <Leader>y "+y
+noremap <Leader>p "+p
+noremap <Leader>Y "*y
+noremap <Leader>P "*p
 
 "
 " // LANGUAGES //

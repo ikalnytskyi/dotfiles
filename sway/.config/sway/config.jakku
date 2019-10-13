@@ -1,9 +1,7 @@
 ### Input ###
 
-  input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_layout us,ru
-    xkb_options grp:caps_toggle
-  }
+  bindswitch --locked lid:off output eDP-1 enable
+  bindswitch --locked lid:on output eDP-1 disable
 
   input "1739:0:Synaptics_TM3289-002" {
     dwt enabled                 # disable a touchpad while typing
@@ -11,8 +9,18 @@
     natural_scroll enabled      # natural, not reversed scroll
   }
 
+  input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout us,ru
+    xkb_options grp:caps_toggle
+  }
+
+  input "1133:16419:Logitech_Wireless_Keyboard_PID:4023" {
+    xkb_layout us,ru
+    xkb_options grp:caps_toggle
+  }
 
 ### Output ###
 
-  output eDP-1 pos 0 0
+  output eDP-1 pos 0 1200
   output HDMI-A-1 pos 1920 0
+  output DP-2 pos 0 0
