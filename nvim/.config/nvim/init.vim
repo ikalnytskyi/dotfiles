@@ -131,6 +131,14 @@ silent! if plug#begin($VIMHOME . '/plugins')
         \ 'cmd': {server_info->['pyls']},
         \ 'whitelist': ['python'],
         \ 'priority': 1,
+        \ 'workspace_config': {
+          \ 'pyls': {
+            \ 'plugins': {
+              \ 'flake8': {'enabled': v:true},
+              \ 'pycodestyle': {'enabled': v:false},
+            \ },
+          \ },
+        \ },
       \ })
       autocmd FileType python setlocal omnifunc=lsp#complete
 
@@ -304,11 +312,14 @@ nnoremap <leader>3 :set spell!<CR>
 nnoremap <leader>4 :SignatureListBufferMarks<CR>
 nnoremap <leader>g :Grepper<CR>
 nnoremap <leader>d :LspDefinition<CR>
+nnoremap <leader><S-d> :LspPeekDefinition<CR>
 nnoremap <leader>h :LspHover<CR>
 nnoremap <leader>r :LspReferences<CR>
 nnoremap <leader>i :LspDocumentDiagnostics<CR>
 nnoremap <leader>s :LspDocumentSymbol<CR>
 nnoremap <leader>w :LspWorkspaceSymbols<CR>
+nnoremap <leader><S-f> :LspDocumentFormat<CR>
+vnoremap <leader><S-f> :LspDocumentRangeFormat<CR>
 
 function! OnEnterPressed()
   return empty(v:completed_item) ? "\<C-y>\<CR>" : "\<C-y>"
