@@ -61,6 +61,7 @@ if [ `uname` == "Linux" ]; then
   alias ls='ls --color=auto --group-directories-first'
   alias dir='dir --color=auto'
   alias grep='grep --color=auto'
+  alias ip='ip --color=auto'
 fi
 
 if [ `uname` == "Darwin" ]; then
@@ -94,7 +95,7 @@ export PATH=~/.local/bin:$PATH      # scripts installed by pip (python)
 export PATH=~/.cargo/bin:$PATH      # binaries installed by cargo (rust)
 export PATH=~/.go/bin:$PATH         # binaries built by go (golang)
 
-export EDITOR=vim                   # prefer vim as default editor
+export EDITOR=nvim                  # prefer vim as default editor
 export PYTHONDONTWRITEBYTECODE=1    # do not produce .pyc/.pyo files
 export CLICOLOR=1                   # turn on colors for some BSD tools
 export GPG_TTY=`tty`                # setup tty for gpg2's pinetry
