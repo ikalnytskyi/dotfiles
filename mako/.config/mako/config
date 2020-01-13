@@ -1,0 +1,10 @@
+font=Cantarell 12
+background-color=#5e81accc
+text-color=#d8dee9
+border-size=1
+border-color=#81a1c1ff
+padding=10
+margin=5
+default-timeout=3000
+max-visible=3
+icon-path=/usr/share/icons/Papirus/16x16/status/:/usr/share/icons/Papirus/16x16/devices/:/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
