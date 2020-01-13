@@ -1,0 +1,7 @@
+[Unit]
+Description=Portal service (wlroots/sway implementation)
+
+[Service]
+Type=dbus
+BusName=org.freedesktop.impl.portal.desktop.wlr
+ExecStart=/usr/lib/xdg-desktop-portal-wlr

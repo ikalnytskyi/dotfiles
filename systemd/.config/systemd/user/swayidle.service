@@ -1,0 +1,17 @@
+[Unit]
+Description=Idle management daemon for Wayland
+Documentation=man:swayidle(1)
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swayidle -w \
+    timeout 280  'light -O && light -U 60' \
+    resume       'light -I' \
+    timeout 300  'swaylock' \
+    timeout 300  'swaymsg "output * dpms off"' \
+    resume       'swaymsg "output * dpms on" && light -I' \
+    before-sleep 'swaylock'
+
+[Install]
+WantedBy=sway-session.target
