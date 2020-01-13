@@ -132,8 +132,8 @@
     set $nord15 #b48ead
 
   #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-  client.focused          $nord00     $nord00     $nord04     $nord00     $nord00
-  client.unfocused        $nord01     $nord01     $nord04     $nord01     $nord01
+  client.focused          $nord11     $nord00     $nord04     $nord11     $nord11
+  client.unfocused        $nord09     $nord01     $nord04     $nord09     $nord09
   client.focused_inactive $nord00     $nord00     $nord04     $nord00     $nord00
   client.urgent           $nord11     $nord12     $nord06     $nord11     $nord11
 
@@ -141,11 +141,11 @@
   gaps inner 10
   gaps outer 0
 
-  default_border none
-  default_floating_border pixel 1
+  default_border pixel 4
+  default_floating_border pixel 4
 
   for_window [class="^.*"] border csd
-  for_window [floating] border pixel 1
+  for_window [floating] border pixel 4
   for_window [urgent="latest"] focus
 
   # hacks ;(
@@ -162,17 +162,7 @@
   for_window [title="wl-clipboard"] floating enable
 
 
-### Autostart ###
-
-  exec --no-startup-id mako
-  exec --no-startup-id waybar
-  exec --no-startup-id swayidle \
-    timeout 280  'light -O && light -U 60' \
-         resume  'light -I' \
-    timeout 300  $lock \
-    timeout 300  'swaymsg "output * dpms off"' \
-         resume  'swaymsg "output * dpms on" && light -I' \
-    before-sleep $lock
+### Customization ###
 
 include ~/.config/sway/config.d/*
 include ~/.config/sway/config.`hostname`
