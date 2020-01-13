@@ -1,0 +1,22 @@
+image=`xdg-user-dir PICTURES`/wallpapers/current
+indicator-radius=75
+indicator-thickness=20
+line-uses-inside
+line-uses-ring
+key-hl-color=#c3ca85cc
+separator-color=#bcc376cc
+ring-color=#a2aa5ccc
+ring-ver-color=#c09e5ccc
+ring-wrong-color=#a35151cc
+ring-clear-color=#6e9892cc
+bs-hl-color=#a35151cc
+inside-color=#bcc376aa
+inside-ver-color=#f0c674aa
+inside-wrong-color=#d17575aa
+inside-clear-color=#8abeb7aa
+text-color=#ffffff00
+text-clear-color=#ffffff00
+text-ver-color=#ffffff00
+text-wrong-color=#ffffff00
+text-caps-lock-colo=#a2aa5ccc
+show-keyboard-layout
