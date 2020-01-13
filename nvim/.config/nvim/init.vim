@@ -41,10 +41,8 @@ catch
 endtry
 
 silent! if plug#begin($VIMHOME . '/plugins')
-  Plug 'ctrlpvim/ctrlp.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'liuchengxu/vista.vim'
-  Plug 'mhinz/vim-grepper'
   Plug 'tpope/vim-fugitive'
   Plug 'mhinz/vim-signify'
   Plug 'vim-airline/vim-airline'
@@ -54,6 +52,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'godlygeek/tabular'
   Plug 'arcticicestudio/nord-vim'
   Plug 'tpope/vim-sleuth'
+  Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
 
   Plug 'ncm2/ncm2'
   Plug 'roxma/nvim-yarp'
@@ -86,17 +85,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
   endfunction
 
   autocmd User FloatPreviewWinOpen call DisableExtras()
-
-  " ~ ctrlpvim/ctrlp.vim
-
-  let g:ctrlp_user_command = {
-    \ 'types': {
-      \ 1: ['.git', 'git --git-dir=%s/.git ls-files -co --exclude-standard'],
-      \ 2: ['.hg', 'hg --cwd %s status -numac -I .'],
-    \ },
-    \ 'fallback': 'echo ""',
-  \ }
-  let g:ctrlp_match_window = 'results:0'
 
   " ~ ncm2/ncm2
 
@@ -223,13 +211,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
     let g:vista_echo_cursor_strategy = "floating_win"
   endif
 
-  " ~ mhinz/vim-grepper
-
-  let g:grepper = {
-    \ 'dir': 'repo,file',
-    \ 'tools': ['git', 'rg', 'ag', 'grep'],
-  \ }
-
   " ~ Valloric/ListToggle
 
   let g:lt_location_list_toggle_map = '<leader>l'
@@ -310,7 +291,8 @@ nnoremap <leader>1 :NERDTreeToggle<CR>
 nnoremap <leader>2 :Vista!!<CR>
 nnoremap <leader>3 :set spell!<CR>
 nnoremap <leader>4 :SignatureListBufferMarks<CR>
-nnoremap <leader>g :Grepper<CR>
+nnoremap <C-P> :Clap gfiles<CR>
+nnoremap <leader>g :Clap grep<CR>
 nnoremap <leader>d :LspDefinition<CR>
 nnoremap <leader><S-d> :LspPeekDefinition<CR>
 nnoremap <leader>h :LspHover<CR>
