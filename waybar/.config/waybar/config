@@ -1,0 +1,73 @@
+{
+  "layer": "top",
+  "height": 35,
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "modules-center": [
+    "sway/window"
+  ],
+  "modules-right": [
+    "pulseaudio#audio",
+    "pulseaudio#mic",
+    "idle_inhibitor",
+    "network",
+    "battery",
+    "clock"
+  ],
+  "sway/workspaces": {
+    "disable-scroll": true
+  },
+  "sway/window": {
+    "max-length": 72
+  },
+  "pulseaudio#audio": {
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon} ",
+    "format-muted": "ﱝ",
+    "format-icons": {
+      "headphones": "",
+      "handsfree": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol",
+    "max-length": 100
+  },
+  "pulseaudio#mic": {
+    "format": "{format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "on-click": "pavucontrol",
+    "max-length": 100
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "network": {
+    "format-wifi": "{essid}  ︣",
+    "format-disconnected": "{ifname} "
+  },
+  "battery": {
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "{capacity}% {icon}",
+    "format-alt": "{time} {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "clock": {
+    "format": "{:%b %d, %H:%M}"
+  }
+}
