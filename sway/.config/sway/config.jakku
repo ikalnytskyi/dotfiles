@@ -1,8 +1,5 @@
 ### Input ###
 
-  bindswitch --locked lid:off output eDP-1 enable
-  bindswitch --locked lid:on output eDP-1 disable
-
   input "1739:0:Synaptics_TM3289-002" {
     dwt enabled                 # disable a touchpad while typing
     tap enabled                 # tap to click
@@ -24,3 +21,6 @@
   output eDP-1 pos 0 1200
   output HDMI-A-1 pos 1920 0
   output DP-2 pos 0 0
+
+  bindswitch --locked --reload lid:on output eDP-1 disable
+  bindswitch --locked --reload lid:off output eDP-1 enable

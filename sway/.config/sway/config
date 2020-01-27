@@ -4,97 +4,102 @@
 
   set $mod Mod4
 
-  set $lock swaylock
-  set $appmenu rofi -show drun -drun-show-actions
+  set $lock loginctl lock-session
+  set $appmenu rofi -show drun -drun-show-actions -run-command "swaymsg exec -- {cmd}"
   set $term tilix
 
 
 ### Keybindings ###
 
-  # general
-  bindsym $mod+Return exec $term
-  bindsym $mod+d exec $appmenu
-  bindsym $mod+l exec $lock
-  bindsym $mod+Shift+q kill
+  bindsym --to-code {
+    # general
+    $mod+Return exec $term
+    $mod+d exec $appmenu
+    $mod+l exec $lock
+    $mod+Shift+q kill
 
-  # sway
-  bindsym $mod+Shift+c reload
-  bindsym $mod+Shift+e exit
+    # sway
+    $mod+Shift+c reload
+    $mod+Shift+e exit
 
-  # containers
-  bindsym $mod+Left focus left
-  bindsym $mod+Down focus down
-  bindsym $mod+Up focus up
-  bindsym $mod+Right focus right
+    # containers
+    $mod+Left focus left
+    $mod+Down focus down
+    $mod+Up focus up
+    $mod+Right focus right
 
-  bindsym $mod+Shift+Left move left
-  bindsym $mod+Shift+Down move down
-  bindsym $mod+Shift+Up move up
-  bindsym $mod+Shift+Right move right
+    $mod+Shift+Left move left
+    $mod+Shift+Down move down
+    $mod+Shift+Up move up
+    $mod+Shift+Right move right
 
-  bindsym $mod+s layout stacking
-  bindsym $mod+w layout tabbed
-  bindsym $mod+e layout toggle split
+    $mod+s layout stacking
+    $mod+w layout tabbed
+    $mod+e layout toggle split
 
-  bindsym $mod+b splith
-  bindsym $mod+v splitv
+    $mod+b splith
+    $mod+v splitv
 
-  bindsym $mod+f fullscreen
-  bindsym $mod+Shift+space floating toggle
-  bindsym $mod+space focus mode_toggle
-  bindsym $mod+a focus parent
-  bindsym $mod+Shift+b border toggle
+    $mod+f fullscreen
+    $mod+Shift+space floating toggle
+    $mod+space focus mode_toggle
+    $mod+a focus parent
+    $mod+Shift+b border toggle
 
-  bindsym $mod+Shift+minus move scratchpad
-  bindsym $mod+minus scratchpad show
+    $mod+Shift+minus move scratchpad
+    $mod+minus scratchpad show
 
-  # workspaces
-  bindsym $mod+1 workspace 1
-  bindsym $mod+2 workspace 2
-  bindsym $mod+3 workspace 3
-  bindsym $mod+4 workspace 4
-  bindsym $mod+5 workspace 5
-  bindsym $mod+6 workspace 6
-  bindsym $mod+7 workspace 7
-  bindsym $mod+8 workspace 8
-  bindsym $mod+9 workspace 9
-  bindsym $mod+0 workspace 10
-  bindsym $mod+Tab workspace next
+    # workspaces
+    $mod+1 workspace 1
+    $mod+2 workspace 2
+    $mod+3 workspace 3
+    $mod+4 workspace 4
+    $mod+5 workspace 5
+    $mod+6 workspace 6
+    $mod+7 workspace 7
+    $mod+8 workspace 8
+    $mod+9 workspace 9
+    $mod+0 workspace 10
+    $mod+Tab workspace next
 
-  bindsym $mod+Ctrl+Up move workspace to output up
-  bindsym $mod+Ctrl+Left move workspace to output left
-  bindsym $mod+Ctrl+Right move workspace to output right
-  bindsym $mod+Ctrl+Down move workspace to output down
+    $mod+Ctrl+Up move workspace to output up
+    $mod+Ctrl+Left move workspace to output left
+    $mod+Ctrl+Right move workspace to output right
+    $mod+Ctrl+Down move workspace to output down
 
-  bindsym $mod+Shift+1 move container to workspace 1
-  bindsym $mod+Shift+2 move container to workspace 2
-  bindsym $mod+Shift+3 move container to workspace 3
-  bindsym $mod+Shift+4 move container to workspace 4
-  bindsym $mod+Shift+5 move container to workspace 5
-  bindsym $mod+Shift+6 move container to workspace 6
-  bindsym $mod+Shift+7 move container to workspace 7
-  bindsym $mod+Shift+8 move container to workspace 8
-  bindsym $mod+Shift+9 move container to workspace 9
-  bindsym $mod+Shift+0 move container to workspace 10
+    $mod+Shift+1 move container to workspace 1
+    $mod+Shift+2 move container to workspace 2
+    $mod+Shift+3 move container to workspace 3
+    $mod+Shift+4 move container to workspace 4
+    $mod+Shift+5 move container to workspace 5
+    $mod+Shift+6 move container to workspace 6
+    $mod+Shift+7 move container to workspace 7
+    $mod+Shift+8 move container to workspace 8
+    $mod+Shift+9 move container to workspace 9
+    $mod+Shift+0 move container to workspace 10
+
+    $mod+r mode "resize"
+
+    # multimedia
+    --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1%
+    --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1%
+    --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    --locked XF86MonBrightnessDown exec light -U 5
+    --locked XF86MonBrightnessUp exec light -A 5
+  }
 
   mode "resize" {
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
+    bindsym --to-code {
+      Left resize shrink width 10 px or 10 ppt
+      Down resize grow height 10 px or 10 ppt
+      Up resize shrink height 10 px or 10 ppt
+      Right resize grow width 10 px or 10 ppt
 
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+      Return mode "default"
+      Escape mode "default"
+    }
   }
-  bindsym $mod+r mode "resize"
-
-  # xf86
-  bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1%
-  bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1%
-  bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-  bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-  bindsym --locked XF86MonBrightnessDown exec light -U 5
-  bindsym --locked XF86MonBrightnessUp exec light -A 5
 
   # screenshot
   set $_clipboard wl-copy
@@ -105,7 +110,6 @@
   bindsym --release Shift+Print exec $_screenshot -g "`slurp`" - | $_clipboard
   bindsym --release Ctrl+Print exec $_screenshot $_screenshot_path
   bindsym --release Ctrl+Shift+Print exec slurp | $_screenshot -g - $_screenshot_path
-
 
 ### Appearance ###
 
@@ -144,8 +148,8 @@
   default_border pixel 4
   default_floating_border pixel 4
 
-  for_window [class="^.*"] border csd
   for_window [floating] border pixel 4
+  for_window [class="^.*"] border csd
   for_window [urgent="latest"] focus
 
   # hacks ;(
@@ -155,11 +159,6 @@
   for_window [window_role="Preferences"] floating enable, move position center
   for_window [window_type="dialog"] floating enable, move position center
   for_window [window_type="menu"] floating enable, move position center
-
-  # wl-paste (clipboard tool for wayland) has a hack that creates
-  # a temporary transparent window and we do not want to see this window
-  # flake in tiling layour
-  for_window [title="wl-clipboard"] floating enable
 
 
 ### Customization ###

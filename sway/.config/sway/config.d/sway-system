@@ -1,1 +1,4 @@
-exec "systemctl --user import-environment; systemctl --user start sway-session.target"
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XCURSOR_SIZE
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XCURSOR_SIZE
+exec systemctl --user start sway-session.target
