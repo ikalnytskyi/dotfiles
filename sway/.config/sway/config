@@ -102,14 +102,12 @@
   }
 
   # screenshot
-  set $_clipboard wl-copy
-  set $_screenshot grim -o `swaymsg -t get_outputs | jq -r ".[] | select(.focused) | .name"`
-  set $_screenshot_path `xdg-user-dir PICTURES`/screenshot-`date +"%Y-%m-%dT%T"`.png
-
-  bindsym --release Print exec $_screenshot - | $_clipboard
-  bindsym --release Shift+Print exec $_screenshot -g "`slurp`" - | $_clipboard
-  bindsym --release Ctrl+Print exec $_screenshot $_screenshot_path
-  bindsym --release Ctrl+Shift+Print exec slurp | $_screenshot -g - $_screenshot_path
+  bindsym --release Print exec grimshot copy screen
+  bindsym --release Shift+Print exec grimshot copy area
+  bindsym --release Ctrl+Print exec grimshot save screen
+  bindsym --release Ctrl+Shift+Print exec grimshot save area
+  bindsym --release Alt+Print exec grimshot copy win
+  bindsym --release Shift+Alt+Print exec grimshot save win
 
 ### Appearance ###
 
