@@ -52,7 +52,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'godlygeek/tabular'
   Plug 'arcticicestudio/nord-vim'
   Plug 'tpope/vim-sleuth'
-  Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
+  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
   Plug 'ncm2/ncm2'
   Plug 'roxma/nvim-yarp'
