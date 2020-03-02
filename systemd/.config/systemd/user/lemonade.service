@@ -1,0 +1,11 @@
+[Unit]
+Description=Lemonade is a remote utility tool
+Documentation=https://github.com/lemonade-command/lemonade
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/lemonade server
+
+[Install]
+WantedBy=graphical-session.target

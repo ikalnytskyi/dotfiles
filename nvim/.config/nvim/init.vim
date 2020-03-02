@@ -75,6 +75,10 @@ silent! if plug#begin($VIMHOME . '/plugins')
 
   call plug#end()
 
+  " ~ liuchengxu/vim-clap
+
+  let g:clap_insert_mode_only = v:true
+
   " ~ ncm2/float-preview.nvim
 
   let g:float_preview#docked = 0

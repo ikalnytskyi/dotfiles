@@ -3,3 +3,5 @@ vim/.vim/*
 
 nvim/.config/nvim/*
 !nvim/.config/nvim/init.vim
+
+systemd/.config/systemd/user/*.target.wants/
