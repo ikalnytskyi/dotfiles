@@ -16,11 +16,15 @@
     xkb_options grp:caps_toggle
   }
 
+
 ### Output ###
 
   output eDP-1 pos 0 1200
   output HDMI-A-1 pos 1920 0
   output DP-2 pos 0 0
 
-  bindswitch --locked --reload lid:on output eDP-1 disable
-  bindswitch --locked --reload lid:off output eDP-1 enable
+
+### Keybindings ###
+
+  bindswitch --reload lid:on output eDP-1 disable
+  bindswitch --reload lid:off output eDP-1 enable
