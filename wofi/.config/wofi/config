@@ -1,0 +1,4 @@
+show = drun
+colors = nord
+insensitive = true
+no_actions = true

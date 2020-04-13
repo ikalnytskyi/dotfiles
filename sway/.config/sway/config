@@ -5,7 +5,7 @@
   set $mod Mod4
 
   set $lock loginctl lock-session
-  set $appmenu wofi --no-actions
+  set $appmenu wofi
   set $term tilix
 
 

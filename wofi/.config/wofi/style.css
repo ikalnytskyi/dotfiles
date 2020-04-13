@@ -1,0 +1,27 @@
+#window {
+  font: 16px "JetBrains Mono";
+  background-color: rgba(59, 66, 82, 0.9); /* base00 + CC (90% opacity) */
+  color: --wofi-color7;
+}
+
+#outer-box {
+  border: 1px solid --wofi-color6;
+  padding: 20px;
+}
+
+#input {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 20px;
+  color: --wofi-color7;
+}
+
+#entry {
+  padding: 5px;
+}
+
+#entry:selected {
+  color: --wofi-color0;
+  background-color: --wofi-color6;
+}
