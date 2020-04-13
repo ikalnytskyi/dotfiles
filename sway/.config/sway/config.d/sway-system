@@ -1,4 +1,9 @@
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec systemctl --user start sway-session.target
+exec hash dbus-update-activation-environment 2>/dev/null \
+  && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# Note that the systemctl commands must be run synchronously and can't be split
+# into two exec statements, since otherwise the session target may be started
+# before systemctl import-environment is complete, and services that require
+# certain variables will fail to run.
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK \
+  && systemctl --user start sway-session.target
