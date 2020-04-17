@@ -11,15 +11,18 @@ background=#8fbcbbfa
 text=#2e3440fa
 border-bottom=#81b4b3fa
 button-background=#81b4b3fa
+border=#98c8d6fa
 
 [error]
 background=#bf616afa
 text=#e5e9f0fa
 border-bottom=#b24852fa
 button-background=#b24852fa
+border=#c8767efa
 
 [warning]
 background=#ebcb8bfa
 text=#2e3440fa
 border-bottom=#e7c176fa
 button-background=#e7c176fa
+border=#efd5a2fa

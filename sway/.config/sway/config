@@ -20,7 +20,13 @@
 
     # sway
     $mod+Shift+c reload
-    $mod+Shift+e exec swaynag -t warning -m "Do you really want to exit Sway?" -s "No" -b "Yes!" "swaymsg exit"
+    $mod+Shift+e exec swaynag -t warning -m "Do you really want to exit Sway?" \
+      -b "Yes!" "swaymsg exit" \
+      -s "No"
+    $mod+Shift+p exec swaynag -t warning -m "Do you really want to power off?" \
+      -b "Poweroff" "systemctl poweroff" \
+      -b "Reboot" "systemctl reboot" \
+      -s "No"
 
     # containers
     $mod+Left focus left
@@ -151,6 +157,13 @@
 
   for_window [app_id=".*"] border csd
   for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, sticky enable, border none
+  for_window [app_id="firefox" title="Sharing Indicator"] floating enable, border none, move position 100 -100
+
+
+### Idle inhibitors ###
+
+  for_window [app_id="firefox" title="Picture-in-Picture"] inhibit_idle visible
+  for_window [app_id="firefox" title="Sharing Indicator"] inhibit_idle open
   for_window [app_id="firefox"] inhibit_idle fullscreen
 
 
