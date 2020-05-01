@@ -1,10 +1,13 @@
 [user]
     name = Ihor Kalnytskyi
     email = ihor@kalnytskyi.com
-    signingkey = ECE7D40B49A5F831
+    signingkey = 02AD91C23D5149F5F24B5D5AECE7D40B49A5F831
 
 [color]
     ui = true
+
+[tag]
+    gpgsign = true
 
 [alias]
     unstage = reset HEAD
@@ -12,7 +15,6 @@
     branches = branch -vv
     history = log --graph --decorate --oneline
     authors = shortlog -sne
-    filelog = log -u
 
 [push]
     default = simple
