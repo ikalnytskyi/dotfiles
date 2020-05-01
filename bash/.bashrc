@@ -109,9 +109,6 @@ if which clang++ &>/dev/null; then
   export CXX=clang++                # use clang as default C++ compiler
 fi
 
-if [ -f ~/.pythonrc ]; then
-  export PYTHONSTARTUP=~/.pythonrc  # enable python shell auto completion
-fi
 
 #
 # SETUP BASH PROMPT WITH BLACKJACK AND HOOKERS

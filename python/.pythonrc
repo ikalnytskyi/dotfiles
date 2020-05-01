@@ -1,8 +1,0 @@
-import sys
-
-# Python 3.5 REPL and above has auto completion out of box.
-if sys.version_info[:2] < (3, 5):
-    import rlcompleter
-    import readline
-
-    readline.parse_and_bind('tab: complete')
