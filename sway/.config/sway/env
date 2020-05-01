@@ -1,0 +1,14 @@
+MOZ_ENABLE_WAYLAND = "1"
+
+QT_QPA_PLATFORMTHEME = "gtk3"
+QT_WAYLAND_DISABLE_WINDOWDECORATION = "1"
+
+# The Java GUI toolkit has a hard-coded list of "non-reparenting" window
+# managers. If using one that is not on that list, there can be some problems
+# with running some Java applications. For instance, one of the most common
+# problems is "gray blobs", when the Java application renders as a plain gray
+# box instead of rendering the GUI. Since we're using Sway, we better
+# explicitly say that it's a "non-reparenting" window manager.
+_JAVA_AWT_WM_NONREPARENTING = "1"
+
+# vim: set ft=conf
