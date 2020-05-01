@@ -10,7 +10,7 @@ scriptencoding utf-8
 let $VIMHOME=fnamemodify($MYVIMRC, ':h')
 
 "
-" // PLUGINS //
+" // BOOTSTRAP //
 "
 
 if !filereadable($VIMHOME . '/autoload/plug.vim')
@@ -40,6 +40,10 @@ catch
   echomsg "please ensure 'pynvim' is installed in your python environment"
 endtry
 
+"
+" // PLUGINS //
+"
+
 silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'scrooloose/nerdtree'
   Plug 'liuchengxu/vista.vim'
@@ -50,20 +54,17 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'Valloric/ListToggle'
   Plug 'godlygeek/tabular'
-  Plug 'arcticicestudio/nord-vim'
+  Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
   Plug 'tpope/vim-sleuth'
   Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
-  Plug 'ncm2/ncm2'
-  Plug 'roxma/nvim-yarp'
   Plug 'prabirshrestha/async.vim'
   Plug 'prabirshrestha/vim-lsp'
+  Plug 'ncm2/ncm2'
+  Plug 'roxma/nvim-yarp'
   Plug 'ncm2/ncm2-vim-lsp'
   Plug 'ncm2/ncm2-bufword'
-
-  if exists('*nvim_open_win')
-    Plug 'ncm2/float-preview.nvim'
-  endif
+  Plug 'ncm2/float-preview.nvim'
 
   Plug 'cespare/vim-toml', {'for': ['toml']}
   Plug 'iloginow/vim-stylus', {'for': ['stylus']}
@@ -72,6 +73,9 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'pangloss/vim-javascript', {'for': ['javascript']}
   Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
   Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['jinja']}
+  Plug 'norcalli/nvim-colorizer.lua'
+  Plug 'ryanoasis/vim-devicons'
+
 
   call plug#end()
 
@@ -82,13 +86,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
   " ~ ncm2/float-preview.nvim
 
   let g:float_preview#docked = 0
-
-  function! DisableExtras()
-    call nvim_win_set_option(g:float_preview#win, 'cursorline', v:false)
-    call nvim_win_set_option(g:float_preview#win, 'cursorcolumn', v:false)
-  endfunction
-
-  autocmd User FloatPreviewWinOpen call DisableExtras()
 
   " ~ ncm2/ncm2
 
@@ -111,8 +108,8 @@ silent! if plug#begin($VIMHOME . '/plugins')
 
   let g:lsp_signs_enabled = 0
   let g:lsp_virtual_text_enabled = 0
-  let g:lsp_diagnostics_echo_cursor = 1
-  let g:lsp_highlights_enabled = 0
+  let g:lsp_diagnostics_float_cursor = 1
+  let g:lsp_highlight_references_enabled = 1
 
   augroup LSP
     autocmd!
@@ -141,7 +138,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
       autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'clangd',
         \ 'cmd': {server_info->['clangd']},
-        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ 'whitelist': ['c', 'cpp', 'objc'],
         \ 'priority': 1,
       \ })
       autocmd FileType c,cpp setlocal omnifunc=lsp#complete
@@ -209,11 +206,8 @@ silent! if plug#begin($VIMHOME . '/plugins')
   let g:vista_close_on_jump = 1
   let g:vista_icon_indent = ["▸ ", ""]
   let g:vista_blink = [0, 0]
-
-  if exists('*nvim_open_win')
-    let g:vista_echo_cursor = 1
-    let g:vista_echo_cursor_strategy = "floating_win"
-  endif
+  let g:vista_echo_cursor = 1
+  let g:vista_echo_cursor_strategy = "floating_win"
 
   " ~ Valloric/ListToggle
 
@@ -222,12 +216,39 @@ silent! if plug#begin($VIMHOME . '/plugins')
 
   " ~ arcticicestudio/nord-vim
 
-  silent! colorscheme nord
+  let g:nord_bold_vertical_split_line = 1
+  let g:nord_cursor_line_number_background = 1
 
-  if !has('gui_running')
-    exe "hi! Normal guibg=NONE"
-    exe "hi! LineNr guibg=NONE"
-  endif
+  augroup NORD
+    autocmd!
+
+    function! MyNordEnhancements()
+      exe "hi! Normal guibg=NONE"
+      exe "hi! LineNr guibg=NONE"
+      exe "hi! Identifier gui=bold"
+
+      " vim-clap support
+      " https://github.com/arcticicestudio/nord-vim/pull/178/
+      exe "hi! ClapInput guifg=" . g:terminal_color_7 . " guibg=" . g:terminal_color_0
+      exe "hi! ClapDisplay guifg=" . g:terminal_color_15 . " guibg=" . g:terminal_color_0
+      exe "hi! ClapPreview guifg=" . g:terminal_color_7 . " guibg=" . g:terminal_color_8
+      exe "hi! ClapSelected guifg=" . g:terminal_color_14
+      exe "hi! ClapCurrentSelection guifg=" . g:terminal_color_14
+      exe "hi! ClapNoMatchesFound guifg=" . g:terminal_color_3
+      let clap_matches = ["DiffAdd", "DiffChange", "DiffDelete"]
+      for idx in range(1, 13)
+        let clap_match_color = clap_matches[idx % len(clap_matches) - 1]
+        exe "hi! link ClapMatches" . idx . " " . clap_match_color
+        exe "hi! link ClapFuzzyMatches" . idx . " " . clap_match_color
+      endfor
+    endfunction
+
+    " Activate colorscheme later on because it may depend on some other
+    " settings such as 'termguicolors' which we enable in 'general' section
+    " below.
+    autocmd User late_settings silent! colorscheme nord | call MyNordEnhancements()
+    autocmd ColorScheme nord call MyNordEnhancements()
+  augroup END
 
   " ~ pangloss/vim-javascript
 
@@ -240,6 +261,21 @@ silent! if plug#begin($VIMHOME . '/plugins')
   let g:vim_markdown_conceal = 0
   let g:vim_markdown_auto_insert_bullets = 0
   let g:vim_markdown_new_list_item_indent = 0
+
+  " ~ norcalli/nvim-colorizer.lua
+
+  augroup COLORIZER
+    autocmd!
+
+    " colorizer.setup() depends on 'termguicolors' being set and thus we need
+    " to postpone its call till the later stage.
+    autocmd User late_settings silent! lua require 'colorizer'.setup({
+      \ css = { css = true };
+      \ stylus = { css = true };
+      \ javascript;
+      \ html;
+    \ })
+  augroup END
 
 endif
 
@@ -285,7 +321,6 @@ set title                           " propagate useful info to window title
 set ttimeout                        " do timeout on key codes
 set undofile                        " persistent undo (survives Vim restart)
 set visualbell                      " flash screen instead of beep
-
 
 "
 " // KEYBINDINGS //
@@ -337,3 +372,9 @@ augroup PYTHON
   autocmd!
   autocmd FileType python setlocal comments+=b:#:   " sphinx (#:) comments
 augroup END
+
+"
+" // LATE SETTINGS //
+"
+
+doautocmd User late_settings
