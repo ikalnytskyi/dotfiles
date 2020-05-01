@@ -10,7 +10,7 @@ window {
   color: #d8dee9;
 }
 
-#mode, #pulseaudio, #idle_inhibitor, #network, #battery, #clock {
+#mode, #pulseaudio, #idle_inhibitor, #network, #custom-vpn, #battery, #clock {
   padding: 0 10px;
   margin: 0 5px;
 }
@@ -39,7 +39,7 @@ window {
   color: #2e3440;
 }
 
-#pulseaudio.muted {
+#pulseaudio.audio.muted {
   background-color: #bf616a;
 }
 
@@ -71,6 +71,11 @@ window {
 
 #network.disconnected {
   background-color: #bf616a;
+}
+
+#custom-vpn {
+  background-color: #4c566a;
+  color: #d8dee9;
 }
 
 #battery {

@@ -13,6 +13,7 @@
     "pulseaudio#mic",
     "idle_inhibitor",
     "network",
+    "custom/vpn",
     "battery",
     "clock"
   ],
@@ -35,14 +36,14 @@
       "car": "",
       "default": ["", "", ""]
     },
-    "on-click": "pavucontrol",
+    "on-click": "gnome-control-center sound",
     "max-length": 100
   },
   "pulseaudio#mic": {
     "format": "{format_source}",
     "format-source": "{volume}% ",
     "format-source-muted": "",
-    "on-click": "pavucontrol",
+    "on-click": "gnome-control-center sound",
     "max-length": 100
   },
   "idle_inhibitor": {
@@ -56,6 +57,13 @@
     "format-wifi": "{essid} ",
     "format-disconnected": "{ifname} "
   },
+  "custom/vpn": {
+    "format": "VPN ",
+    "exec": "echo '{\"class\": \"connected\"}'",
+    "exec-if": "test -d /proc/sys/net/ipv4/conf/tun0",
+    "return-type": "json",
+    "interval": 5
+  },
   "battery": {
     "states": {
       "warning": 20,
@@ -68,6 +76,6 @@
     "format-icons": ["", "", "", "", ""]
   },
   "clock": {
-    "format": "{:%b %d, %H:%M}"
+    "format": "{:%b %d, %H:%M} "
   }
 }
