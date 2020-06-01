@@ -3,17 +3,7 @@
 #
 
 # If not running interactively, don't do anything.
-case $- in
-  *i*) ;;
-    *) return;;
-esac
-
-HISTCONTROL=ignoreboth
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-shopt -s histappend
-shopt -s checkwinsize
+[[ $- != *i* ]] && return
 
 # Preserve the current working directory in new tabs in VTE based terminal
 # emulators.
@@ -95,7 +85,9 @@ export PATH=~/.local/bin:$PATH      # scripts installed by pip (python)
 export PATH=~/.cargo/bin:$PATH      # binaries installed by cargo (rust)
 export PATH=~/.go/bin:$PATH         # binaries built by go (golang)
 
-export EDITOR=nvim                  # prefer vim as default editor
+export EDITOR=nvim                  # prefer neovim as default editor
+export BROWSER=firefox              # prefer firefox as default browser
+export TERMINAL=tilix               # preder tilix as default terminal
 export PYTHONDONTWRITEBYTECODE=1    # do not produce .pyc/.pyo files
 export CLICOLOR=1                   # turn on colors for some BSD tools
 export GPG_TTY=`tty`                # setup tty for gpg2's pinetry
