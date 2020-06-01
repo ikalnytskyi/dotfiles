@@ -57,6 +57,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
   Plug 'tpope/vim-sleuth'
   Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+  Plug 'vim-test/vim-test'
 
   Plug 'prabirshrestha/async.vim'
   Plug 'prabirshrestha/vim-lsp'
@@ -73,6 +74,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'pangloss/vim-javascript', {'for': ['javascript']}
   Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
   Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['jinja']}
+  Plug 'dag/vim-fish', {'for': ['fish']}
   Plug 'norcalli/nvim-colorizer.lua'
   Plug 'ryanoasis/vim-devicons'
 
@@ -82,6 +84,17 @@ silent! if plug#begin($VIMHOME . '/plugins')
   " ~ liuchengxu/vim-clap
 
   let g:clap_insert_mode_only = v:true
+  let g:clap_selected_sign = {
+    \ "text": "ᐅ",
+    \ "texthl": "ClapSelectedSign",
+    \ "linehl": "ClapSelected"
+  \ }
+  let g:clap_current_selection_sign = {
+    \ "text": "ᐉ",
+    \ "texthl": "ClapCurrentSelectionSign",
+    \ "linehl": "ClapCurrentSelection"
+  \ }
+  let g:clap_prompt_format = '%spinner%%forerunner_status%%provider_id%: '
 
   " ~ ncm2/float-preview.nvim
 
@@ -214,6 +227,10 @@ silent! if plug#begin($VIMHOME . '/plugins')
   let g:lt_location_list_toggle_map = '<leader>l'
   let g:lt_quickfix_list_toggle_map = '<leader>q'
 
+  " ~ vim-test/vim-test
+
+  let test#python#pytest#options = '-vv'
+
   " ~ arcticicestudio/nord-vim
 
   let g:nord_bold_vertical_split_line = 1
@@ -223,24 +240,10 @@ silent! if plug#begin($VIMHOME . '/plugins')
     autocmd!
 
     function! MyNordEnhancements()
-      exe "hi! Normal guibg=NONE"
-      exe "hi! LineNr guibg=NONE"
-      exe "hi! Identifier gui=bold"
+      " Emphasize identifiers in the code.
+      exe 'hi! Identifier gui=bold'
 
-      " vim-clap support
-      " https://github.com/arcticicestudio/nord-vim/pull/178/
-      exe "hi! ClapInput guifg=" . g:terminal_color_7 . " guibg=" . g:terminal_color_0
-      exe "hi! ClapDisplay guifg=" . g:terminal_color_15 . " guibg=" . g:terminal_color_0
-      exe "hi! ClapPreview guifg=" . g:terminal_color_7 . " guibg=" . g:terminal_color_8
-      exe "hi! ClapSelected guifg=" . g:terminal_color_14
-      exe "hi! ClapCurrentSelection guifg=" . g:terminal_color_14
-      exe "hi! ClapNoMatchesFound guifg=" . g:terminal_color_3
-      let clap_matches = ["DiffAdd", "DiffChange", "DiffDelete"]
-      for idx in range(1, 13)
-        let clap_match_color = clap_matches[idx % len(clap_matches) - 1]
-        exe "hi! link ClapMatches" . idx . " " . clap_match_color
-        exe "hi! link ClapFuzzyMatches" . idx . " " . clap_match_color
-      endfor
+      let g:clap_theme = 'nord'
     endfunction
 
     " Activate colorscheme later on because it may depend on some other
@@ -291,7 +294,6 @@ set autochdir                       " change cwd to current file
 set colorcolumn=80,100              " show columns at 80 & 100 characters
 set completeopt=menuone             " show menu even for a single match
 set completeopt+=noinsert,noselect  " do not auto- select/insert completions
-set cursorcolumn                    " highlight the column with cursor
 set cursorline                      " highlight the line with cursor
 set expandtab                       " insert space instead the tab
 set formatoptions+=r                " auto insert comment leader on <enter>
@@ -341,6 +343,7 @@ nnoremap <leader>s :LspDocumentSymbol<CR>
 nnoremap <leader>w :LspWorkspaceSymbols<CR>
 nnoremap <leader><S-f> :LspDocumentFormat<CR>
 vnoremap <leader><S-f> :LspDocumentRangeFormat<CR>
+nnoremap <leader>t :TestNearest<CR>
 
 function! OnEnterPressed()
   return empty(v:completed_item) ? "\<C-y>\<CR>" : "\<C-y>"
