@@ -4,3 +4,9 @@
     xkb_layout us,ru
     xkb_options grp:caps_toggle
   }
+
+
+### Output ###
+
+  output DP-1 pos 0 0
+  output HDMI-A-1 pos 1920 0
