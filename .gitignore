@@ -5,3 +5,6 @@ nvim/.config/nvim/*
 !nvim/.config/nvim/init.vim
 
 systemd/.config/systemd/user/*.target.wants/
+
+fish/**/_*.fish
+fish/**/fish_*
