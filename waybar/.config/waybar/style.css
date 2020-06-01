@@ -10,7 +10,7 @@ window {
   color: #d8dee9;
 }
 
-#mode, #pulseaudio, #idle_inhibitor, #network, #custom-vpn, #battery, #clock {
+#mode, #pulseaudio, #idle_inhibitor, #network, #custom-vpn, #custom-keyboard, #battery, #clock {
   padding: 0 10px;
   margin: 0 5px;
 }
@@ -76,6 +76,11 @@ window {
 #custom-vpn {
   background-color: #4c566a;
   color: #d8dee9;
+}
+
+#custom-keyboard {
+  background-color: #b48ead;
+  color: #2e3440;
 }
 
 #battery {
