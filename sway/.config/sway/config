@@ -170,6 +170,20 @@
   for_window [app_id="firefox"] inhibit_idle fullscreen
 
 
+### Input ###
+
+  input type:keyboard {
+    xkb_layout us,ru
+    xkb_options grp:caps_toggle
+  }
+
+  input type:touchpad {
+    dwt enabled                 # disable a touchpad while typing
+    tap enabled                 # tap to click
+    natural_scroll enabled      # natural, not reversed scroll
+  }
+
+
 ### Customization ###
 
 include "~/.config/sway/config.d/*"

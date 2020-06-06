@@ -1,11 +1,3 @@
-### Input ###
-
-  input "4152:1559:SteelSeries_SteelSeries_Apex_M750_TKL" {
-    xkb_layout us,ru
-    xkb_options grp:caps_toggle
-  }
-
-
 ### Output ###
 
   output DP-1 pos 0 0
