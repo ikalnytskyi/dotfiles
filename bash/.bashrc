@@ -46,7 +46,7 @@ fi
 alias runhttp='python3 -m http.server'
 alias tree='tree --dirsfirst -C'
 
-if [ `uname` == "Linux" ]; then
+if [ `uname` == 'Linux' ]; then
   # pretty colorful output of popular tools
   alias ls='ls --color=auto --group-directories-first'
   alias dir='dir --color=auto'
@@ -54,7 +54,7 @@ if [ `uname` == "Linux" ]; then
   alias ip='ip --color=auto'
 fi
 
-if [ `uname` == "Darwin" ]; then
+if [ `uname` == 'Darwin' ]; then
   alias grep='grep --color=auto'
 fi
 
@@ -63,7 +63,7 @@ fi
 # EXPORT DEFINITIONS
 #
 
-if [ `uname` == "Darwin" ]; then
+if [ `uname` == 'Darwin' ]; then
   # By default, OS X locale is incompatible with Linux since it doesn't
   # have encoding part (e.g. "en_US"). It breaks some programs when we
   # SSH to Linux machine via OS X, since wrong locale will be passed.
@@ -106,44 +106,6 @@ fi
 # SETUP BASH PROMPT WITH BLACKJACK AND HOOKERS
 #
 
-function __setup_prompt {
-  # ANSI CODES - SEPARATE MULTIPLE VALUES WITH ;
-  #
-  #  0  reset          4  underline
-  #  1  bold           7  inverse
-  #
-  # FG  BG  COLOR     FG  BG  COLOR
-  # 30  40  black     34  44  blue
-  # 31  41  red       35  45  magenta
-  # 32  42  green     36  46  cyan
-  # 33  43  yellow    37  47  white
-
-  # retrieve vcs information if available
-  if which vcstatus &>/dev/null; then
-    local vcs=$(vcstatus -q -f "\[\e[0;34m\]%n:\[\e[0m\]%b\[\e[34m\]%m\[\e[0m\]")
-  fi
-
-  # retrieve virtualenv information if available
-  if [ ! -z $VIRTUAL_ENV ]; then
-    local venv=$(basename `dirname "$VIRTUAL_ENV"`)
-
-    # special case: show tox venvs as 'tox/venv' instead of '.tox'
-    if [ $venv == '.tox' ]; then
-      local venv="tox/`basename $VIRTUAL_ENV`"
-    fi
-
-    local venv="\[\e[1;35m\]venv:\[\e[0m\]$venv"
-  fi
-
-  local STATUSLINE=(
-    '\[\e[0;31m\]\u\[\e[0m\]'           # username, bold & red
-    '\[\e[0;33m\]@\h\[\e[0m\]'          # hostname, bold & yellow
-    '\[\e[0;32m\]\w\[\e[0m\]'           # curr dir, bold & green
-    $vcs                                # vcs:branch(+dirty), bold & blue
-    $venv                               # active virtualenv, bold & maroon
-  )
-
-  PS1="\n${STATUSLINE[*]}"              # show status line on first line
-  PS1+='\n\[\e[0;34m\]$\[\e[0m\] '      # show prompt on second one
-}
-PROMPT_COMMAND="${PROMPT_COMMAND:-:}; __setup_prompt"
+if which starship &>/dev/null; then
+  eval "$(starship init bash)"
+fi

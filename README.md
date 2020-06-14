@@ -27,13 +27,4 @@ where
   * `{bundle}` - a bundle to install (e.g. `bash` or `vim`)
 
 
-Dependencies
-------------
-
-* **bash**
-
-  Depends on [vcstatus] project in order to show VCS hints in your prompt.
-
-
 [stow]: https://www.gnu.org/software/stow/
-[vcstatus]: https://github.com/ikalnytskyi/vcstatus
