@@ -23,7 +23,6 @@ if which clang++ &> /dev/null
   set -xg CXX clang++                # use clang as default C++ compiler
 end
 
-
 #
 # SETUP PROMPT WITH BLACKJACK AND HOOKERS
 #
@@ -32,6 +31,13 @@ if which starship &> /dev/null
   starship init fish | source
 end
 
-if test -e config.(cat /proc/sys/kernel/hostname).fish
-  source config.(cat /proc/sys/kernel/hostname).fish
+
+#
+# SOURCE EXTRA CONFIGURATIONS
+#
+
+for name in config.{$hostname,local}.fish
+  if test -e $__fish_config_dir/$name
+    source $__fish_config_dir/$name
+  end
 end

@@ -5,3 +5,4 @@ systemd/.config/systemd/user/*.target.wants/
 
 fish/**/_*.fish
 fish/**/fish_*
+fish/**/config.local.fish
