@@ -19,5 +19,8 @@
 [push]
     default = simple
 
+[pull]
+    ff = only
+
 [diff]
     noprefix = true
