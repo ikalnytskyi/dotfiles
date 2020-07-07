@@ -131,7 +131,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
       autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'pyls',
         \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
+        \ 'allowlist': ['python'],
         \ 'priority': 1,
         \ 'workspace_config': {
           \ 'pyls': {
@@ -151,7 +151,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
       autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'clangd',
         \ 'cmd': {server_info->['clangd']},
-        \ 'whitelist': ['c', 'cpp', 'objc'],
+        \ 'allowlist': ['c', 'cpp', 'objc'],
         \ 'priority': 1,
       \ })
       autocmd FileType c,cpp setlocal omnifunc=lsp#complete
@@ -164,7 +164,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
       autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'rls',
         \ 'cmd': {server_info->['rls']},
-        \ 'whitelist': ['rust'],
+        \ 'allowlist': ['rust'],
         \ 'priority': 1,
       \ })
       autocmd FileType rust setlocal omnifunc=lsp#complete
@@ -176,7 +176,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
       autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'bash-language-server',
         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
-        \ 'whitelist': ['sh'],
+        \ 'allowlist': ['sh'],
         \ 'priority': 1,
       \ })
       autocmd FileType sh setlocal omnifunc=lsp#complete
@@ -188,7 +188,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
       autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'jls',
         \ 'cmd': {server_info->['javascript-typescript-stdio']},
-        \ 'whitelist': ['javascript', 'typescript'],
+        \ 'allowlist': ['javascript', 'typescript'],
         \ 'priority': 1,
       \ })
       autocmd FileType javascript,typescript setlocal omnifunc=lsp#complete
@@ -201,7 +201,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
       autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'gopls',
         \ 'cmd': {server_info->['gopls']},
-        \ 'whitelist': ['go'],
+        \ 'allowlist': ['go'],
         \ 'priority': 1,
       \ })
       autocmd FileType go setlocal omnifunc=lsp#complete
@@ -242,8 +242,6 @@ silent! if plug#begin($VIMHOME . '/plugins')
     function! MyNordEnhancements()
       " Emphasize identifiers in the code.
       exe 'hi! Identifier gui=bold'
-
-      let g:clap_theme = 'nord'
     endfunction
 
     " Activate colorscheme later on because it may depend on some other
@@ -264,6 +262,10 @@ silent! if plug#begin($VIMHOME . '/plugins')
   let g:vim_markdown_conceal = 0
   let g:vim_markdown_auto_insert_bullets = 0
   let g:vim_markdown_new_list_item_indent = 0
+
+  " ~ vim-test/vim-test
+
+  let test#python#pytest#options = '-vv'
 
   " ~ norcalli/nvim-colorizer.lua
 
