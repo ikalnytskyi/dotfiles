@@ -67,8 +67,8 @@
   },
   "custom/keyboard": {
     "format": "{} ",
-    "exec": "swaymsg -t get_inputs | jq '.[] | select(.identifier == \"4152:1559:SteelSeries_SteelSeries_Apex_M750_TKL\") | .xkb_active_layout_name' | head -n 1 | tr -d '\"' | cut -c -2",
-    "interval": 1
+    "exec": "swaymsg -mrt subscribe '[\"input\"]' | jq -r --unbuffered \"select(.change == \\\"xkb_layout\\\") | .input | select(.type == \\\"keyboard\\\") | .xkb_active_layout_name | .[0:2]\"",
+    "tooltip": false
   },
   "battery": {
     "states": {

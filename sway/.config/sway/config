@@ -17,9 +17,7 @@
     $mod+d exec $appmenu
     $mod+l exec $lock
     $mod+Shift+q kill
-
-    $mod+Shift+c nop
-    --release $mod+Shift+c reload
+    $mod+Shift+c reload
 
     # sway
     $mod+Shift+e exec swaynag -t warning -m "Do you really want to exit Sway?" \
