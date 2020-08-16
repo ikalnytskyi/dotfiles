@@ -51,12 +51,12 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'mhinz/vim-signify'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'terryma/vim-multiple-cursors'
+  Plug 'mg979/vim-visual-multi'
   Plug 'Valloric/ListToggle'
   Plug 'godlygeek/tabular'
   Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
   Plug 'tpope/vim-sleuth'
-  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+  Plug 'liuchengxu/vim-clap', { 'do': ':call clap#installer#download_binary()' }
   Plug 'vim-test/vim-test'
 
   Plug 'prabirshrestha/async.vim'
@@ -136,7 +136,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
         \ 'workspace_config': {
           \ 'pyls': {
             \ 'plugins': {
-              \ 'flake8': {'enabled': v:true},
+              \ 'flake8': {'enabled': v:true, 'maxLineLength': 100},
               \ 'pycodestyle': {'enabled': v:false},
             \ },
           \ },
@@ -160,7 +160,17 @@ silent! if plug#begin($VIMHOME . '/plugins')
       let g:vista_cpp_executive = "vim_lsp"
     endif
 
-    if executable('rls')
+    if executable('rust-analyzer')
+      autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'rust-analyzer',
+        \ 'cmd': {server_info->['rust-analyzer']},
+        \ 'allowlist': ['rust'],
+        \ 'priority': 1,
+      \ })
+      autocmd FileType rust setlocal omnifunc=lsp#complete
+
+      let g:vista_rust_executive = "vim_lsp"
+    elseif executable('rls')
       autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'rls',
         \ 'cmd': {server_info->['rls']},
@@ -330,7 +340,7 @@ set visualbell                      " flash screen instead of beep
 " // KEYBINDINGS //
 "
 
-nnoremap <leader>1 :NERDTreeToggle<CR>
+nnoremap <leader>1 :NERDTreeToggleVCS<CR>
 nnoremap <leader>2 :Vista!!<CR>
 nnoremap <leader>3 :set spell!<CR>
 nnoremap <leader>4 :SignatureListBufferMarks<CR>
