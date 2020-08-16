@@ -110,12 +110,12 @@
   bindsym --locked XF86AudioPrev exec playerctl previous
 
   # screenshot
-  bindsym --release Print exec grimshot copy screen
-  bindsym --release Shift+Print exec grimshot copy area
-  bindsym --release Ctrl+Print exec grimshot save screen
+  bindsym --release Print exec grimshot copy output && wl-paste | swappy -f -
+  bindsym --release Shift+Print exec grimshot copy area && wl-paste | swappy -f -
+  bindsym --release Alt+Print exec grimshot copy window && wl-paste | swappy -f -
+  bindsym --release Ctrl+Print exec grimshot save output
   bindsym --release Ctrl+Shift+Print exec grimshot save area
-  bindsym --release Alt+Print exec grimshot copy win
-  bindsym --release Shift+Alt+Print exec grimshot save win
+  bindsym --release Ctrl+Alt+Print exec grimshot save window
 
 
 ### Appearance ###
@@ -171,7 +171,7 @@
 ### Input ###
 
   input type:keyboard {
-    xkb_layout us,ru
+    xkb_layout us,ua
     xkb_options grp:caps_toggle
   }
 
