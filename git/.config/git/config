@@ -24,3 +24,10 @@
 
 [diff]
     noprefix = true
+    tool = nvim
+
+[difftool]
+    prompt = false
+
+[difftool "nvim"]
+    cmd = nvim -d $LOCAL $REMOTE
