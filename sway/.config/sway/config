@@ -172,7 +172,7 @@
 
   input type:keyboard {
     xkb_layout us,ua
-    xkb_options grp:caps_toggle
+    xkb_options grp:caps_toggle,compose:rwin-altgr,lv3:ralt_switch
   }
 
   input type:touchpad {
