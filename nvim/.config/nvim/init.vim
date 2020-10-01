@@ -56,7 +56,7 @@ silent! if plug#begin($VIMHOME . '/plugins')
   Plug 'godlygeek/tabular'
   Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
   Plug 'tpope/vim-sleuth'
-  Plug 'liuchengxu/vim-clap', { 'do': ':call clap#installer#download_binary()' }
+  Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
   Plug 'vim-test/vim-test'
 
   Plug 'prabirshrestha/async.vim'
