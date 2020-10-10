@@ -1,0 +1,4 @@
+configuration {
+	modi: "drun,run";
+	theme: "nord";
+}

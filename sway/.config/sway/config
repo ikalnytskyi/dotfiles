@@ -5,7 +5,7 @@
   set $mod Mod4
 
   set $lock loginctl lock-session
-  set $appmenu wofi
+  set $appmenu rofi -show drun -drun-show-actions -run-command "swaymsg exec -- {cmd}"
   set $term tilix
 
 
