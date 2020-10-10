@@ -185,4 +185,4 @@
 ### Customization ###
 
 include "~/.config/sway/config.d/*"
-include "~/.config/sway/config.`cat /proc/sys/kernel/hostname`"
+include "~/.config/sway/config.`uname -n`"
