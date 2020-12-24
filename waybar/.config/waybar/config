@@ -12,7 +12,7 @@
     "pulseaudio#audio",
     "pulseaudio#mic",
     "idle_inhibitor",
-    "custom/keyboard",
+    "sway/language",
     "network",
     "custom/vpn",
     "battery",
@@ -65,10 +65,8 @@
     "return-type": "json",
     "interval": 5
   },
-  "custom/keyboard": {
-    "format": "{} ",
-    "exec": "swaymsg -mrt subscribe '[\"input\"]' | jq -r --unbuffered \"select(.change == \\\"xkb_layout\\\") | .input | select(.type == \\\"keyboard\\\") | .xkb_active_layout_name | .[0:2]\"",
-    "tooltip": false
+  "sway/language": {
+    "format": "{} "
   },
   "battery": {
     "states": {
