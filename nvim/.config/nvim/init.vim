@@ -45,7 +45,7 @@ endtry
 "
 
 silent! if plug#begin($VIMHOME . '/plugins')
-  Plug 'scrooloose/nerdtree'
+  Plug 'preservim/nerdtree'
   Plug 'liuchengxu/vista.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'mhinz/vim-signify'
@@ -221,6 +221,22 @@ silent! if plug#begin($VIMHOME . '/plugins')
   " ~ scrooloose/nerdtree
 
   let g:NERDTreeQuitOnOpen = 1
+  let g:NERDTreeShowHidden = 1
+  let g:NERDTreeMinimalUI = 1
+
+  function! s:MyNERDTreeToggleVCS()
+    let s:path = expand('%:p')
+
+    execute ':NERDTreeToggleVCS'
+
+    " Find and show currently open file in the file explorer. It's the primary
+    " reason why this home grown function exists in the first place.
+    if exists('g:NERDTree') && g:NERDTree.IsOpen() && filereadable(s:path)
+      execute ':NERDTreeFind' . s:path
+    endif
+  endfunction
+
+  command! -n=? -complete=dir -bar MyNERDTreeToggleVCS :call <SID>MyNERDTreeToggleVCS()
 
   " ~ liuchengxu/vista.vim
 
@@ -340,7 +356,7 @@ set visualbell                      " flash screen instead of beep
 " // KEYBINDINGS //
 "
 
-nnoremap <leader>1 :NERDTreeToggleVCS<CR>
+nnoremap <leader>1 :MyNERDTreeToggleVCS<CR>
 nnoremap <leader>2 :Vista!!<CR>
 nnoremap <leader>3 :set spell!<CR>
 nnoremap <leader>4 :SignatureListBufferMarks<CR>
