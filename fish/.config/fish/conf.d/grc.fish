@@ -53,9 +53,12 @@ if type -q grc
     vmstat \
     w \
     who
+  set -U grc_plugin_execs_ignore \
+    ls \
+    ip
 
   for executable in $grc_plugin_execs
-    if type -q $executable
+    if type -q $executable; and not contains $executable $grc_plugin_execs_ignore
       function $executable --inherit-variable executable --wraps=$executable
         grc $executable $argv
       end
