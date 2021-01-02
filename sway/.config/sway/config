@@ -7,6 +7,7 @@
   set $lock loginctl lock-session
   set $term foot
   set $appmenu fuzzel --launch-prefix="swaymsg exec --" --terminal="$term"
+  set $winmenu ~/.local/bin/sway-window-menu fuzzel --dmenu
 
 ### Keybindings ###
 
@@ -14,6 +15,7 @@
     # general
     $mod+Return exec $term
     $mod+d exec $appmenu
+    $mod+w exec $winmenu
     $mod+l exec $lock
     $mod+Shift+q kill
     $mod+Shift+c reload
@@ -149,6 +151,7 @@
     set $nord15 #b48ead
 
   bar {
+    font pango:JetBrains Mono 11
     position top
     height 35
     workspace_min_width 30
@@ -189,6 +192,8 @@
   input type:keyboard {
     xkb_layout us,ua
     xkb_options grp:caps_toggle,compose:paus,lv3:ralt_switch
+    repeat_rate 30
+    repeat_delay 300
   }
 
   input type:touchpad {

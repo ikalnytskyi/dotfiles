@@ -2,105 +2,41 @@
   border: none;
   border-radius: 0;
   font-family: "JetBrains Mono";
-  font-size: 13px;
+  font-size: 14px;
 }
 
-window {
+window#waybar {
   background-color: #2e3440;
   color: #d8dee9;
 }
 
-#mode, #pulseaudio, #idle_inhibitor, #network, #language, #battery, #clock, #tray {
-  padding: 0 10px;
-  margin: 0 5px;
+.modules-right .module {
+  margin: 0px 4px;
+  padding: 0px 5px;
 }
 
 #workspaces button {
-  padding: 0 5px;
-  color: #eceff4;
-  border-bottom: 3px solid transparent;
-}
-
-#workspaces button:hover {
-  background-color: #434c5e;
+  color: #d8dee9;
 }
 
 #workspaces button.focused {
-  background-color: #2e3440;
-  border-bottom: 3px solid #81a1c1;
+  background-color: #3b4252;
 }
 
-#mode {
-  font-weight: bold;
+#workspaces button:hover {
+  background-color: #3b4252;
 }
 
-#pulseaudio {
+#wireplumber, #pulseaudio {
   background-color: #8fbcbb;
   color: #2e3440;
 }
 
-#pulseaudio.audio.muted {
-  background-color: #bf616a;
-}
-
-
-#pulseaudio.mic.source-muted {
-  background-color: #bf616a;
-}
-
-@keyframes inhibitor-blink {
-  to {
-    color: #ebcb8b;
-  }
-}
-
-#idle_inhibitor {
-  background-color: #2e3440;
-  color: #d8dee9;
-}
-
-#idle_inhibitor.activated {
-  animation-name: inhibitor-blink;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
 #network {
-  background-color: #a3be8c;
+  background-color: #a3be86;
   color: #2e3440;
 }
 
-#network.disconnected {
-  background-color: #bf616a;
-}
-
-#network.vpn {
-  background-color: #4c566a;
-  color: #d8dee9;
-}
-
-#language{
-  background-color: #b48ead;
-  color: #2e3440;
-}
-
-#battery {
-  background-color: #81a1c1;
-  color: #2e3440;
-}
-
-#battery.warning:not(.charging) {
-  background-color: #d08770;
-  animation-duration: 1s;
-}
-
-#battery.critical:not(.charging) {
-  background-color: #bf616a;
-  animation-duration: 0.5s;
-}
-
-#tray {
-  background-color: #5e81ac;
+#language {
+  background-color: #3b4252;
 }

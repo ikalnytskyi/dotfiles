@@ -54,7 +54,7 @@ name = "v4l"
 [[block]]
 block = "net"
 device = "enp38s0"
-format = " $icon ^icon_net_down{$speed_down.eng(p:K, u:b)} ^icon_net_up $speed_up.eng(p:K, u:b) "
+format = " $icon  ^icon_net_down $speed_down.eng(p:K, u:b) ^icon_net_up $speed_up.eng(p:K, u:b) "
 format_alt = " $ip "
 missing_format = ""
 inactive_format = ""
@@ -64,7 +64,7 @@ theme_overrides.idle_fg = { link = "idle_bg" }
 [[block]]
 block = "net"
 device = "wlan0"
-format = " $icon ^icon_net_down{$speed_down.eng(p:K, u:b)} ^icon_net_up $speed_up.eng(p:K, u:b) "
+format = " $icon  ^icon_net_down $speed_down.eng(p:K, u:b) ^icon_net_up $speed_up.eng(p:K, u:b) "
 format_alt = " $ssid $signal_strength $ip "
 missing_format = ""
 inactive_format = ""
