@@ -38,3 +38,8 @@
 
 [mergetool "vscode"]
     cmd = code --wait $MERGED
+
+[pager]
+    log = diff-highlight | less
+    show = diff-highlight | less
+    diff = diff-highlight | less

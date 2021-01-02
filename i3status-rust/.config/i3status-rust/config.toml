@@ -1,0 +1,43 @@
+[theme]
+file = "nord.toml"
+
+[icons]
+name = "awesome"
+
+[[block]]
+block = "focused_window"
+max_width = 50
+show_marks = "visible"
+
+[[block]]
+block = "sound"
+step_width = 3
+device_kind = "sink"
+on_click = "gnome-control-center sound"
+
+[[block]]
+block = "sound"
+step_width = 3
+device_kind = "source"
+on_click = "gnome-control-center sound"
+
+[[block]]
+block = "keyboard_layout"
+driver = "sway"
+format = " {layout}"
+
+[[block]]
+block = "net"
+format = "{ssid}"
+
+[[block]]
+block = "battery"
+driver = "sysfs"
+format = "{percentage}% {time}"
+allow_missing = true
+hide_missing = true
+
+[[block]]
+block = "time"
+interval = 60
+format = "%b %d, %H:%M"
