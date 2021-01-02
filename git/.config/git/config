@@ -1,5 +1,6 @@
 [alias]
 	contributors = shortlog -sne --group=author --group=trailer:co-authored-by
+	trailers = !git log --format='%(trailers:keyonly)' | grep -v '^$' | sort | uniq -c | sort -nr
 	uncommit = reset --soft HEAD^
 [blame]
 	coloring = repeatedLines
@@ -15,9 +16,10 @@
 [gpg]
 	format = ssh
 [gpg "ssh"]
-	defaultKeyCommand = sh -c 'echo key::$(ssh-add -L)'
 	allowedSignersFile = ~/.ssh/trusted_signing_keys
 	revocationFile = ~/.ssh/revoked_signing_keys
+[gpg "x509"]
+	program = gitsign
 [grep]
 	lineNumber = true
 [include]
@@ -40,3 +42,4 @@
 [user]
 	name = Ihor Kalnytskyi
 	email = ihor@kalnytskyi.com
+	signingKey = ~/.ssh/id_ed25519_sk

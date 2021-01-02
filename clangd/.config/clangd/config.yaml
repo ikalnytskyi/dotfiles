@@ -1,0 +1,8 @@
+CompileFlags:
+  Add:
+    - -xc++
+    - -Wall
+    - -std=c++23
+Completion:
+  AllScopes: false
+  HeaderInsertion: Never

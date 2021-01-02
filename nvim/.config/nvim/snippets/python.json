@@ -1,0 +1,17 @@
+{
+    "#!": {
+        "body": "#!/usr/bin/env python3",
+        "description": "Insert Unix shebang."
+    },
+    "ifmain": {
+        "body": [
+            "if __name__ == \"__main__\":",
+            "    ${1:main()}"
+        ],
+        "description": "Insert script entrypoint."
+    },
+    "rpdbtrace": {
+        "body": "__import__(\"rpdb\").set_trace()",
+        "description": "Insert rpdb breakpoint."
+    }
+}
