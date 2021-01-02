@@ -99,8 +99,8 @@
   }
 
   # multimedia
-  bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1%
-  bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1%
+  bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+  bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
   bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
   bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
   bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%-
@@ -159,6 +159,7 @@
   for_window [app_id=".*"] border csd
   for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, sticky enable, border none
   for_window [app_id="firefox" title="Sharing Indicator"] floating enable, border none, move position 100 -100
+  for_window [shell="xwayland"] title_format "X11 :: %title"
 
 
 ### Idle inhibitors ###

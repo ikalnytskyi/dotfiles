@@ -4,3 +4,4 @@
 # certain variables will fail to run.
 exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK \
   && systemctl --user start sway-session.target
+exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK
