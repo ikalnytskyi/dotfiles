@@ -4,8 +4,17 @@ symbol = "  "
 [buf]
 symbol = " "
 
+[bun]
+symbol = " "
+
 [c]
 symbol = " "
+
+[cpp]
+symbol = " "
+
+[cmake]
+symbol = " "
 
 [conda]
 symbol = " "
@@ -15,6 +24,9 @@ symbol = " "
 
 [dart]
 symbol = " "
+
+[deno]
+symbol = " "
 
 [directory]
 read_only = " 󰌾"
@@ -34,8 +46,14 @@ symbol = " "
 [fossil_branch]
 symbol = " "
 
+[gcloud]
+symbol = "  "
+
 [git_branch]
 symbol = " "
+
+[git_commit]
+tag_symbol = '  '
 
 [golang]
 symbol = " "
@@ -88,10 +106,12 @@ symbol = " "
 [os.symbols]
 Alpaquita = " "
 Alpine = " "
+AlmaLinux = " "
 Amazon = " "
 Android = " "
 Arch = " "
 Artix = " "
+CachyOS = " "
 CentOS = " "
 Debian = " "
 DragonFly = " "
@@ -103,6 +123,7 @@ Garuda = "󰛓 "
 Gentoo = " "
 HardenedBSD = "󰞌 "
 Illumos = "󰈸 "
+Kali = " "
 Linux = " "
 Mabox = " "
 Macos = " "
@@ -112,6 +133,7 @@ MidnightBSD = " "
 Mint = " "
 NetBSD = " "
 NixOS = " "
+Nobara = " "
 OpenBSD = "󰈺 "
 openSUSE = " "
 OracleLinux = "󰌷 "
@@ -119,11 +141,13 @@ Pop = " "
 Raspbian = " "
 Redhat = " "
 RedHatEnterprise = " "
+RockyLinux = " "
 Redox = "󰀘 "
 Solus = "󰠳 "
 SUSE = " "
 Ubuntu = " "
 Unknown = " "
+Void = " "
 Windows = "󰍲 "
 
 [package]
@@ -138,6 +162,9 @@ symbol = " "
 [pijul_channel]
 symbol = " "
 
+[pixi]
+symbol = "󰏗 "
+
 [python]
 symbol = " "
 
@@ -148,7 +175,7 @@ symbol = "󰟔 "
 symbol = " "
 
 [rust]
-symbol = " "
+symbol = "󱘗 "
 
 [scala]
 symbol = " "
@@ -158,3 +185,6 @@ symbol = " "
 
 [zig]
 symbol = " "
+
+[gradle]
+symbol = " "
