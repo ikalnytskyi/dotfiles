@@ -18,6 +18,7 @@
 
 [push]
     default = simple
+    gpgSign = if-asked
 
 [pull]
     ff = only
