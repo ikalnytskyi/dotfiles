@@ -614,6 +614,7 @@ require("lazy").setup({
       build = ":TSUpdate",
       dependencies = {
          "nvim-treesitter/playground",
+         "apple/pkl-neovim",
       },
       config = function()
          require("nvim-treesitter.configs").setup({
