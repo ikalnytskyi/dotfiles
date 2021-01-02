@@ -7,6 +7,7 @@ set $mod Mod4
 set $lock loginctl lock-session
 set $term foot
 set $appmenu fuzzel --terminal="$term"
+set $winmenu ~/.local/bin/sway-window-menu fuzzel --dmenu
 
 ### Keybindings ###
 
@@ -17,6 +18,7 @@ bindsym XF86PowerOff exec swaynag -t warning -m "Do you really want to power off
   -Z "󰤂 Poweroff" "systemctl poweroff"
 
 bindsym --to-code $mod+d exec $appmenu
+bindsym --to-code $mod+w exec $winmenu
 bindsym --to-code $mod+l exec $lock
 bindsym --to-code $mod+Shift+q kill
 bindsym --to-code $mod+Shift+c reload

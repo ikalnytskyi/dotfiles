@@ -86,6 +86,8 @@ So how to apply configurations from this repository?
  * [waybar](https://github.com/Alexays/Waybar)
  * [wofi](https://hg.sr.ht/~scoopta/wofi)
  * [xdg-desktop-portal-wlr](https://github.com/emersion/xdg-desktop-portal-wlr)
+ * [zathura](https://pwmt.org/projects/zathura/)
+ * [zellij](https://zellij.dev/)
 
 
 ## Screenshots

@@ -21,7 +21,7 @@ vim.opt.smartcase = true
 vim.opt.showmode = false
 vim.opt.scrolloff = 3
 vim.opt.sidescrolloff = 3
-vim.opt.shortmess:append("c")
+vim.opt.shortmess:append({ a = true, s = true, c = true })
 vim.opt.title = true
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 vim.opt.updatetime = 300
@@ -29,7 +29,7 @@ vim.opt.colorcolumn = { 81, 101 }
 vim.opt.cursorline = true
 vim.opt.list = true
 vim.opt.listchars = {
-   tab      = "⇥-",
+   tab      = "--⇥",
    lead     = "·",
    trail    = "·",
    nbsp     = "␣",
@@ -44,9 +44,7 @@ vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
 vim.opt.expandtab = true
-vim.opt.formatoptions:append("r")
-vim.opt.formatoptions:append("n")
-vim.opt.formatoptions:remove("t")
+vim.opt.formatoptions:append({ r = true, n = true, t = false })
 vim.opt.swapfile = false
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
@@ -56,6 +54,7 @@ vim.opt.undofile = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.pumheight = 20
 vim.opt.mousemodel = "extend"
+vim.opt.mousescroll = "ver:3,hor:0"
 vim.opt.winborder = "rounded"
 
 vim.g.mapleader = " "
@@ -141,6 +140,16 @@ vim.api.nvim_create_autocmd("FileType", {
       vim.opt_local.comments:append("b:#") -- '#' common ini dialect
    end
 })
+vim.api.nvim_create_autocmd("FileType", {
+   group = "MyFiletypeOptions",
+   pattern = "lazy_backdrop",
+   callback = function(ctx)
+      -- Temporary hack to turn off backgrod border from Lazy.
+      -- See https://github.com/folke/lazy.nvim/issues/1951.
+      local win = vim.fn.win_findbuf(ctx.buf)[1]
+      vim.api.nvim_win_set_config(win, { border = "none" })
+   end,
+})
 
 
 --
@@ -218,63 +227,40 @@ require("lazy").setup({
    -- completion and built-in LSP. The priority must be higher than of lspconfig
    -- plugin, because its config updates LSP client capabilities.
    {
-      "hrsh7th/nvim-cmp",
+      "saghen/blink.cmp",
       priority = 100,
-      dependencies = {
-         "dcampos/cmp-snippy",
-         "hrsh7th/cmp-buffer",
-         "hrsh7th/cmp-nvim-lsp",
-         "hrsh7th/cmp-nvim-lsp-signature-help",
-         "hrsh7th/cmp-nvim-lua",
-         "hrsh7th/cmp-path",
-      },
-      config = function()
-         local cmp = require("cmp")
-         cmp.setup({
-            completion = {
-               completeopt = vim.o.completeopt,
-            },
-            window = {
-               documentation = cmp.config.window.bordered({ border = vim.o.winborder }),
-               completion = cmp.config.window.bordered({ border = vim.o.winborder }),
-            },
-            preselect = cmp.PreselectMode.None,
-            mapping = cmp.mapping.preset.insert(
-               {
-                  ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                  ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                  ["<C-Space>"] = cmp.mapping.complete(),
-                  ["<Cr>"] = cmp.mapping.confirm(),
-               }
-            ),
-            formatting = {
-               format = function(_, vim_item)
-                  vim_item.menu = vim_item.kind
-                  vim_item.kind = MiniIcons.get("lsp", vim_item.kind)
-                  return vim_item
-               end
-            },
-            sources = cmp.config.sources({
-               { name = "nvim_lsp" },
-               { name = "nvim_lsp_signature_help" },
-               { name = "nvim_lua" },
-               { name = "buffer",                 keyword_length = 3 },
-               { name = "snippy" },
-               { name = "path" },
-            }),
-         })
-      end,
-   },
-
-   -- The snippet engine of choice.
-   {
-      "dcampos/nvim-snippy",
+      version = "1.*",
       opts = {
-         mappings = {
-            is = {
-               ["<Tab>"] = "expand_or_advance",
-               ["<S-Tab>"] = "previous",
+         cmdline = { enabled = false },
+         completion = {
+            accept = { auto_brackets = { enabled = false } },
+            documentation = { auto_show = true },
+            list = { selection = { preselect = false, auto_insert = false } },
+            menu = {
+               draw = {
+                  columns = {
+                     { "kind_icon", "label", "label_description", gap = 1 },
+                     { "kind" },
+                  },
+                  components = {
+                     kind_icon = {
+                        text = function(ctx)
+                           local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+                           return kind_icon
+                        end,
+                     },
+                  },
+               },
             },
+         },
+         keymap = {
+            preset = "default",
+            ["<Cr>"] = { "accept", "fallback" },
+         },
+         signature = { enabled = true },
+         sources = {
+            providers = { lsp = { fallbacks = {} } },
+            min_keyword_length = 3,
          },
       },
    },
@@ -284,7 +270,7 @@ require("lazy").setup({
    -- indentation guides and much more.
    {
       "folke/snacks.nvim",
-      priority = 1000,
+      priority = 100,
       lazy = false,
       opts = {
          gitbrowse = {
@@ -312,6 +298,11 @@ require("lazy").setup({
                      }
                   },
                },
+               treesitter = {
+                  filter = {
+                     python = { "Class", "Function" },
+                  }
+               }
             },
             win = {
                input = {
@@ -322,32 +313,35 @@ require("lazy").setup({
                preview = {
                   wo = {
                      number = false,
+                     signcolumn = "no",
                   }
                }
-            }
+            },
          },
       },
       keys = {
-         { "<Leader>e", function() Snacks.explorer() end,                      desc = "Open file explorer" },
-         { "<Leader>G", function() Snacks.gitbrowse() end,                     desc = "Open git browser",                  mode = { "n", "v" } },
-         { "'",         function() Snacks.picker.marks() end,                  desc = "Open marks picker" },
-         { "<Leader>f", function() Snacks.picker.git_files() end,              desc = "Open file picker" },
-         { "<Leader>/", function() Snacks.picker.grep() end,                   desc = "Open search in workspace directory" },
-         { "<Leader>b", function() Snacks.picker.buffers() end,                desc = "Open buffer picker" },
-         { "<Leader>.", function() Snacks.picker.grep_word() end,              desc = "Open search of selection",          mode = { "n", "x" } },
-         { "<Leader>'", function() Snacks.picker.resume() end,                 desc = "Open last picker" },
-         { "<Leader>?", function() Snacks.picker.commands() end,               desc = "Open command palette" },
-         { "<Leader>d", function() Snacks.picker.diagnostics_buffer() end,     desc = "Open diagnostic picker" },
-         { "<Leader>g", function() Snacks.picker.git_status() end,             desc = "Open changed file picker" },
-         { "<Leader>H", function() Snacks.toggle.inlay_hints():toggle() end,   desc = "Toggle inlay hints" },
-         { "<Leader>3", function() Snacks.toggle.option("spell"):toggle() end, desc = "Toggle spelling" },
-         { "gd",        function() Snacks.picker.lsp_definitions() end,        desc = "Goto definition" },
-         { "gD",        function() Snacks.picker.lsp_declarations() end,       desc = "Goto declarations" },
-         { "grr",       function() Snacks.picker.lsp_references() end,         desc = "Goto references" },
-         { "gi",        function() Snacks.picker.lsp_implementations() end,    desc = "Goto implementation" },
-         { "gy",        function() Snacks.picker.lsp_type_definitions() end,   desc = "Goto type definition" },
-         { "<Leader>s", function() Snacks.picker.lsp_symbols() end,            desc = "Open symbol picker" },
-         { "<Leader>S", function() Snacks.picker.lsp_workspace_symbols() end,  desc = "Open workspace symbol picker" },
+         -- telescope.extensions.file_browser.file_browser({ path = "%:p:h" })
+         { "<Leader>e", function() Snacks.explorer() end,                             desc = "Open file explorer" },
+         { "<Leader>G", function() Snacks.gitbrowse() end,                            desc = "Open git browser",                  mode = { "n", "v" } },
+         { "'",         function() Snacks.picker.marks() end,                         desc = "Open marks picker" },
+         { "<Leader>f", function() Snacks.picker.git_files({ untracked = true }) end, desc = "Open file picker" },
+         { "<Leader>/", function() Snacks.picker.grep() end,                          desc = "Open search in workspace directory" },
+         { "<Leader>b", function() Snacks.picker.buffers() end,                       desc = "Open buffer picker" },
+         { "<Leader>.", function() Snacks.picker.grep_word() end,                     desc = "Open search of selection",          mode = { "n", "x" } },
+         { "<Leader>'", function() Snacks.picker.resume() end,                        desc = "Open last picker" },
+         { "<Leader>?", function() Snacks.picker.commands() end,                      desc = "Open command palette" },
+         { "<Leader>d", function() Snacks.picker.diagnostics_buffer() end,            desc = "Open diagnostic picker" },
+         { "<Leader>g", function() Snacks.picker.git_status() end,                    desc = "Open changed file picker" },
+         { "<Leader>H", function() Snacks.toggle.inlay_hints():toggle() end,          desc = "Toggle inlay hints" },
+         { "<Leader>3", function() Snacks.toggle.option("spell"):toggle() end,        desc = "Toggle spelling" },
+         { "gd",        function() Snacks.picker.lsp_definitions() end,               desc = "Goto definition" },
+         { "gD",        function() Snacks.picker.lsp_declarations() end,              desc = "Goto declarations" },
+         { "grr",       function() Snacks.picker.lsp_references() end,                desc = "Goto references" },
+         { "gi",        function() Snacks.picker.lsp_implementations() end,           desc = "Goto implementation" },
+         { "gy",        function() Snacks.picker.lsp_type_definitions() end,          desc = "Goto type definition" },
+         { "<Leader>s", function() Snacks.picker.lsp_symbols() end,                   desc = "Open symbol picker" },
+         { "<Leader>S", function() Snacks.picker.lsp_workspace_symbols() end,         desc = "Open workspace symbol picker" },
+         { "<Leader>q", function() Snacks.picker.treesitter() end,                    desc = "Open symbol picker" },
       },
    },
 
@@ -361,32 +355,64 @@ require("lazy").setup({
          prompt = { enabled = false },
       },
       keys = {
-         { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end,       desc = "Flash" },
-         { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+         { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+         { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+         { "r", mode = { "o" },           function() require("flash").remote() end,            desc = "Remote Flash" },
+         { "R", mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       },
    },
 
    -- LSP and its goodies.
    {
       "neovim/nvim-lspconfig",
-      dependencies = { "hrsh7th/cmp-nvim-lsp", "b0o/SchemaStore.nvim" },
+      dependencies = { "b0o/SchemaStore.nvim" },
       config = function()
-         local lspconfig = require("lspconfig")
-         local server_settings = {
-            pyright = {
+         local servers = {
+            "bashls",
+            "clangd",
+            "cssls",
+            "dotls",
+            "gopls",
+            "html",
+            "jsonls",
+            "lua_ls",
+            "marksman",
+            "pyright",
+            "ruff",
+            "rust_analyzer",
+            "sourcekit",
+            "taplo",
+            "ts_ls",
+            "typos_lsp",
+            "yamlls",
+         }
+
+         for _, server_name in ipairs(servers) do
+            vim.lsp.enable(server_name)
+         end
+
+         vim.lsp.config("clangd", {
+            -- Header insertions are nasty and rarely work for me. Since clangd
+            -- 21, they can be disabled via clangd’s own configuration file.
+            -- Until it's available in Arch Linux, I have no choice but to
+            -- maintain this setting here.
+            cmd = { "clangd", "--header-insertion=never" },
+         })
+
+         vim.lsp.config("pyright", {
+            settings = {
                pyright = {
                   disableOrganizeImports = true,
                },
                python = {
                   analysis = {
                      autoImportCompletions = false,
-                     diagnosticSeverityOverrides = {
-                        -- reportIncompatibleMethodOverride = false,
-                     },
                   },
                },
             },
-            ts_ls = {
+         })
+         vim.lsp.config("ts_ls", {
+            settings = {
                typescript = {
                   inlayHints = {
                      includeInlayParameterNameHints = "all",
@@ -410,51 +436,27 @@ require("lazy").setup({
                   },
                },
             },
-            lua_ls = {
+         })
+         vim.lsp.config("lua_ls", {
+            settings = {
                Lua = {
                   hint = {
                      enable = true,
                   },
                },
             },
-            jsonls = {
+         })
+         vim.lsp.config("jsonls", {
+            settings = {
                json = {
                   schemas = require("schemastore").json.schemas(),
                   validate = { enable = true },
                },
             },
-         }
-         local client_capabilities = vim.tbl_deep_extend(
-            "force",
-            vim.lsp.protocol.make_client_capabilities(),
-            require("cmp_nvim_lsp").default_capabilities()
-         )
+         })
 
-         for _, server_name in ipairs({
-            "bashls",
-            "clangd",
-            "cssls",
-            "dotls",
-            "gopls",
-            "html",
-            "jsonls",
-            "lua_ls",
-            "marksman",
-            "pyright",
-            "ruff",
-            "rust_analyzer",
-            "sourcekit",
-            "taplo",
-            "ts_ls",
-            "typos_lsp",
-            "yamlls",
-         }) do
-            lspconfig[server_name].setup({
-               capabilities = vim.deepcopy(client_capabilities),
-               settings = server_settings[server_name] or vim.empty_dict(),
-               silent = true,
-            })
-         end
+         vim.keymap.set("n", "gA", "<Cmd>LspClangdSwitchSourceHeader<Cr>", { desc = "Switch between source/header" })
+         vim.keymap.set("n", "gS", "<Cmd>LspClangdShowSymbolInfo<Cr>", { desc = "Show symbol info" })
       end,
    },
 
@@ -564,7 +566,7 @@ require("lazy").setup({
          show_guides = true,
       },
       keys = {
-         { "<Leader>2", "<Cmd>AerialToggle!<Cr>", desc = "Toggle code outline" },
+         -- { "<Leader>2", "<Cmd>AerialToggle!<Cr>", desc = "Toggle code outline" },
       },
       lazy = false,
    },
@@ -586,7 +588,6 @@ require("lazy").setup({
       "lewis6991/gitsigns.nvim",
       opts = {
          preview_config = {
-            border = vim.o.winborder,
             focusable = false,
          },
          on_attach = function(buffer)
@@ -642,7 +643,6 @@ require("lazy").setup({
 
    { "brenoprata10/nvim-highlight-colors", opts = {} },
    { "tpope/vim-sleuth" },
-   { "mg979/vim-visual-multi" },
    {
       "williamboman/mason.nvim",
       opts = {},
@@ -650,6 +650,8 @@ require("lazy").setup({
    },
 }, {
    lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
+   install = { colorscheme = { "nord" } },
+   ui = { border = vim.o.winborder },
 })
 
 
