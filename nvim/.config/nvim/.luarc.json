@@ -1,0 +1,11 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "runtime.version": "LuaJIT",
+    "runtime.path": [
+        "?.lua",
+        "?/init.lua",
+        "/usr/share/nvim/runtime/lua/?.lua",
+        "/usr/share/nvim/runtime/lua/?/init.lua"
+    ],
+    "diagnostics.globals": ["vim", "MiniIcons"]
+}

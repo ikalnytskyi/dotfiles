@@ -6,6 +6,7 @@ set --export --global BROWSER firefox         # promote browser of choice
 set --export --global TERMINAL foot           # promote terminal of choice
 set --export --global CLICOLOR 1              # turn on colors for some BSD tools
 set --export --global GPG_TTY (tty)           # setup tty for gpg pinetry
+set --export --global LESS "FRX"
 
 fish_add_path --global ~/.local/bin           # executables installed by pip/pipx
 fish_add_path --global ~/.cargo/bin           # executables installed by cargo
