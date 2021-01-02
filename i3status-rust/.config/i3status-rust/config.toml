@@ -54,7 +54,7 @@ name = "v4l"
 [[block]]
 block = "net"
 device = "enp38s0"
-format = " $icon ^icon_net_down{$speed_down.eng(p:K, u:b)} ^icon_net_up $speed_up.eng(p:K, u:b) "
+format = " $icon  ^icon_net_down$speed_down.eng(p:K, u:b, w:3) ^icon_net_up$speed_up.eng(p:K, u:b, w:3) "
 format_alt = " $ip "
 missing_format = ""
 inactive_format = ""
@@ -64,7 +64,7 @@ theme_overrides.idle_fg = { link = "idle_bg" }
 [[block]]
 block = "net"
 device = "wlan0"
-format = " $icon ^icon_net_down{$speed_down.eng(p:K, u:b)} ^icon_net_up $speed_up.eng(p:K, u:b) "
+format = " $icon  ^icon_net_down$speed_down.eng(p:K, u:b, w:3) ^icon_net_up$speed_up.eng(p:K, u:b, w:3) "
 format_alt = " $ssid $signal_strength $ip "
 missing_format = ""
 inactive_format = ""
@@ -94,10 +94,20 @@ theme_overrides.idle_bg = "#3b4252"
 block = "keyboard_layout"
 driver = "sway"
 format = " $layout "
-mappings = { "English (US)" = "🇺🇸", "Ukrainian (N/A)" = "🇺🇦" }
+mappings = { "English (US)" = "\U0001F1FA\U0001F1F8", "Ukrainian (N/A)" = "\U0001F1FA\U0001F1E6" }
 theme_overrides.idle_bg = "#3b4252"
 
 [[block]]
 block = "time"
 interval = 5
 format = " $icon $timestamp.datetime(format:'%b %d, %H:%M') "
+
+[[block]]
+block = "custom"
+format = "  \uF011  "
+command = ""
+theme_overrides.idle_bg = "#3b4252"
+
+[[block.click]]
+button = "left"
+cmd = "wtype -k XF86PowerOff"
