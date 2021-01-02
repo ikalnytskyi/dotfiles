@@ -1,0 +1,73 @@
+{
+  "cSpell.fixSpellingWithRenameProvider": false,
+  "cSpell.languageSettings": [
+    {
+      "includeRegExpList": [
+        "/#.*/",
+        "/('''|\"\"\")[^\\1]+?\\1/g",
+        "string"
+      ],
+      "languageId": "python"
+    }
+  ],
+  "cSpell.language": "en,en-GB",
+  "cmake.configureOnOpen": true,
+  "diffEditor.codeLens": true,
+  "diffEditor.renderSideBySide": false,
+  "editor.autoClosingBrackets": "never",
+  "editor.autoClosingQuotes": "never",
+  "editor.columnSelection": true,
+  "editor.cursorSurroundingLines": 3,
+  "editor.folding": false,
+  "editor.fontFamily": "'JetBrains Mono', 'Symbols Nerd Font'",
+  "editor.fontSize": 13,
+  "editor.matchBrackets": "near",
+  "editor.peekWidgetDefaultFocus": "editor",
+  "editor.quickSuggestions": {
+    "comments": true,
+    "other": true,
+    "strings": true
+  },
+  "editor.renderControlCharacters": true,
+  "editor.renderFinalNewline": false,
+  "editor.renderWhitespace": "boundary",
+  "editor.roundedSelection": false,
+  "editor.rulers": [
+    80,
+    100,
+    120
+  ],
+  "editor.snippetSuggestions": "none",
+  "editor.suggest.showSnippets": false,
+  "editor.suggestSelection": "first",
+  "editor.trimAutoWhitespace": false,
+  "files.associations": {
+    "**/sway/config": "i3",
+    "**/sway/config.*": "i3",
+    "**/sway/config.d/*": "i3"
+  },
+  "files.simpleDialog.enable": true,
+  "python.formatting.provider": "black",
+  "python.languageServer": "Jedi",
+  "vim.highlightedyank.enable": true,
+  "vim.hlsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.handleKeys": {
+    "<C-b>": false
+  },
+  "window.dialogStyle": "custom",
+  "window.menuBarVisibility": "hidden",
+  "window.zoomLevel": 1,
+  "workbench.activityBar.visible": false,
+  "workbench.colorTheme": "Nord",
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editorAssociations": [
+    {
+      "filenamePattern": "*.ipynb",
+      "viewType": "jupyter.notebook.ipynb"
+    }
+  ],
+  "workbench.enableExperiments": false,
+  "workbench.preferredDarkColorTheme": "Nord",
+  "terminal.external.linuxExec": "tilix",
+}

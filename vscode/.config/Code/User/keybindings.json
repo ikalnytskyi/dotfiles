@@ -1,0 +1,36 @@
+[
+    {
+        "key": "ctrl+shift+e",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "activeViewlet == 'workbench.view.explorer'"
+    },
+    {
+        "key": "ctrl+shift+f",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "activeViewlet == 'workbench.view.search'"
+    },
+    {
+        "key": "ctrl+shift+x",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "activeViewlet == 'workbench.view.extensions'"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "activeViewlet == 'workbench.view.scm'"
+    },
+    {
+        "key": "ctrl+shift+d",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "activeViewlet == 'workbench.view.debug'"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.view.extension.test",
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "activeViewlet == 'workbench.view.extension.test'"
+    },
+]

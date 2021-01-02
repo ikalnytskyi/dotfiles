@@ -1,8 +1,15 @@
-nvim/.config/nvim/*
-!nvim/.config/nvim/init.vim
+/nvim/.config/nvim/
+!/nvim/.config/nvim/init.vim
 
-systemd/.config/systemd/user/*.target.wants/
+/systemd/.config/systemd/user/*.target.wants/
 
-fish/**/_*.fish
-fish/**/fish_*
-fish/**/config.local.fish
+/fish/**/_*.fish
+/fish/**/fish_*
+/fish/**/config.local.fish
+
+/vscode/.config/Code/*
+!/vscode/.config/Code/User/
+/vscode/.config/Code/User/*
+!/vscode/.config/Code/User/keybindings.json
+!/vscode/.config/Code/User/settings.json
+!/vscode/.config/Code/User/snippets/
