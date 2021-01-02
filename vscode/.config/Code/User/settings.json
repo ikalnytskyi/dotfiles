@@ -17,7 +17,7 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.cursorSurroundingLines": 3,
   "editor.folding": false,
-  "editor.fontFamily": "'JetBrains Mono', 'Symbols Nerd Font'",
+  "editor.fontFamily": "'TvirMono Nerd Font'",
   "editor.fontSize": 13,
   "editor.matchBrackets": "near",
   "editor.peekWidgetDefaultFocus": "editor",

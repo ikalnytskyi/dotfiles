@@ -1,0 +1,158 @@
+#!/bin/sh
+
+SUPR="Super"
+LOCK="loginctl lock-session"
+TERM="foot"
+MENU="fuzzel --terminal=$TERM"
+WALL="$(xdg-user-dir PICTURES)/wallpapers/current"
+
+
+### Keybindings ###
+
+riverctl map normal $SUPR+Shift E spawn '\
+    swaynag -t warning -m "Do you really want to exit River?" \
+      -Z "Yes!" "riverctl exit" \
+      -s "No"'
+
+riverctl map normal $SUPR+Shift P spawn '\
+    swaynag -t warning -m "Do you really want to power off?" \
+      -Z "Poweroff" "systemctl poweroff" \
+      -Z "Reboot" "systemctl reboot" \
+      -s "No"'
+
+riverctl map normal $SUPR Return spawn "$TERM"
+riverctl map normal $SUPR D spawn "$MENU"
+riverctl map normal $SUPR L spawn "$LOCK"
+riverctl map normal $SUPR+Shift Q close
+
+riverctl map normal $SUPR Left focus-view left
+riverctl map normal $SUPR Up focus-view up
+riverctl map normal $SUPR Right focus-view right
+riverctl map normal $SUPR Down focus-view down
+
+riverctl map normal $SUPR+Ctrl Left swap left
+riverctl map normal $SUPR+Ctrl Up swap up
+riverctl map normal $SUPR+Ctrl Right swap right
+riverctl map normal $SUPR+Ctrl Down swap down
+
+riverctl map normal $SUPR+Shift Left send-to-output left
+riverctl map normal $SUPR+Shift Up send-to-output up
+riverctl map normal $SUPR+Shift Right send-to-output right
+riverctl map normal $SUPR+Shift Downt send-to-output down
+
+riverctl map normal $SUPR+Shift Space toggle-float
+riverctl map normal $SUPR F toggle-fullscreen
+riverctl map normal $SUPR Z zoom
+
+riverctl map-pointer normal Alt BTN_LEFT move-view
+riverctl map-pointer normal Alt BTN_RIGHT resize-view
+
+
+for mode in normal locked; do
+    riverctl map $mode None XF86AudioLowerVolume spawn "wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
+    riverctl map $mode None XF86AudioRaiseVolume spawn "wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
+    riverctl map $mode None XF86AudioMute spawn "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    riverctl map $mode $SUPR XF86AudioLowerVolume spawn "wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SOURCE@ 5%-"
+    riverctl map $mode $SUPR XF86AudioRaiseVolume spawn "wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+"
+    riverctl map $mode $SUPR XF86AudioMute spawn "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    riverctl map $mode None XF86MonBrightnessDown spawn "brightnessctl set 10%-"
+    riverctl map $mode None XF86MonBrightnessUp spawn "brightnessctl set +10%"
+    riverctl map $mode None XF86AudioPlay spawn "playerctl play-pause"
+    riverctl map $mode None XF86AudioNext spawn "playerctl next"
+    riverctl map $mode None XF86AudioPrev spawn "playerctl previous"
+done
+
+riverctl map -release normal None Print spawn "grimshot copy area && wl-paste | swappy -f -"
+riverctl map -release normal Shift Print spawn "grimshot copy output && wl-paste | swappy -f -"
+riverctl map -release normal Alt Print spawn "grimshot copy window && wl-paste | swappy -f -"
+riverctl map -release normal Ctrl Print spawn "grimshot save area"
+riverctl map -release normal Ctrl+Shift Print spawn "grimshot save output"
+riverctl map -release normal Ctrl+Alt Print spawn "grimshot save window"
+
+for i in $(seq 1 9); do
+    tags=$((1 << ($i - 1)))
+
+    riverctl map normal Super $i set-focused-tags $tags
+    riverctl map normal Super+Shift $i set-view-tags $tags
+    riverctl map normal Super+Control $i toggle-focused-tags $tags
+    riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
+done
+
+# Super+0 to focus all tags
+# Super+Shift+0 to tag focused view with all tags
+all_tags=$(((1 << 32) - 1))
+riverctl map normal Super 0 set-focused-tags $all_tags
+riverctl map normal Super+Shift 0 set-view-tags $all_tags
+
+# Passthrough
+riverctl declare-mode passthrough
+riverctl map normal Super Scroll_Lock enter-mode passthrough
+riverctl map passthrough Super Scroll_Lock enter-mode normal
+
+
+# # Super+Alt+{H,J,K,L} to move views
+# riverctl map normal Super+Alt H move left 100
+# riverctl map normal Super+Alt J move down 100
+# riverctl map normal Super+Alt K move up 100
+# riverctl map normal Super+Alt L move right 100
+#
+# # Super+Alt+Control+{H,J,K,L} to snap views to screen edges
+# riverctl map normal Super+Alt+Control H snap left
+# riverctl map normal Super+Alt+Control J snap down
+# riverctl map normal Super+Alt+Control K snap up
+# riverctl map normal Super+Alt+Control L snap right
+#
+# # Super+Alt+Shift+{H,J,K,L} to resize views
+# riverctl map normal Super+Alt+Shift H resize horizontal -100
+# riverctl map normal Super+Alt+Shift J resize vertical 100
+# riverctl map normal Super+Alt+Shift K resize vertical -100
+# riverctl map normal Super+Alt+Shift L resize horizontal 100
+
+
+### Appearance ###
+
+riverctl spawn "swaybg --image $WALL --mode fill"
+riverctl spawn "waybar"
+riverctl border-color-focused 0xB48EAD
+riverctl border-color-unfocused 0x3B4252
+riverctl border-color-urgent 0xBF616A
+riverctl border-width 4
+
+riverctl focus-follows-cursor normal
+riverctl rule-add ssd
+
+riverctl default-layout rivertile
+riverctl spawn "rivertile -view-padding 5 -outer-padding 5"
+
+
+### Input ###
+
+riverctl keyboard-layout -options grp:caps_toggle,compose:paus,lv3:ralt_switch us,ua
+riverctl set-repeat 30 300
+riverctl hide-cursor when-typing enabled
+
+riverctl input "touchpad-*" tap enabled
+riverctl input "touchpad-*" natural-scroll enabled
+riverctl input "touchpad-*" scroll-factor 0.3
+
+
+### Output ###
+
+wlr-randr --output DP-2 --mode 2560x1440@119.998Hz --pos 0,0 --preferred
+wlr-randr --output DP-1 --pos 2560,0
+
+
+### Customization ###
+
+if [ ! -z "$XDG_CONFIG_HOME" ]; then
+    RIVER_CONFIG_HOME="$XDG_CONFIG_HOME/river"
+elif [ ! -z "$HOME" ]; then
+    RIVER_CONFIG_HOME="$HOME/.config/river"
+else
+    RIVER_CONFIG_HOME=""
+fi
+
+if [ ! -z "$RIVER_CONFIG_HOME" ]; then
+    for conf in "$RIVER_CONFIG_HOME"/init.d/*.sh; do source "$conf"; done
+    source "$RIVER_CONFIG_HOME/init.$(uname -n)"
+fi

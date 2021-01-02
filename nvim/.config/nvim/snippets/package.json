@@ -1,0 +1,14 @@
+{
+    "contributes": {
+        "snippets": [
+            {
+                "language": "all",
+                "path": "./_.json"
+            },
+            {
+                "language": "python",
+                "path": "./python.json"
+            }
+        ]
+    }
+}

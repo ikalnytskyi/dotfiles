@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export WLR_RENDERER="vulkan"
+
+exec systemd-cat --identifier=sway \
+    systemd-inhibit --who="sway-session" --what="handle-power-key" --why="XF86PowerOff is used by Sway" \
+    sway --unsupported-gpu "$@"
