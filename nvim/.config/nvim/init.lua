@@ -371,22 +371,51 @@ require("lazy").setup({
       "neovim/nvim-lspconfig",
       dependencies = { "hrsh7th/cmp-nvim-lsp", "b0o/SchemaStore.nvim" },
       config = function()
-         local lspconfig = require("lspconfig")
-         local server_settings = {
-            pyright = {
+         local servers = {
+            "bashls",
+            "clangd",
+            "cssls",
+            "dotls",
+            "gopls",
+            "html",
+            "jsonls",
+            "lua_ls",
+            "marksman",
+            "pyright",
+            "ruff",
+            "rust_analyzer",
+            "sourcekit",
+            "taplo",
+            "ts_ls",
+            "typos_lsp",
+            "yamlls",
+         }
+
+         for _, server_name in ipairs(servers) do
+            vim.lsp.enable(server_name)
+         end
+
+         vim.lsp.config("*", {
+            capabilities = vim.tbl_deep_extend(
+               "force",
+               vim.lsp.protocol.make_client_capabilities(),
+               require("cmp_nvim_lsp").default_capabilities()
+            ),
+         })
+         vim.lsp.config("pyright", {
+            settings = {
                pyright = {
                   disableOrganizeImports = true,
                },
                python = {
                   analysis = {
                      autoImportCompletions = false,
-                     diagnosticSeverityOverrides = {
-                        -- reportIncompatibleMethodOverride = false,
-                     },
                   },
                },
             },
-            ts_ls = {
+         })
+         vim.lsp.config("ts_ls", {
+            settings = {
                typescript = {
                   inlayHints = {
                      includeInlayParameterNameHints = "all",
@@ -410,51 +439,24 @@ require("lazy").setup({
                   },
                },
             },
-            lua_ls = {
+         })
+         vim.lsp.config("lua_ls", {
+            settings = {
                Lua = {
                   hint = {
                      enable = true,
                   },
                },
             },
-            jsonls = {
+         })
+         vim.lsp.config("jsonls", {
+            settings = {
                json = {
                   schemas = require("schemastore").json.schemas(),
                   validate = { enable = true },
                },
             },
-         }
-         local client_capabilities = vim.tbl_deep_extend(
-            "force",
-            vim.lsp.protocol.make_client_capabilities(),
-            require("cmp_nvim_lsp").default_capabilities()
-         )
-
-         for _, server_name in ipairs({
-            "bashls",
-            "clangd",
-            "cssls",
-            "dotls",
-            "gopls",
-            "html",
-            "jsonls",
-            "lua_ls",
-            "marksman",
-            "pyright",
-            "ruff",
-            "rust_analyzer",
-            "sourcekit",
-            "taplo",
-            "ts_ls",
-            "typos_lsp",
-            "yamlls",
-         }) do
-            lspconfig[server_name].setup({
-               capabilities = vim.deepcopy(client_capabilities),
-               settings = server_settings[server_name] or vim.empty_dict(),
-               silent = true,
-            })
-         end
+         })
       end,
    },
 
