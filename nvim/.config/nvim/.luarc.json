@@ -7,5 +7,5 @@
         "/usr/share/nvim/runtime/lua/?.lua",
         "/usr/share/nvim/runtime/lua/?/init.lua"
     ],
-    "diagnostics.globals": ["vim", "MiniIcons"]
+    "diagnostics.globals": ["vim", "MiniIcons", "Snacks"]
 }

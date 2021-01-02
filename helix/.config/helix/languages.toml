@@ -1,6 +1,3 @@
-[language-server]
-ruff = { command = "ruff-lsp" }
-
 [language-server.pyright.config]
 python.analysis.autoImportCompletions = false
 
