@@ -2,6 +2,6 @@
 # into two exec statements, since otherwise the session target may be started
 # before systemctl import-environment is complete, and services that require
 # certain variables will fail to run.
-exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK \
+exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP \
   && systemctl --user start sway-session.target
-exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK
+exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
