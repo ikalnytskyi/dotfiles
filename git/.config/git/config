@@ -16,6 +16,9 @@
     history = log --graph --decorate --oneline
     authors = shortlog -sne
 
+[init]
+    defaultBranch = master
+
 [push]
     default = simple
     gpgSign = if-asked
@@ -25,10 +28,15 @@
 
 [diff]
     noprefix = true
-    tool = nvim
-
-[difftool]
-    prompt = false
 
 [difftool "nvim"]
     cmd = nvim -d $LOCAL $REMOTE
+
+[mergetool "nvim"]
+    cmd = nvim -d $MERGED
+
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
