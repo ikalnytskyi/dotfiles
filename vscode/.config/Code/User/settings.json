@@ -8,15 +8,12 @@
         "string"
       ],
       "languageId": "python"
-    }
+    },
   ],
   "cSpell.language": "en,en-GB",
-  "cmake.configureOnOpen": true,
-  "diffEditor.codeLens": true,
   "diffEditor.renderSideBySide": false,
   "editor.autoClosingBrackets": "never",
   "editor.autoClosingQuotes": "never",
-  "editor.columnSelection": true,
   "editor.cursorSurroundingLines": 3,
   "editor.folding": false,
   "editor.fontFamily": "'JetBrains Mono', 'Symbols Nerd Font'",
@@ -37,37 +34,44 @@
     100,
     120
   ],
+  "editor.scrollBeyondLastLine": false,
   "editor.snippetSuggestions": "none",
   "editor.suggest.showSnippets": false,
   "editor.suggestSelection": "first",
-  "editor.trimAutoWhitespace": false,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.defaultDateStyle": "absolute",
+  "gitlens.keymap": "none",
+  "gitlens.statusBar.enabled": false,
   "files.associations": {
     "**/sway/config": "i3",
     "**/sway/config.*": "i3",
     "**/sway/config.d/*": "i3"
   },
+  "files.insertFinalNewline": true,
   "files.simpleDialog.enable": true,
+  "files.trimTrailingWhitespace": true,
   "python.formatting.provider": "black",
   "python.languageServer": "Jedi",
+  "terminal.external.linuxExec": "tilix",
+  "vim.handleKeys": {
+    "<C-b>": false,
+    "<C-w>": false,
+    "<C-t>": false,
+    "<C-f>": false,
+    "<C-h>": false,
+    "<C-n>": false,
+  },
   "vim.highlightedyank.enable": true,
   "vim.hlsearch": true,
   "vim.useSystemClipboard": true,
-  "vim.handleKeys": {
-    "<C-b>": false
-  },
   "window.dialogStyle": "custom",
   "window.menuBarVisibility": "hidden",
   "window.zoomLevel": 1,
   "workbench.activityBar.visible": false,
   "workbench.colorTheme": "Nord",
   "workbench.editor.highlightModifiedTabs": true,
-  "workbench.editorAssociations": [
-    {
-      "filenamePattern": "*.ipynb",
-      "viewType": "jupyter.notebook.ipynb"
-    }
-  ],
+  "workbench.editorAssociations": [],
   "workbench.enableExperiments": false,
   "workbench.preferredDarkColorTheme": "Nord",
-  "terminal.external.linuxExec": "tilix",
 }
