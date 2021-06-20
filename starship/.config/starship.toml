@@ -1,10 +1,16 @@
 [aws]
-symbol = " "
+symbol = "  "
 
 [conda]
 symbol = " "
 
-[docker]
+[dart]
+symbol = " "
+
+[directory]
+read_only = " "
+
+[docker_context]
 symbol = " "
 
 [elixir]
@@ -19,9 +25,6 @@ symbol = " "
 [golang]
 symbol = " "
 
-[haskell]
-symbol = " "
-
 [hg_branch]
 symbol = " "
 
@@ -31,30 +34,38 @@ symbol = " "
 [julia]
 symbol = " "
 
+[lua]
+symbol = " "
+
 [memory_usage]
 symbol = " "
+
+[nim]
+symbol = " "
 
 [nix_shell]
 symbol = " "
 
-[nodejs]
-symbol = " "
-
 [package]
 symbol = " "
+
+[perl]
+symbol = " "
 
 [php]
 symbol = " "
 
 [python]
 symbol = " "
-scan_for_pyfiles = false
 
 [ruby]
 symbol = " "
 
 [rust]
-symbol = " "
+symbol = " "
 
-[lua]
-symbol = " "
+[scala]
+symbol = " "
+
+[swift]
+symbol = "ﯣ "
