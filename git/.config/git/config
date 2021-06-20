@@ -10,8 +10,6 @@
     gpgsign = true
 
 [alias]
-    unstage = reset HEAD
-    discard-changes = checkout --
     branches = branch -vv
     history = log --graph --decorate --oneline
     authors = shortlog -sne
