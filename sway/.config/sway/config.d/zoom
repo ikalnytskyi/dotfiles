@@ -1,0 +1,3 @@
+for_window [app_id="zoom" title="^zoom$"] border none, floating enable
+for_window [app_id="zoom" title="^(Zoom|About)$"] border pixel, floating enable
+for_window [app_id="zoom" title="Settings"] floating enable, floating_minimum_size 960 x 700

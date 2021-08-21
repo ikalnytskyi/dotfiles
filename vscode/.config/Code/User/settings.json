@@ -71,7 +71,6 @@
   "workbench.activityBar.visible": false,
   "workbench.colorTheme": "Nord",
   "workbench.editor.highlightModifiedTabs": true,
-  "workbench.editorAssociations": [],
   "workbench.enableExperiments": false,
   "workbench.preferredDarkColorTheme": "Nord",
 }
