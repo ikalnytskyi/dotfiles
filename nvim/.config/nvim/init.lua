@@ -50,29 +50,30 @@ end)();
 --
 
 local LSP_KIND_SIGNS = {
-   Text             = "",
+   Text             = "",
    Method           = "",
    Function         = "",
    Constructor      = "",
-   Field            = "ﴲ",
-   Variable         = "",
-   Class            = "",
-   Interface        = "",
+   Field            = "ﰠ",
+   Variable         = "",
+   Class            = "ﴯ",
+   Interface        = "",
    Module           = "",
-   Property         = "",
+   Property         = "ﰠ",
    Unit             = "",
    Value            = "",
    Enum             = "",
-   EnumMember       = "",
    Keyword          = "",
-   Snippet          = "﬌",
+   Snippet          = "",
    Color            = "",
    File             = "",
    Reference        = "",
    Folder           = "",
+   EnumMember       = "",
    Constant         = "",
    Struct           = "ﳤ",
    Event            = "",
+   Operator         = "",
    TypeParameter    = "",
 }
 
@@ -120,7 +121,8 @@ vim.opt.shortmess:append("c")                      -- supress 'match X of Y' mes
 vim.opt.visualbell = true                          -- flash screen instead of beep
 vim.opt.title = true                               -- show useful info in window's title
 vim.opt.completeopt = {
-   "menuone",                                      -- show completions even if there's only a single item
+   "menu",                                         -- use popup menu to show completions
+   "menuone",                                      -- use popup menu even for a single completion
    "noselect",                                     -- do not auto select completions
    "noinsert",                                     -- do not auto insert completions
 }
@@ -173,7 +175,10 @@ set_vim_plug(
    function(plug)
       -- Fast asynchronous completion manager that works with omnicomplete,
       -- word completion and built-in LSP.
-      plug("hrsh7th/nvim-compe")
+      plug("hrsh7th/nvim-cmp")
+      plug("hrsh7th/cmp-buffer")
+      plug("hrsh7th/cmp-nvim-lsp")
+      plug("hrsh7th/cmp-path")
       plug("hrsh7th/vim-vsnip")
       plug("hrsh7th/vim-vsnip-integ")
 
@@ -189,7 +194,6 @@ set_vim_plug(
       plug("neovim/nvim-lspconfig")
       plug("nvim-lua/lsp-status.nvim")
       plug("nvim-lua/lsp_extensions.nvim")
-      plug("onsails/lspkind-nvim")
       plug("ray-x/lsp_signature.nvim")
 
       -- Tree-sitter is a parser generator tool and an incremental parsing
@@ -220,25 +224,48 @@ set_vim_plug(
       plug("chrisbra/csv.vim", {["for"] = {"csv"}})
    end,
    {
-      ["hrsh7th/nvim-compe"] = function()
-         require("compe").setup({
-            preselect = "disable",
-            source = {
-               path = true,
-               buffer = true,
-               nvim_lsp = true,
-               nvim_lua = true,
-               omni = {
-                  filetypes = {"css", "scss", "less", "stylus"},
-               },
+      ["hrsh7th/nvim-cmp"] = function()
+         local cmp = require("cmp")
+         cmp.setup({
+            completion = {
+               completeopt = vim.o.completeopt,
+            },
+
+            snippet = {
+               expand = function(args)
+                  vim.fn["vsnip#anonymous"](args.body)
+               end
+            },
+
+            confirmation = {
+               default_behavior = cmp.ConfirmBehavior.Insert,
+            },
+
+            mapping = {
+               ["<C-p>"] = cmp.mapping.prev_item(),
+               ["<C-n>"] = cmp.mapping.next_item(),
+               ["<C-e>"] = cmp.mapping.close(),
+               ["<C-y>"] = cmp.mapping.confirm(),
+               ["<CR>"] = cmp.mapping.confirm(),
+            },
+
+            formatting = {
+               format = function(entry, vim_item)
+                  vim_item.kind = string.format("%s %s", LSP_KIND_SIGNS[vim_item.kind], vim_item.kind)
+                  return vim_item
+               end
+            },
+
+            sources = {
+               { name = "nvim_lsp" },
+               { name = "buffer" },
+               { name = "path" },
             },
          })
+      end,
 
-         -- Apparently, 'ins-completion-menu' won't go away unless completion
-         -- keybindings go through either 'compe#confirm' or 'compe#close'.
-         set_keymap("i", "<cr>", "compe#confirm('<cr>')", {expr = true})
-         set_keymap("i", "<c-y>", "compe#confirm('<c-y>')", {expr = true})
-         set_keymap("i", "<c-e>", "compe#close('<c-e>')", {expr = true})
+      ["hrsh7th/cmp-nvim-lsp"] = function()
+         require("cmp_nvim_lsp").setup({})
       end,
 
       ["nvim-telescope/telescope.nvim"] = function()
@@ -311,14 +338,23 @@ set_vim_plug(
          end
 
          local capabilities = lsp_status.capabilities
-         capabilities.textDocument.completion.completionItem.snippetSupport = true
-         capabilities.textDocument.completion.completionItem.resolveSupport = {
-            properties = {
-               "documentation",
-               "detail",
-               "additionalTextEdits",
-           }
-         }
+         if pcall(require, "cmp_nvim_lsp") then
+            capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown" }
+            capabilities.textDocument.completion.completionItem.snippetSupport = true
+            capabilities.textDocument.completion.completionItem.preselectSupport = true
+            capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+            capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+            capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+            capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+            capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+            capabilities.textDocument.completion.completionItem.resolveSupport = {
+              properties = {
+                "documentation",
+                "detail",
+                "additionalTextEdits",
+              }
+            }
+         end
 
          local on_attach = function(client, bufnr)
             local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -447,10 +483,6 @@ set_vim_plug(
          end
       end,
 
-      ["onsails/lspkind-nvim"] = function()
-         require("lspkind").init({symbol_map = LSP_KIND_SIGNS})
-      end,
-
       ["ray-x/lsp_signature.nvim"] = function()
          -- The only reason this plugin is used is probably because it shows
          -- currently active parameter in signature. Should not be needed once
@@ -465,7 +497,6 @@ set_vim_plug(
 
       ["nvim-treesitter/nvim-treesitter"] = function()
          require("nvim-treesitter.configs").setup({
-            ensure_installed = "maintained",
             highlight = {enable = true, disable = {"rust"}},
             indent = {enable = true, disable = {"yaml", "python"}},
             playground = {enable = true},
