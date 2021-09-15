@@ -10,3 +10,5 @@
 !/vscode/.config/Code/User/keybindings.json
 !/vscode/.config/Code/User/settings.json
 !/vscode/.config/Code/User/snippets/
+
+/mc/.local/share/mc/history
