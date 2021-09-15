@@ -53,6 +53,7 @@ case-indicator {
 mode-switcher, message {
   border: 1px 0;
   border-color: @base06;
+  margin: 0 10px 0 30px;
 }
 
 button, textbox {
@@ -83,26 +84,32 @@ element {
   highlight: bold underline;
 }
 
-element normal {
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+element.normal.normal,
+element.normal.active,
+element.normal.urgent {
   background-color: transparent;
-}
-
-element selected {
-  background-color: @base06;
-}
-
-element alternate {
-  background-color: #3b425233; /*base00 + CC (19% opacity)*/
-}
-
-element normal normal, element alternate normal {
   text-color: @base07;
 }
 
-element selected normal {
+element.selected.normal,
+element.selected.active,
+element.selected.urgent {
+  background-color: @base06;
   text-color: @base00;
 }
 
-element normal active, element selected active, element alternate active {
+element.normal.active,
+element.selected.active,
+element.alternate.active {
   text-color: @base03;
+}
+
+element.alternate {
+  background-color: #3b425233; /*base00 + CC (19% opacity)*/
+  text-color: @base07;
 }
