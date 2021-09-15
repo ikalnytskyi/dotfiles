@@ -9,6 +9,7 @@
     "sway/window"
   ],
   "modules-right": [
+    "tray",
     "pulseaudio#audio",
     "pulseaudio#mic",
     "idle_inhibitor",
@@ -67,6 +68,9 @@
   },
   "sway/language": {
     "format": "{} "
+  },
+  "tray": {
+    "spacing": 10
   },
   "battery": {
     "states": {

@@ -10,7 +10,7 @@ window {
   color: #d8dee9;
 }
 
-#mode, #pulseaudio, #idle_inhibitor, #network, #custom-vpn, #language, #battery, #clock {
+#mode, #pulseaudio, #idle_inhibitor, #network, #custom-vpn, #language, #battery, #clock, #tray {
   padding: 0 10px;
   margin: 0 5px;
 }
@@ -96,4 +96,8 @@ window {
 #battery.critical:not(.charging) {
   background-color: #bf616a;
   animation-duration: 0.5s;
+}
+
+#tray {
+  background-color: #d8dee9;
 }
