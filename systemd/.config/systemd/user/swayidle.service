@@ -5,14 +5,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/swayidle -w \
-    timeout 280 'brightnessctl --save && brightnessctl set 20%' \
-         resume 'brightnessctl --restore' \
-    timeout 300 'swaylock -f' \
-    timeout 320 'swaymsg "output * dpms off"' \
-         resume 'swaymsg "output * dpms on"' \
-   before-sleep 'swaylock -f' \
-           lock 'swaylock -f'
+ExecStart=/usr/bin/swayidle
 
 [Install]
 WantedBy=sway-session.target
