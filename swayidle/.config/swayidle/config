@@ -1,0 +1,15 @@
+# Use swaylock as the screen locker of choice whenever logind session issues
+# the lock signal.
+lock "swaylock -f"
+
+# Lock the session whenever the system goes to sleep. This is super important
+# in case of laptops, since whenever you close the lid you want the session to
+# be locked.
+before-sleep "loginctl lock-session"
+
+# When the system idles, it's expected that the screen goes dim and eventually
+# turns off for the sake of power consumption, and the session is locked for
+# the sake of security.
+timeout 280 "brightnessctl --save && brightnessctl set 20%" resume "brightnessctl --restore"
+timeout 300 "loginctl lock-session"
+timeout 320 "swaymsg 'output * dpms off'" resume "swaymsg 'output * dpms on'"
