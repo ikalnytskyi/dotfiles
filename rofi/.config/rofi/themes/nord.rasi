@@ -10,7 +10,6 @@
 
   spacing: 0;
   background-color: transparent;
-  font: "JetBrains Mono 12";
 }
 
 window {
@@ -33,17 +32,22 @@ inputbar {
 
 prompt {
   text-color: @base06;
+  vertical-align: 0.7;
 }
 
 textbox-prompt-colon {
   expand: false;
-  str: ":";
+  str: "";
   margin: 0 1ch 0 0;
   text-color: @base06;
 }
 
 entry {
   text-color: @base07;
+}
+
+textbox-prompt-colon, entry, case-indicator {
+  vertical-align: 0.5;
 }
 
 case-indicator {
@@ -60,6 +64,8 @@ button, textbox {
   background-color: @base04;
   text-color: @base00;
   padding: 5px;
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
 }
 
 button selected {
@@ -84,9 +90,18 @@ element {
   highlight: bold underline;
 }
 
+element-icon {
+  margin: 0px 1ch 0px 0px;
+  position: center;
+}
+
 element-text {
-    background-color: inherit;
-    text-color:       inherit;
+  background-color: inherit;
+  text-color:       inherit;
+}
+
+element-text, element-icon {
+  vertical-align: 0.5;
 }
 
 element.normal.normal,

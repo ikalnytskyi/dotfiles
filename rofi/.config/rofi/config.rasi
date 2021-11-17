@@ -1,4 +1,13 @@
 configuration {
-	modi: "drun,run";
-	theme: "nord";
+  font:             "JetBrains Mono 12";
+  modi:             "drun,run,ssh";
+  show-icons:       true;
+
+  display-window:   "";
+  display-run:      "";
+  display-ssh:      "";
+  display-drun:     "";
+  display-combi:    "";
 }
+
+@theme "nord"
