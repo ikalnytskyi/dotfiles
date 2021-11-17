@@ -1,4 +1,6 @@
 image=`xdg-user-dir PICTURES`/wallpapers/current
+font=JetBrains Mono
+font-size=14
 indicator-radius=75
 indicator-thickness=20
 line-uses-inside
@@ -19,4 +21,8 @@ text-clear-color=#ffffff00
 text-ver-color=#ffffff00
 text-wrong-color=#ffffff00
 text-caps-lock-colo=#a2aa5ccc
+layout-bg-color=#2e3440dd
+layout-text-color=#d8dee9dd
 show-keyboard-layout
+ignore-empty-password
+disable-caps-lock-text
