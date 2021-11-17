@@ -94,7 +94,7 @@ local LSP_SYMBOL_KIND_ICONS = {
    Constant         = LSP_COMPLETION_ITEM_KIND_ICONS.Constant,
    String           = "",
    Number           = "#",
-   Boolean          = "",
+   Boolean          = "﨡",
    Array            = "",
    Object           = "",
    Key              = "",
@@ -152,7 +152,7 @@ local function lsp_progress_status()
          end
 
          if not vim.tbl_isempty(status) then
-            return vim.trim(" " .. table.concat(status, " - "))
+            return vim.trim(table.concat(status, " - "))
          end
       end
    end
@@ -167,10 +167,9 @@ if vim.env.COLORTERM == "truecolor" or vim.env.COLORTERM == "24bit" then
    vim.opt.termguicolors = true
 end
 
-vim.opt.autochdir = true                           -- change cwd to the directory containing the file
 vim.opt.ignorecase = true                          -- do case insensitive search
 vim.opt.smartcase = true                           -- match uppercase in the search string
-vim.opt.mouse = "a"                                -- enable mouse support in all Vim modes
+vim.opt.mouse = "n"                                -- enable mouse support in normal mode only
 vim.opt.showmode = false                           -- do not show Vim mode, lualine shows it
 vim.opt.timeout = false                            -- no timeout on keybindings (aka mappings)
 vim.opt.scrolloff = 3                              -- start scrolling 3 lines before the border
@@ -203,12 +202,14 @@ vim.opt.number = true                              -- show line numbers
 vim.opt.signcolumn = "yes"                         -- always show sign column
 vim.opt.expandtab = true                           -- insert spaces instead of tabs
 vim.opt.formatoptions:append("r")                  -- auto insert comment leader on <enter>
-vim.opt.formatoptions:remove("o")                  -- do not auto insert comment leader on o/O
+vim.opt.formatoptions:append("n")                  -- respect numbered lists
+vim.opt.formatoptions:remove("t")                  -- do not auto-wrap text (code)
+vim.opt.joinspaces = false                         -- use just one space when joining lines via gq
 vim.opt.swapfile = false                           -- do not create swap files
 vim.opt.shiftwidth = 4                             -- indent lines by X spaces
 vim.opt.softtabstop = 4                            -- insert X spaces instead of a tab character
-vim.opt.spelllang = {"en", "ru"}                   -- languages to spellcheck
-vim.opt.tabstop = 8                                -- use X characters indentation for tabs
+vim.opt.spelllang = {"en", "uk"}                   -- languages to spellcheck
+vim.opt.tabstop = 4                                -- use X characters indentation for tabs
 vim.opt.undofile = true                            -- persistent undo (survives Vim restart)
 
 
@@ -264,9 +265,9 @@ set_vim_plug(
       plug("arcticicestudio/nord-vim", {branch = "develop"})
       plug("morhetz/gruvbox")
 
-      plug("hoob3rt/lualine.nvim")
+      plug("nvim-lualine/lualine.nvim")
+      plug("ahmedkhalf/project.nvim")
       plug("tpope/vim-sleuth")
-      plug("preservim/nerdtree")
       plug("mg979/vim-visual-multi")
       plug("simrat39/symbols-outline.nvim")
       plug("tpope/vim-fugitive")
@@ -289,11 +290,17 @@ set_vim_plug(
                completeopt = vim.o.completeopt,
             },
 
+            documentation = {
+               border = {"╭", "─", "╮", "│", "╯", "─", "╰", "│"}
+            },
+
             snippet = {
                expand = function(args)
                   vim.fn["vsnip#anonymous"](args.body)
                end
             },
+
+            preselect = cmp.PreselectMode.None,
 
             mapping = {
                ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -319,8 +326,8 @@ set_vim_plug(
 
             sources = {
                { name = "nvim_lsp" },
-               { name = "buffer" },
                { name = "path" },
+               { name = "buffer" , keyword_length = 3 },
             },
          })
       end,
@@ -344,31 +351,17 @@ set_vim_plug(
             }
          })
          telescope.load_extension("fzy_native")
+         telescope.load_extension("projects")
 
-         -- This opens telescope's grepper but with CWD pointing to a git root.
-         -- The idea is to ensure no matter which directory I'm in, the grep
-         -- will search throughout the whole project.
-         function _G.telescope_git_grep()
-            local cwd = vim.loop.cwd()
-            local root, exitcode, _ = telescope_utils.get_os_command_output(
-               {"git", "rev-parse", "--show-toplevel"}, cwd
-            )
-            if exitcode == 0 then cwd = root[1] end
-            return telescope_builtin.live_grep({cwd = cwd})
+         function _G.telescope_file_browser_current_file()
+            local cwd = vim.fn.expand("%:p:h")
+            return telescope_builtin.file_browser({cwd = cwd})
          end
 
-         function _G.telescope_git_grep_string()
-            local cwd = vim.loop.cwd()
-            local root, exitcode, _ = telescope_utils.get_os_command_output(
-               {"git", "rev-parse", "--show-toplevel"}, cwd
-            )
-            if exitcode == 0 then cwd = root[1] end
-            return telescope_builtin.grep_string({cwd = cwd})
-         end
-
+         set_keymap("n", "<leader>1", "<cmd>call v:lua.telescope_file_browser_current_file()<cr>")
          set_keymap("n", "<c-p>", "<cmd>Telescope git_files<cr>")
-         set_keymap("n", "<leader>g", "<cmd>call v:lua.telescope_git_grep()<cr>")
-         set_keymap("n", "<leader>G", "<cmd>call v:lua.telescope_git_grep_string()<cr>")
+         set_keymap("n", "<leader>g", "<cmd>Telescope live_grep<cr>")
+         set_keymap("n", "<leader>G", "<cmd>Telescope grep_string<cr>")
          set_keymap("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
          set_keymap("n", "<leader>?", "<cmd>Telescope resume<cr>")
       end,
@@ -499,6 +492,7 @@ set_vim_plug(
          lspconfig.bashls.setup({on_attach = on_attach, capabilities = capabilities})
          lspconfig.denols.setup({on_attach = on_attach, capabilities = capabilities})
          lspconfig.tsserver.setup({on_attach = on_attach, capabilities = capabilities})
+         lspconfig.yamlls.setup({on_attach = on_attach, capabilities = capabilities})
          lspconfig.sumneko_lua.setup({
             cmd = {"lua-language-server"},
             settings = {
@@ -507,7 +501,7 @@ set_vim_plug(
                      version = "LuaJIT",
                   },
                   diagnostics = {
-                     globals = {'vim'},
+                     globals = {"vim"},
                   },
                   workspace = {
                     library = vim.api.nvim_get_runtime_file("", true),
@@ -520,6 +514,22 @@ set_vim_plug(
             on_attach = on_attach,
             capabilities = capabilities,
          })
+         lspconfig.cssls.setup({
+            cmd = {"vscode-css-languageserver", "--stdio"},
+            on_attach = on_attach,
+            capabilities = capabilities,
+         })
+         lspconfig.html.setup({
+            cmd = {"vscode-html-languageserver", "--stdio"},
+            on_attach = on_attach,
+            capabilities = capabilities,
+         })
+         lspconfig.jsonls.setup({
+            cmd = {"vscode-json-languageserver", "--stdio"},
+            on_attach = on_attach,
+            capabilities = capabilities,
+         })
+
       end,
 
       ["nvim-lua/lsp_extensions.nvim"] = function()
@@ -622,6 +632,9 @@ set_vim_plug(
                "hi default link yamlTSType Annotation",
                "hi default link yamlTSBoolean TSFunction",
 
+               -- nvim-cmp gaps
+               "hi CmpItemAbbrMatch gui=bold",
+
                -- Emphasize matched parts.
                "hi TelescopeMatching guifg=#88c0d0 guibg=#4c566a guisp=none",
 
@@ -654,59 +667,54 @@ set_vim_plug(
          vim.api.nvim_command("colorscheme nord")
       end,
 
-      ["hoob3rt/lualine.nvim"] = function()
+      ["nvim-lualine/lualine.nvim"] = function()
          local gps = require("nvim-gps")
 
          require("lualine").setup({
-            options = {
-               theme = vim.g.colors_name,
-            },
             sections = {
+               lualine_a = {
+                  { "mode", fmt = function(str) return str:sub(1, 1) end },
+               },
+               lualine_b = {
+                  { "branch" },
+                  { "diff" },
+                  { "diagnostics" },
+               },
+               lualine_c = {
+                  { "filename", path = 1 }
+               },
                lualine_x = {
-                  function()
-                     return lsp_progress_status()
-                  end,
-                  { gps.get_location, condition = gps.is_available },
-                  {"diagnostics", sources = {"nvim_lsp"}},
-                  {"filetype"},
                   {
-                     -- Nowadays UTF-8 is the most widespread text encoding.
-                     -- Since this is something most users are dealing with
-                     -- 99.9% of the time, there's no need to show unless it's
-                     -- different.
-                     "encoding", condition = function()
+                     function() return lsp_progress_status() or "" end,
+                     icon = "",
+                  },
+                  {
+                     gps.get_location,
+                     cond = gps.is_available,
+                     color = {fg = vim.g.terminal_color_14},
+                     icon = "",
+                  },
+                  {
+                     "encoding",
+                     cond = function()
+                        -- UTF-8 is the de-facto standard encoding and is what
+                        -- most users expect by default. There's no need to
+                        -- show encoding unless it's something else.
                         local fenc = vim.opt.fenc:get()
                         return string.len(fenc) > 0 and string.lower(fenc) ~= "utf-8"
                      end,
                   },
-                  {"fileformat"},
+                  { "filetype" },
+                  { "fileformat" },
                },
+               lualine_y = { "progress" },
+               lualine_z = { "location" }
             },
          })
       end,
 
-      ["preservim/nerdtree"] = function()
-         vim.g.NERDTreeQuitOnOpen = 1
-         vim.g.NERDTreeShowHidden = 1
-         vim.g.NERDTreeMinimalUI = 1
-
-         vim.api.nvim_exec([[
-            function! MyNERDTreeToggleVCS()
-               let path = expand('%:p')
-
-               execute ':NERDTreeToggleVCS'
-
-               " Find and show currently open file in the file explorer. It's the primary
-               " reason why this home grown function exists in the first place.
-               if exists('g:NERDTree') && g:NERDTree.IsOpen() && filereadable(path)
-                  execute ':NERDTreeFind' . path
-               endif
-            endfunction
-
-            command! -n=? -complete=dir -bar MyNERDTreeToggleVCS :call MyNERDTreeToggleVCS()
-         ]], false)
-
-         set_keymap("n", "<leader>1", "<cmd>MyNERDTreeToggleVCS<cr>")
+      ["ahmedkhalf/project.nvim"] = function ()
+         require("project_nvim").setup()
       end,
 
       ["simrat39/symbols-outline.nvim"] = function()
@@ -724,7 +732,7 @@ set_vim_plug(
 
          vim.g.symbols_outline = {
             auto_preview = false,
-            highlight_hovered_item = true,
+            highlight_hovered_item = false,
             symbols = icons_to_symbols(LSP_SYMBOL_KIND_ICONS),
          }
 
@@ -769,6 +777,7 @@ vim.api.nvim_exec([[
       autocmd BufReadPost .babelrc setlocal filetype=json
       autocmd BufReadPost .eslintrc setlocal filetype=json
       autocmd BufReadPost *.fish setlocal filetype=fish
+      autocmd BufReadPost *.rasi setlocal filetype=css
    augroup END
 
    augroup PYTHON
