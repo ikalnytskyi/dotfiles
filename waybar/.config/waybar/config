@@ -14,8 +14,9 @@
     "pulseaudio#mic",
     "idle_inhibitor",
     "sway/language",
-    "network",
-    "custom/vpn",
+    // "network#wired",
+    "network#wireless",
+    "network#vpn",
     "battery",
     "clock"
   ],
@@ -23,11 +24,11 @@
     "disable-scroll": true
   },
   "sway/window": {
-    "max-length": 72
+    "max-length": 50
   },
   "pulseaudio#audio": {
-    "format": "{volume}% {icon}",
-    "format-bluetooth": "{volume}% {icon} ",
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
     "format-muted": "ﱝ",
     "format-icons": {
       "headphones": "",
@@ -43,7 +44,7 @@
   },
   "pulseaudio#mic": {
     "format": "{format_source}",
-    "format-source": "{volume}% ",
+    "format-source": " {volume}%",
     "format-source-muted": "",
     "on-click": "gnome-control-center sound",
     "max-length": 100
@@ -51,23 +52,34 @@
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
-      "activated": "",
-      "deactivated": ""
+      "activated": "鈴",
+      "deactivated": "零"
     }
   },
-  "network": {
-    "format-wifi": "{essid} ",
-    "format-disconnected": "{ifname} "
+  "network#wired": {
+    "interface": "e*",
+    "format-ethernet": "",
+    "format-linked": "",
+    "format-disconnected": "",
+    "tooltip-format-ethernet": "{ipaddr}"
   },
-  "custom/vpn": {
-    "format": "VPN ",
-    "exec": "echo '{\"class\": \"connected\"}'",
-    "exec-if": "test -d /proc/sys/net/ipv4/conf/tun0",
-    "return-type": "json",
-    "interval": 5
+  "network#wireless": {
+    "interface": "w*",
+    "format-wifi": " {essid}",
+    "format-disconnected": "",
+    "tooltip-format-wifi": "{essid} - {ipaddr}"
+  },
+  "network#vpn": {
+    "interface": "gpd*",
+    "format": " VPN",
+    "format-disconnected": "",
+    "tooltip-format": "{ipaddr} ⇵ {bandwidthUpBits} {bandwidthDownBits}",
+    "tooltip-format-disconnected": "",
+    "on-click": "globalprotect launch-ui"
   },
   "sway/language": {
-    "format": "{} "
+    "format": " {short}",
+    "tooltip-format": "{long}"
   },
   "tray": {
     "spacing": 10
@@ -84,8 +96,8 @@
     "format-icons": ["", "", "", "", ""]
   },
   "clock": {
-    "format": "{:%b %d, %H:%M} "
+    "format": " {:%b %d, %H:%M}"
   }
 }
 
-// vim: set ft=json:
+// vim: set ft=jsonc:
