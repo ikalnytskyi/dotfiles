@@ -1,5 +1,5 @@
 * {
-  base00: #3b4252;
+  base00: #2e3440;
   base01: #bf616a;
   base02: #a3be8c;
   base03: #ebcb8b;
@@ -13,8 +13,7 @@
 }
 
 window {
-  transparency: "real";
-  background-color: #3b4252f0; /*base00 + CC (80% opacity)*/
+  background-color: #2e3440f8; /*base00 + opacity)*/
 }
 
 mainbox {
@@ -125,6 +124,6 @@ element.alternate.active {
 }
 
 element.alternate {
-  background-color: #3b425233; /*base00 + CC (19% opacity)*/
+  background-color: #2e344080; /*base00 + opacity)*/
   text-color: @base07;
 }
