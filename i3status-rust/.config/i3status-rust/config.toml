@@ -1,0 +1,80 @@
+[theme]
+name = "nord-dark"
+
+[theme.overrides]
+idle_bg = "#2e3440fa"
+idle_fg = "#d8dee9"
+separator = " "
+separator_bg = "#2e3440fa"
+separator_fg = "#d8dee9"
+
+[icons]
+name = "awesome"
+
+[[block]]
+block = "focused_window"
+max_width = 50
+show_marks = "visible"
+
+[[block]]
+block = "sound"
+step_width = 3
+device_kind = "sink"
+on_click = "gnome-control-center sound"
+
+[block.theme_overrides]
+idle_bg = "#8fbcbb"
+idle_fg = "#2e3440"
+
+[[block]]
+block = "sound"
+step_width = 3
+device_kind = "source"
+on_click = "gnome-control-center sound"
+
+[block.theme_overrides]
+idle_bg = "#8fbcbb"
+idle_fg = "#2e3440"
+
+[[block]]
+block = "keyboard_layout"
+driver = "sway"
+format = " {layout}"
+
+[block.theme_overrides]
+idle_bg = "#b48ead"
+idle_fg = "#2e3440"
+
+[block.mappings]
+"English (US)" = "en"
+"Ukrainian (N/A)" = "ua"
+
+[[block]]
+block = "net"
+device = "wlan0"
+format = "{ssid}"
+
+[block.theme_overrides]
+idle_bg = "#a3be86"
+idle_fg = "#2e3440"
+
+[[block]]
+block = "net"
+device = "gpd0"
+format = "VPN"
+hide_missing = true
+
+[block.theme_overrides]
+idle_bg = "#3b4252"
+
+[[block]]
+block = "battery"
+driver = "sysfs"
+format = "{percentage}% {time}"
+allow_missing = true
+hide_missing = true
+
+[[block]]
+block = "time"
+interval = 60
+format = "%b %d, %H:%M"
