@@ -6,7 +6,7 @@
 
   set $lock loginctl lock-session
   set $appmenu rofi -show drun -drun-show-actions -run-command "swaymsg exec -- {cmd}"
-  set $term tilix
+  set $term alacritty
 
 
 ### Keybindings ###
@@ -142,13 +142,31 @@
     set $nord14 #a3be8c
     set $nord15 #b48ead
 
-  #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-  client.focused          $nord11     $nord00     $nord04     $nord11     $nord11
-  client.focused_inactive $nord00     $nord00     $nord04     $nord00     $nord00
-  client.unfocused        $nord09     $nord01     $nord04     $nord09     $nord09
-  client.urgent           $nord11     $nord12     $nord06     $nord11     $nord11
+  bar {
+    position top
+    height 35
+    workspace_min_width 30
+    tray_output none
+    status_command i3status-rs
+    status_padding 0
+    status_edge_padding 0
+    colors {
+      background $nord00
+      focused_workspace $nord01 $nord01 $nord04
+      active_workspace $nord00 $nord00 $nord04
+      inactive_workspace $nord00 $nord00 $nord04
+      urgent_workspace $nord11 $nord11 $nord06
+      binding_mode $nord06 $nord06 $nord00
+    }
+  }
 
-  font JetBrains Mono Regular 10
+  #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
+  client.focused          $nord15     $nord00     $nord04     $nord15     $nord15
+  client.focused_inactive $nord01     $nord01     $nord04     $nord00     $nord01
+  client.unfocused        $nord01     $nord01     $nord04     $nord00     $nord01
+  client.urgent           $nord11     $nord11     $nord06     $nord11     $nord11
+
+  font pango:JetBrains Mono 10
   gaps inner 10
   gaps outer 0
   default_border pixel 4
@@ -157,23 +175,14 @@
   titlebar_padding 8
 
   for_window [app_id=".*"] border csd
-  for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, sticky enable, border none
-  for_window [app_id="firefox" title="Sharing Indicator"] floating enable, border none, move position 100 -100
   for_window [shell="xwayland"] title_format "X11 :: %title"
-
-
-### Idle inhibitors ###
-
-  for_window [app_id="firefox" title="Picture-in-Picture"] inhibit_idle visible
-  for_window [app_id="firefox" title="Sharing Indicator"] inhibit_idle open
-  for_window [app_id="firefox"] inhibit_idle fullscreen
 
 
 ### Input ###
 
   input type:keyboard {
     xkb_layout us,ua
-    xkb_options grp:caps_toggle,compose:rwin-altgr,lv3:ralt_switch
+    xkb_options grp:caps_toggle,compose:rctrl-altgr,lv3:ralt_switch
   }
 
   input type:touchpad {
