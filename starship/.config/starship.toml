@@ -1,38 +1,71 @@
 [aws]
-symbol = "  "
+symbol = " "
+
+[cmake]
+symbol = "△ "
+
+[cobol]
+symbol = "⚙️ "
 
 [conda]
-symbol = " "
+symbol = " "
+
+[crystal]
+symbol = "🔮 "
 
 [dart]
 symbol = " "
 
+[deno]
+symbol = "🦕 "
+
 [directory]
-read_only = " "
+read_only = " "
 
 [docker_context]
 symbol = " "
 
+[dotnet]
+symbol = " "
+
 [elixir]
-symbol = " "
+symbol = " "
 
 [elm]
 symbol = " "
 
+[erlang]
+symbol = " "
+
+[gcloud]
+symbol = " "
+
 [git_branch]
-symbol = " "
+symbol = " "
+
+[git_commit]
+tag_symbol = "  "
 
 [golang]
-symbol = " "
+symbol = "ﳑ "
+
+[helm]
+symbol = "⎈ "
 
 [hg_branch]
-symbol = " "
+symbol = " "
 
 [java]
-symbol = " "
+symbol = " "
 
 [julia]
 symbol = " "
+
+[kotlin]
+symbol = " "
+
+[kubernetes]
+symbol = "☸ "
 
 [lua]
 symbol = " "
@@ -44,7 +77,16 @@ symbol = " "
 symbol = " "
 
 [nix_shell]
-symbol = " "
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[ocaml]
+symbol = "🐫 "
+
+[openstack]
+symbol = "☁️  "
 
 [package]
 symbol = " "
@@ -53,13 +95,25 @@ symbol = " "
 symbol = " "
 
 [php]
-symbol = " "
+symbol = " "
+
+[pulumi]
+symbol = " "
+
+[purescript]
+symbol = "<=> "
 
 [python]
-symbol = " "
+symbol = " "
+
+[red]
+symbol = "🔺 "
+
+[rlang]
+symbol = "📐 "
 
 [ruby]
-symbol = " "
+symbol = " "
 
 [rust]
 symbol = " "
@@ -67,5 +121,26 @@ symbol = " "
 [scala]
 symbol = " "
 
+[shlvl]
+symbol = "↕️  "
+
+[singularity]
+symbol = ""
+
 [swift]
-symbol = "ﯣ "
+symbol = " "
+
+[terraform]
+symbol = "行 "
+
+[vagrant]
+symbol = "⍱ "
+
+[vcsh]
+symbol = ""
+
+[vlang]
+symbol = "V "
+
+[zig]
+symbol = "↯ "
