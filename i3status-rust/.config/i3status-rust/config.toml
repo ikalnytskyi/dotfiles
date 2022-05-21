@@ -13,7 +13,7 @@ name = "awesome"
 
 [[block]]
 block = "focused_window"
-max_width = 50
+max_width = 70
 show_marks = "visible"
 
 [[block]]
@@ -33,8 +33,10 @@ device_kind = "source"
 on_click = "gnome-control-center sound"
 
 [block.theme_overrides]
-idle_bg = "#8fbcbb"
-idle_fg = "#2e3440"
+warning_bg = "#8fbcbb"  # muted is OK
+warning_fg = "#2e3440"  # muted is OK
+idle_bg = "#ebcb8b"     # unmuted is warning
+idle_fg = "#2e3440"     # unmuted is warning
 
 [[block]]
 block = "keyboard_layout"
@@ -69,10 +71,17 @@ idle_bg = "#3b4252"
 
 [[block]]
 block = "battery"
+device = "/sys/class/power_supply/BAT0"
 driver = "sysfs"
-format = "{percentage}% {time}"
+format = "{percentage}"
 allow_missing = true
 hide_missing = true
+
+[[block]]
+block = "notify"
+
+[block.theme_overrides]
+idle_bg = "#3b4252"
 
 [[block]]
 block = "time"
