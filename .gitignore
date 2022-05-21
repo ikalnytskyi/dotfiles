@@ -3,8 +3,10 @@
 /fish/**/config.local.fish
 
 /mc/.local/share/mc/history
+/mc/.local/share/mc/filepos
 
 /nvim/**/init.local.lua
+/nvim/.config/nvim/spell/
 
 /systemd/.config/systemd/user/*.target.wants/
 
