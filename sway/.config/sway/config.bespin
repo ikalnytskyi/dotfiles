@@ -1,8 +1,6 @@
 ### Output ###
 
-  output eDP-1 pos 0 1200
-  output HDMI-A-1 pos 1920 0
-  output DP-2 pos 0 0
+  output eDP-1 scale 1.2
 
 
 ### Keybindings ###

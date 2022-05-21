@@ -21,11 +21,11 @@
 
     # sway
     $mod+Shift+e exec swaynag -t warning -m "Do you really want to exit Sway?" \
-      -b "Yes!" "swaymsg exit" \
+      -Z "Yes!" "swaymsg exit" \
       -s "No"
     $mod+Shift+p exec swaynag -t warning -m "Do you really want to power off?" \
-      -b "Poweroff" "systemctl poweroff" \
-      -b "Reboot" "systemctl reboot" \
+      -Z "Poweroff" "systemctl poweroff" \
+      -Z "Reboot" "systemctl reboot" \
       -s "No"
 
     # containers
@@ -162,8 +162,8 @@
 
   #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
   client.focused          $nord15     $nord00     $nord04     $nord15     $nord15
-  client.focused_inactive $nord01     $nord01     $nord04     $nord00     $nord01
-  client.unfocused        $nord01     $nord01     $nord04     $nord00     $nord01
+  client.focused_inactive $nord01     $nord01     $nord04     $nord01     $nord01
+  client.unfocused        $nord01     $nord01     $nord04     $nord01     $nord01
   client.urgent           $nord11     $nord11     $nord06     $nord11     $nord11
 
   font pango:JetBrains Mono 10
@@ -189,6 +189,7 @@
     dwt enabled                 # disable a touchpad while typing
     tap enabled                 # tap to click
     natural_scroll enabled      # natural, not reversed scroll
+    scroll_factor 0.5
   }
 
 
