@@ -8,3 +8,6 @@ overlay_text_alpha = #dd
 
 [binds]
 <Escape> = quit
+<Shift+X> = exec rm "$imv_current_file"; close
+<Ctrl+w> = exec swaymsg output "*" bg "$imv_current_file" fill
+<Ctrl+Shift+W> = exec ln -sf "$imv_current_file" "`xdg-user-dir PICTURES`/wallpapers/current"; exec swaymsg output "*" bg "$imv_current_file" fill
