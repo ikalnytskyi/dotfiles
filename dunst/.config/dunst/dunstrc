@@ -1,0 +1,30 @@
+[global]
+    font = JetBrains Mono 10
+    follow = mouse
+    offset = 10x10
+    notification_limit = 3
+
+[urgency_low]
+    msg_urgency = low
+    background = "#3B4252DD"
+    foreground = "#ECEFF4"
+    frame_color = "#4C566ADD"
+    timeout = 4
+
+[urgency_normal]
+    msg_urgency = normal
+    background = "#3B4252DD"
+    foreground = "#ECEFF4"
+    frame_color = "#4C566ADD"
+    timeout = 4
+
+[urgency_critical]
+    msg_urgency = critical
+    background = "#3B4252DD"
+    foreground = "#ECEFF4"
+    frame_color = "#BF616ADD"
+
+[progressbar]
+    highlight = "#88C0D0DD"
+
+# vim: ft=cfg
