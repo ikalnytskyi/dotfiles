@@ -1,40 +1,56 @@
-[user]
-    name = Ihor Kalnytskyi
-    email = ihor@kalnytskyi.com
-    signingkey = 02AD91C23D5149F5F24B5D5AECE7D40B49A5F831
+[alias]
+	authors = shortlog -sne
+	branches = branch -vv
+	history = log --graph --decorate --oneline
+	uncommit = reset --soft HEAD^
 
 [color]
-    ui = true
+	ui = true
 
-[tag]
-    gpgsign = true
-
-[alias]
-    branches = branch -vv
-    history = log --graph --decorate --oneline
-    authors = shortlog -sne
-
-[init]
-    defaultBranch = master
-
-[push]
-    default = simple
-    gpgSign = if-asked
-
-[pull]
-    ff = only
+[commit]
+	gpgSign = true
 
 [diff]
-    noprefix = true
+	noprefix = true
+	relative = true
+	suppressBlankEmpty = true
+	tool = nvimdiff
+	guitool = meld
+	algorithm = minimal
 
-[difftool "nvim"]
-    cmd = nvim -d $LOCAL $REMOTE
+[difftool]
+	prompt = false
 
-[mergetool "nvim"]
-    cmd = nvim -d $MERGED
+[difftool "difft"]
+	cmd = difft "$LOCAL" "$REMOTE"
 
-[difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+[grep]
+	lineNumber = true
 
-[mergetool "vscode"]
-    cmd = code --wait $MERGED
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	defaultKeyCommand = sh -c 'echo key::$(ssh-add -L)'
+	allowedSignersFile = ~/.ssh/authorized_signatures
+	revocationFile = ~/.ssh/revoked_signatures
+
+[init]
+	defaultBranch = master
+
+[merge]
+	tool = nvimdiff
+	guitool = meld
+
+[pull]
+	ff = only
+
+[push]
+	gpgSign = if-asked
+
+[tag]
+	gpgSign = true
+
+[user]
+	name = Ihor Kalnytskyi
+	email = ihor@kalnytskyi.com
