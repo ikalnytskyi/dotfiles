@@ -1,0 +1,31 @@
+theme = "nord"
+
+[editor]
+rulers = [80, 100]
+
+[editor.lsp]
+display-messages = true
+
+[editor.indent-guides]
+render = true
+
+[editor.statusline]
+left = [
+  "mode",
+  "file-name",
+]
+right = [
+  "spinner",
+  "diagnostics",
+  "selections",
+  "file-encoding",
+  "file-line-ending",
+  "file-type",
+  "position-percentage",
+  "position",
+]
+
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+newline = "none"
