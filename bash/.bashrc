@@ -2,22 +2,15 @@
 # GENERAL SETTINGS
 #
 
-# If not running interactively, don't do anything.
 [[ $- != *i* ]] && return
 
-# Preserve the current working directory in new tabs in VTE based terminal
-# emulators.
-if [ -x /etc/profile.d/vte.sh ]; then
-  . /etc/profile.d/vte.sh
-fi
+HISTCONTROL=ignoreboth
+HISTSIZE=1000
+HISTFILESIZE=2000
 
-# Enable color support in some programs by default (Linux only).
-if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" \
-       || eval "$(dircolors -b)"
-fi
+shopt -s histappend
+shopt -s checkwinsize
 
-# Enable Bash auto completion.
 if [ -f /usr/share/bash-completion/bash_completion ]; then
   . /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
@@ -26,17 +19,6 @@ elif which brew >/dev/null; then
   if [ -f "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]; then
     . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
   fi
-fi
-_pip_completion()
-{
-  COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                 COMP_CWORD=$COMP_CWORD \
-                 PIP_AUTO_COMPLETE=1 $1 ) )
-}
-complete -o default -F _pip_completion pip
-
-if which invoke &>/dev/null; then
-  source <(invoke --print-completion-script bash)
 fi
 
 #
@@ -47,7 +29,6 @@ alias runhttp='python3 -m http.server'
 alias tree='tree --dirsfirst -C'
 
 if [ `uname` == 'Linux' ]; then
-  # pretty colorful output of popular tools
   alias ls='ls --color=auto --group-directories-first'
   alias dir='dir --color=auto'
   alias grep='grep --color=auto'
@@ -81,17 +62,15 @@ if [ `uname` == 'Darwin' ]; then
   export PATH=/usr/local/sbin:$PATH
 fi
 
-export PATH=~/.local/bin:$PATH      # scripts installed by pip (python)
-export PATH=~/.cargo/bin:$PATH      # binaries installed by cargo (rust)
-export PATH=~/.go/bin:$PATH         # binaries built by go (golang)
+export PATH=~/.local/bin:$PATH      # executables installed by pip/pipx
+export PATH=~/.cargo/bin:$PATH      # executables installed by cargo
 
-export EDITOR=nvim                  # prefer neovim as default editor
-export BROWSER=firefox              # prefer firefox as default browser
-export TERMINAL=tilix               # preder tilix as default terminal
+export EDITOR=nvim                  # promote editor of choice
+export BROWSER=firefox              # promote browser of choice
+export TERMINAL=foot                # promote terminal of choice
 export PYTHONDONTWRITEBYTECODE=1    # do not produce .pyc/.pyo files
 export CLICOLOR=1                   # turn on colors for some BSD tools
 export GPG_TTY=`tty`                # setup tty for gpg2's pinetry
-export GOPATH=~/.go
 
 if which clang &>/dev/null; then
   export CC=clang                   # use clang as default C compiler

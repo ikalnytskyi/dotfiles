@@ -4,12 +4,12 @@ set fish_greeting
 # ENVIRONMENT VARIABLES
 #
 
-set -xp PATH ~/.local/bin       # scripts installed by pip (python)
-set -xp PATH ~/.cargo/bin       # binaries installed by cargo (rust)
+set -xp PATH ~/.local/bin            # executables installed by pip/pipx
+set -xp PATH ~/.cargo/bin            # executables installed by cargo
 
-set -xg EDITOR nvim                  # prefer neovim as default editor
-set -xg BROWSER firefox              # prefer firefox as default browser
-set -xg TERMINAL alacritty           # preder tilix as default terminal
+set -xg EDITOR nvim                  # promote editor of choice
+set -xg BROWSER firefox              # promote browser of choice
+set -xg TERMINAL foot                # promote terminal of choice
 set -xg PYTHONDONTWRITEBYTECODE 1    # do not produce .pyc/.pyo files
 set -xg CLICOLOR 1                   # turn on colors for some BSD tools
 set -xg GPG_TTY (tty)                # setup tty for gpg2's pinetry
@@ -29,7 +29,6 @@ end
 if status is-interactive; and type -q starship
   starship init fish | source
 end
-
 
 #
 # SOURCE EXTRA CONFIGURATIONS

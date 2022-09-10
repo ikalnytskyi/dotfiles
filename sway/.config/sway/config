@@ -6,7 +6,7 @@
 
   set $lock loginctl lock-session
   set $appmenu rofi -show drun -drun-show-actions -run-command "swaymsg exec -- {cmd}"
-  set $term alacritty
+  set $term foot
 
 
 ### Keybindings ###
