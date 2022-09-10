@@ -53,8 +53,18 @@ idle_fg = "#2e3440"
 
 [[block]]
 block = "net"
-device = "wlan0"
+device = "enp38s0"
+hide_inactive = true
+
+[block.theme_overrides]
+idle_bg = "#a3be86"
+idle_fg = "#2e3440"
+
+[[block]]
+block = "net"
+device = "wlo1"
 format = "{ssid}"
+hide_inactive = true
 
 [block.theme_overrides]
 idle_bg = "#a3be86"
@@ -64,17 +74,14 @@ idle_fg = "#2e3440"
 block = "net"
 device = "gpd0"
 format = "VPN"
-hide_missing = true
+hide_inactive = true
 
 [block.theme_overrides]
 idle_bg = "#3b4252"
 
 [[block]]
 block = "battery"
-device = "/sys/class/power_supply/BAT0"
-driver = "sysfs"
 format = "{percentage}"
-allow_missing = true
 hide_missing = true
 
 [[block]]
