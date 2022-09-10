@@ -101,7 +101,7 @@ vim.opt.listchars = {
    extends  = "⟩",
    precedes = "⟨",
 }
-vim.opt.showbreak = "﬌ "
+vim.opt.showbreak = "➥ "
 vim.opt.foldenable = false
 vim.opt.wrap = false
 vim.opt.number = true
@@ -190,88 +190,13 @@ vim.keymap.set("n", "<Leader>i", vim.diagnostic.setloclist)
 local PLUGINS = {
    -- Fast asynchronous completion manager that works with omnicomplete, word
    -- completion and built-in LSP.
-   {"hrsh7th/nvim-cmp"},
-   {"hrsh7th/cmp-buffer"},
-   {"hrsh7th/cmp-nvim-lsp"},
-   {"hrsh7th/cmp-nvim-lua"},
-   {"hrsh7th/cmp-nvim-lsp-signature-help"},
-
-   -- The snippet engine of choice with collection of snippets.
-   {"dcampos/nvim-snippy"},
-
-   -- Telescope is general fuzzy finder over lists that could be used to find
-   -- files, grep projects, show LSP symbols, etc. One generic interface for
-   -- lot of things.
-   {"nvim-lua/plenary.nvim"},
-   {"nvim-telescope/telescope.nvim"},
-   {"nvim-telescope/telescope-fzf-native.nvim", run = "make"},
-   {"nvim-telescope/telescope-file-browser.nvim"},
-   {"nvim-telescope/telescope-ui-select.nvim"},
-
-   -- LSP and its goodies.
-   {"neovim/nvim-lspconfig"},
-   {"simrat39/rust-tools.nvim"},
-   {"kosayoda/nvim-lightbulb"},
-
-   -- Tree-sitter is a parser generator tool and an incremental parsing
-   -- library. NeoVim can leverage its functionality in various ways: semantic
-   -- syntax highlighting, indentation, navigation, etc.
-   {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"},
-   {"nvim-treesitter/playground"},
-   {"p00f/nvim-ts-rainbow"},
-   {"lewis6991/spellsitter.nvim"},
-
-   {"arcticicestudio/nord-vim", branch = "develop"},
-   {"folke/tokyonight.nvim"},
-   {"andersevenrud/nordic.nvim"},
-   {"rmehri01/onenord.nvim"},
-
-   {"nvim-lualine/lualine.nvim"},
-   {"stevearc/aerial.nvim"},
-   {"ahmedkhalf/project.nvim"},
-   {"folke/which-key.nvim"},
-   {"lewis6991/gitsigns.nvim"},
-   {"tpope/vim-sleuth"},
-   {"mg979/vim-visual-multi"},
-   {"tpope/vim-fugitive"},
-   {"Valloric/ListToggle"},
-   {"norcalli/nvim-colorizer.lua"},
-   {"kyazdani42/nvim-web-devicons"},
-
-   -- Extra syntaxes support, since they aren't supported by Tree-sitter.
-   {"iloginow/vim-stylus"},
-   {"Glench/Vim-Jinja2-Syntax"},
-   {"chrisbra/csv.vim"},
-};
-
-(function()
-   local vim_plug = vim.fn.stdpath("data") .. "/site/autoload/plug.vim"
-   local vim_plug_http = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-
-   if vim.fn.filereadable(vim_plug) == 0 then
-      vim.cmd(string.format("!curl -fLo %s --create-dirs %s", vim_plug, vim_plug_http))
-      vim.cmd("autocmd VimEnter * silent! PlugInstall --sync")
-   end
-
-   vim.fn["plug#begin"]()
-   table.foreachi(PLUGINS, function(_, plugin)
-      local repo = plugin[1]
-      local opts = vim.deepcopy(plugin)
-      opts[1] = nil
-      if opts["run"] then
-         opts["do"] = opts["run"]
-         opts["run"] = nil
-      end
-      if vim.tbl_isempty(opts) then opts = vim.empty_dict() end
-      vim.fn["plug#"](repo, opts)
-   end)
-   vim.fn["plug#end"]()
-end)();
-
-
-(function()
-   local setup = {
-      ["hrsh7th/nvim-cmp"] = function()
+   {
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-nvim-lua",
+      setup = function()
          local cmp = require("cmp")
          cmp.setup({
             completion = {
@@ -310,18 +235,22 @@ end)();
             },
             sources = cmp.config.sources({
                { name = "nvim_lsp" },
-               { name = "nvim_lua" },
                { name = "nvim_lsp_signature_help" },
+               { name = "nvim_lua" },
                { name = "buffer" , keyword_length = 3 },
+               { name = "snippy" },
             }),
          })
-      end,
 
-      ["hrsh7th/cmp-nvim-lsp"] = function()
          require("cmp_nvim_lsp").update_capabilities(LSP_CAPABILITIES)
       end,
+   },
 
-      ["dcampos/nvim-snippy"] = function()
+   -- The snippet engine of choice.
+   {
+      "dcampos/nvim-snippy",
+      "dcampos/cmp-snippy",
+      setup = function()
          require("snippy").setup({
             mappings = {
                is = {
@@ -331,8 +260,18 @@ end)();
             },
          })
       end,
+   },
 
-      ["nvim-telescope/telescope.nvim"] = function()
+   -- Telescope is general fuzzy finder over lists that could be used to find
+   -- files, grep projects, show LSP symbols, etc. One generic interface for
+   -- lot of things.
+   {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-telescope/telescope-fzf-native.nvim",
+      "nvim-telescope/telescope-file-browser.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
+      setup = function()
          local telescope = require("telescope")
          local telescope_actions = require("telescope.actions")
          local telescope_builtin = require("telescope.builtin")
@@ -413,8 +352,14 @@ end)();
             vim.keymap.set("n", "<Leader>r", telescope_builtin.lsp_references, {buffer = bufnr})
          end)
       end,
+   },
 
-      ["neovim/nvim-lspconfig"] = function()
+   -- LSP and its goodies.
+   {
+      "neovim/nvim-lspconfig",
+      "simrat39/rust-tools.nvim",
+      "kosayoda/nvim-lightbulb",
+      setup = function()
          local lspconfig = require("lspconfig")
          local config = lspconfig.util.default_config
 
@@ -477,9 +422,7 @@ end)();
          lspconfig.cssls.setup({cmd = {"vscode-css-languageserver", "--stdio"}})
          lspconfig.html.setup({cmd = {"vscode-html-languageserver", "--stdio"}})
          lspconfig.jsonls.setup({cmd = {"vscode-json-languageserver", "--stdio"}})
-      end,
 
-      ["simrat39/rust-tools.nvim"] = function()
          require("rust-tools").setup({
             tools = {
                autoSetHints = true,
@@ -489,9 +432,7 @@ end)();
                },
             },
          })
-      end,
 
-      ["kosayoda/nvim-lightbulb"] = function()
          vim.api.nvim_create_augroup("Lightbulb", {})
          vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
             group = "Lightbulb",
@@ -499,20 +440,29 @@ end)();
          })
          vim.fn.sign_define("LightBulbSign", {text = ""})
       end,
+   },
 
-      ["nvim-treesitter/nvim-treesitter"] = function()
+   -- Tree-sitter is a parser generator tool and an incremental parsing
+   -- library. NeoVim can leverage its functionality in various ways: semantic
+   -- syntax highlighting, indentation, navigation, etc.
+   {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-treesitter/playground",
+      "p00f/nvim-ts-rainbow",
+      "lewis6991/spellsitter.nvim",
+      setup = function()
          require("nvim-treesitter.configs").setup({
             highlight = {enable = true},
             playground = {enable = true},
             rainbow = {enable = true},
          })
-      end,
-
-      ["lewis6991/spellsitter.nvim"] = function()
          require("spellsitter").setup()
       end,
+   },
 
-      ["arcticicestudio/nord-vim"] = function()
+   -- Non default colorschemes and their configurations.
+   {
+      "arcticicestudio/nord-vim", setup = function()
          vim.g.nord_bold_vertical_split_line = 1
          vim.g.nord_cursor_line_number_background = 1
 
@@ -567,16 +517,18 @@ end)();
                end
             end,
          })
-
          vim.api.nvim_command("colorscheme nord")
       end,
-
-      ["folke/tokyonight.nvim"] = function()
+   },
+   {
+      "folke/tokyonight.nvim", setup = function()
          vim.g.tokyonight_italic_keywords = false
          vim.g.tokyonight_lualine_bold = true
       end,
+   },
 
-      ["nvim-lualine/lualine.nvim"] = function()
+   {
+      "nvim-lualine/lualine.nvim", setup = function()
          local breadcrump_sep = " ⟩ "
 
          require("lualine").setup({
@@ -619,16 +571,15 @@ end)();
             },
          })
       end,
-
-      ["ahmedkhalf/project.nvim"] = function ()
-         require("project_nvim").setup()
-      end,
-
-      ["stevearc/aerial.nvim"] = function()
+   },
+   {
+      "stevearc/aerial.nvim", setup = function()
          local aerial = require("aerial")
          aerial.setup({
-            min_width = 35,
-            max_width = 35,
+            layout = {
+               min_width = 40,
+               max_width = 40,
+            },
             highlight_on_jump = 0,
             close_on_select = true,
             show_guides = true,
@@ -637,16 +588,23 @@ end)();
          table.insert(LSP_ON_ATTACH_FUNCTIONS, aerial.on_attach)
          vim.keymap.set("n", "<Leader>2", "<Cmd>AerialToggle<Cr>")
       end,
-
-      ["folke/which-key.nvim"] = function()
+   },
+   {
+      "ahmedkhalf/project.nvim", setup = function()
+         require("project_nvim").setup()
+      end,
+   },
+   {
+      "folke/which-key.nvim", setup = function()
          require("which-key").setup({
             plugins = {
                spelling = {enabled = true},
             },
          })
       end,
-
-      ["lewis6991/gitsigns.nvim"] = function()
+   },
+   {
+      "lewis6991/gitsigns.nvim", setup = function()
          local gitsigns = require("gitsigns")
          gitsigns.setup({
             preview_config = {
@@ -670,24 +628,57 @@ end)();
             end,
          })
       end,
-
-      ["Valloric/ListToggle"] = function()
+   },
+   {
+      "Valloric/ListToggle", setup = function()
          vim.g.lt_location_list_toggle_map = "<Leader>l"
          vim.g.lt_quickfix_list_toggle_map = "<Leader>q"
       end,
-
-      ["norcalli/nvim-colorizer.lua"] = function()
+   },
+   {
+      "norcalli/nvim-colorizer.lua", setup = function()
          require("colorizer").setup({
             css = { css = true },
             stylus = { css = true },
          })
       end,
-   }
+   },
+   {"kyazdani42/nvim-web-devicons"},
+   {"tpope/vim-sleuth"},
+   {"mg979/vim-visual-multi"},
+   {"tpope/vim-fugitive"},
 
-   table.foreach(PLUGINS, function(_, plugin)
-      if setup[plugin[1]] then setup[plugin[1]]() end
+   -- Extra syntaxes support, since they aren't supported by Tree-sitter.
+   {"iloginow/vim-stylus"},
+   {"Glench/Vim-Jinja2-Syntax"},
+   {"chrisbra/csv.vim"},
+};
+
+(function()
+   local vim_plug = vim.fn.stdpath("data") .. "/site/autoload/plug.vim"
+   local vim_plug_http = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+
+   if vim.fn.filereadable(vim_plug) == 0 then
+      vim.cmd(string.format("!curl -fLo %s --create-dirs %s", vim_plug, vim_plug_http))
+      vim.cmd("autocmd VimEnter * silent! PlugInstall --sync")
+   end
+
+   local setup_functions = {}
+
+   vim.fn["plug#begin"]()
+   table.foreachi(PLUGINS, function(_, group)
+      table.foreachi(group, function(_, repo)
+         vim.fn["plug#"](repo)
+      end)
+
+      if group["setup"] ~= nil then
+         table.insert(setup_functions, group["setup"])
+      end
    end)
-end)()
+   vim.fn["plug#end"]()
+
+   table.foreachi(setup_functions, function(_, setup_fn) setup_fn() end)
+end)();
 
 
 vim.api.nvim_create_augroup("NvimTextYank", {})
