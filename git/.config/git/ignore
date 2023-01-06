@@ -1,2 +1,10 @@
-.vscode/
+# The Git ignore rules that DO NOT belong to per project '.gitignore'.
+
+# operating system/environment
 .DS_Store
+
+# text editors
+.vscode/
+
+# I seldom create a virtual environment for Python projects for ad-hoc testing.
+.venv/
