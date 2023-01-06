@@ -21,6 +21,7 @@ block = "sound"
 step_width = 3
 device_kind = "sink"
 on_click = "gnome-control-center sound"
+headphones_indicator = true
 
 [block.theme_overrides]
 idle_bg = "#8fbcbb"
