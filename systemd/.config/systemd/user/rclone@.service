@@ -1,0 +1,12 @@
+[Unit]
+Description=RClone mount of users remote %i using filesystem permissions
+Documentation=http://rclone.org/docs/
+After=network-online.target
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/rclone mount "%i:/" "%h/storage/%i" --cache-dir "%C/%i" --vfs-cache-mode full --vfs-fast-fingerprint --vfs-cache-max-age 8760h
+ExecStop=-/bin/fusermount -u -z "%h/storage/%i"
+
+[Install]
+WantedBy=default.target
