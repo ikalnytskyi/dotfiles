@@ -1,77 +1,65 @@
+[hostname]
+ssh_symbol = " "
+
 [aws]
-symbol = " "
+symbol = "  "
 
-[cmake]
-symbol = "△ "
+[buf]
+symbol = " "
 
-[cobol]
-symbol = "⚙️ "
+[c]
+symbol = " "
 
 [conda]
-symbol = " "
-
-[crystal]
-symbol = "🔮 "
+symbol = " "
 
 [dart]
 symbol = " "
 
-[deno]
-symbol = "🦕 "
-
 [directory]
-read_only = " "
+read_only = " "
 
 [docker_context]
 symbol = " "
 
-[dotnet]
-symbol = " "
-
 [elixir]
-symbol = " "
+symbol = " "
 
 [elm]
 symbol = " "
 
-[erlang]
-symbol = " "
-
-[gcloud]
-symbol = " "
-
 [git_branch]
-symbol = " "
-
-[git_commit]
-tag_symbol = "  "
+symbol = " "
 
 [golang]
-symbol = "ﳑ "
+symbol = " "
 
-[helm]
-symbol = "⎈ "
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = "⌘ "
 
 [hg_branch]
-symbol = " "
+symbol = " "
 
 [java]
-symbol = " "
+symbol = " "
 
 [julia]
 symbol = " "
-
-[kotlin]
-symbol = " "
-
-[kubernetes]
-symbol = "☸ "
 
 [lua]
 symbol = " "
 
 [memory_usage]
 symbol = " "
+
+[meson]
+symbol = "喝 "
 
 [nim]
 symbol = " "
@@ -80,40 +68,57 @@ symbol = " "
 symbol = " "
 
 [nodejs]
-symbol = " "
+symbol = " "
 
-[ocaml]
-symbol = "🐫 "
-
-[openstack]
-symbol = "☁️  "
+[os.symbols]
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "﯑ "
+Gentoo = " "
+HardenedBSD = "ﲊ "
+Illumos = " "
+Linux = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = " "
+openSUSE = " "
+OracleLinux = " "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+Redox = " "
+Solus = "ﴱ "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Windows = " "
 
 [package]
 symbol = " "
 
-[perl]
-symbol = " "
-
-[php]
-symbol = " "
-
-[pulumi]
-symbol = " "
-
-[purescript]
-symbol = "<=> "
-
 [python]
-symbol = " "
-
-[red]
-symbol = "🔺 "
+symbol = " "
 
 [rlang]
-symbol = "📐 "
+symbol = "ﳒ "
 
 [ruby]
-symbol = " "
+symbol = " "
 
 [rust]
 symbol = " "
@@ -121,26 +126,5 @@ symbol = " "
 [scala]
 symbol = " "
 
-[shlvl]
-symbol = "↕️  "
-
-[singularity]
-symbol = ""
-
-[swift]
-symbol = " "
-
-[terraform]
-symbol = "行 "
-
-[vagrant]
-symbol = "⍱ "
-
-[vcsh]
-symbol = ""
-
-[vlang]
-symbol = "V "
-
-[zig]
-symbol = "↯ "
+[spack]
+symbol = "🅢 "
