@@ -1,0 +1,8 @@
+[Default]
+save_dir=$HOME/pictures/screenshots
+save_filename_format=screenshot_%Y-%m-%d_%H-%M-%S.png
+line_size=3
+text_font=DejaVu Serif
+early_exit=true
+
+# vim: set filetype=conf:
