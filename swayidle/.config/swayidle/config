@@ -12,7 +12,7 @@ before-sleep "loginctl lock-session"
 # the sake of security.
 timeout 280 "brightnessctl --save && brightnessctl set 20%" resume "brightnessctl --restore"
 timeout 300 "loginctl lock-session"
-timeout 320 "swaymsg 'output * dpms off'" resume "swaymsg 'output * dpms on'"
+timeout 320 "swaymsg 'output * power off'" resume "swaymsg 'output * power on'"
 
 # Set IdleHint to indicate an idle logind session after <timeout> seconds.
 idlehint 200

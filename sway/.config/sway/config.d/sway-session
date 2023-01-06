@@ -1,1 +1,0 @@
-exec systemctl --user start sway-session.target
