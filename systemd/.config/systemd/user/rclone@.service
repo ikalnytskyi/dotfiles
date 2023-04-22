@@ -5,6 +5,7 @@ After=network-online.target
 
 [Service]
 Type=notify
+ExecStartPre=-/bin/mkdir -p "%h/storage/%i"
 ExecStart=/usr/bin/rclone mount "%i:/" "%h/storage/%i" --cache-dir "%C/%i" --vfs-cache-mode full --vfs-fast-fingerprint --vfs-cache-max-age 8760h
 ExecStop=-/bin/fusermount -u -z "%h/storage/%i"
 
