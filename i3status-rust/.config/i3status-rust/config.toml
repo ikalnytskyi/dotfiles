@@ -1,97 +1,83 @@
 [theme]
-name = "nord-dark"
+theme = "nord-dark"
 
 [theme.overrides]
-idle_bg = "#2e3440fa"
+idle_bg = "#2e3440"
 idle_fg = "#d8dee9"
+separator_bg = { link = "idle_bg" }
+separator_fg = { link = "idle_fg" }
 separator = " "
-separator_bg = "#2e3440fa"
-separator_fg = "#d8dee9"
 
 [icons]
-name = "awesome"
+icons = "material-nf"
 
 [[block]]
 block = "focused_window"
-max_width = 70
-show_marks = "visible"
+format = " $title.str(max_width:70) | "
 
 [[block]]
 block = "sound"
-step_width = 3
+max_vol = 100
 device_kind = "sink"
-on_click = "gnome-control-center sound"
 headphones_indicator = true
+theme_overrides.idle_bg = "#8fbcbb"
+theme_overrides.idle_fg = { link = "idle_bg" }
 
-[block.theme_overrides]
-idle_bg = "#8fbcbb"
-idle_fg = "#2e3440"
+[[block.click]]
+button = "left"
+cmd = "gnome-control-center sound"
 
 [[block]]
 block = "sound"
-step_width = 3
+max_vol = 100
 device_kind = "source"
-on_click = "gnome-control-center sound"
+theme_overrides.idle_fg = { link = "warning_fg" }
+theme_overrides.idle_bg = { link = "warning_bg" }
+theme_overrides.warning_fg = { link = "idle_fg" }
+theme_overrides.warning_bg = { link = "idle_bg" }
 
-[block.theme_overrides]
-warning_bg = "#8fbcbb"  # muted is OK
-warning_fg = "#2e3440"  # muted is OK
-idle_bg = "#ebcb8b"     # unmuted is warning
-idle_fg = "#2e3440"     # unmuted is warning
-
-[[block]]
-block = "keyboard_layout"
-driver = "sway"
-format = " {layout}"
-
-[block.theme_overrides]
-idle_bg = "#b48ead"
-idle_fg = "#2e3440"
-
-[block.mappings]
-"English (US)" = "en"
-"Ukrainian (N/A)" = "ua"
+[[block.click]]
+button = "left"
+cmd = "gnome-control-center sound"
 
 [[block]]
 block = "net"
 device = "enp38s0"
-hide_inactive = true
-
-[block.theme_overrides]
-idle_bg = "#a3be86"
-idle_fg = "#2e3440"
+format = " $icon ^icon_net_down{$speed_down.eng(p:K, u:b)} ^icon_net_up $speed_up.eng(p:K, u:b) "
+format_alt = " $ip "
+missing_format = ""
+theme_overrides.idle_bg = "#a3be86"
+theme_overrides.idle_fg = { link = "idle_bg" }
 
 [[block]]
 block = "net"
-device = "wlo1"
-format = "{ssid}"
-hide_inactive = true
-
-[block.theme_overrides]
-idle_bg = "#a3be86"
-idle_fg = "#2e3440"
+device = "wlan0"
+format = " $icon ^icon_net_down{$speed_down.eng(p:K, u:b)} ^icon_net_up $speed_up.eng(p:K, u:b) "
+format_alt = " $ssid $signal_strength $ip "
+missing_format = ""
+theme_overrides.idle_bg = "#a3be86"
+theme_overrides.idle_fg = { link = "idle_bg" }
 
 [[block]]
 block = "net"
 device = "gpd0"
-format = "VPN"
-hide_inactive = true
-
-[block.theme_overrides]
-idle_bg = "#3b4252"
-
-[[block]]
-block = "battery"
-format = "{percentage}"
-hide_missing = true
+format = " $icon VPN "
+missing_format = ""
+theme_overrides.idle_bg = "#3b4252"
 
 [[block]]
 block = "notify"
+format = " $icon {($notification_count.eng(w:2))|} "
+theme_overrides.idle_bg = "#3b4252"
 
-[block.theme_overrides]
-idle_bg = "#3b4252"
+[[block]]
+block = "keyboard_layout"
+driver = "sway"
+format = " $layout "
+mappings = { "English (US)" = "🇺🇸", "Ukrainian (N/A)" = "🇺🇦" }
+theme_overrides.idle_bg = "#3b4252"
 
 [[block]]
 block = "time"
-interval = 60
-format = "%b %d, %H:%M"
+interval = 5
+format = " $icon $timestamp.datetime(format:'%b %d, %H:%M') "
