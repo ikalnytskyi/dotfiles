@@ -1,6 +1,3 @@
-[hostname]
-ssh_symbol = " "
-
 [aws]
 symbol = "  "
 
@@ -28,6 +25,9 @@ symbol = " "
 [elm]
 symbol = " "
 
+[fossil_branch]
+symbol = " "
+
 [git_branch]
 symbol = " "
 
@@ -45,6 +45,9 @@ symbol = "⌘ "
 
 [hg_branch]
 symbol = " "
+
+[hostname]
+ssh_symbol = " "
 
 [java]
 symbol = " "
@@ -71,10 +74,12 @@ symbol = " "
 symbol = " "
 
 [os.symbols]
+Alpaquita = " "
 Alpine = " "
 Amazon = " "
 Android = " "
 Arch = " "
+Artix = " "
 CentOS = " "
 Debian = " "
 DragonFly = " "
@@ -82,11 +87,12 @@ Emscripten = " "
 EndeavourOS = " "
 Fedora = " "
 FreeBSD = " "
-Garuda = "﯑ "
+Garuda = " "
 Gentoo = " "
 HardenedBSD = "ﲊ "
 Illumos = " "
 Linux = " "
+Mabox = " "
 Macos = " "
 Manjaro = " "
 Mariner = " "
@@ -97,7 +103,7 @@ NixOS = " "
 OpenBSD = " "
 openSUSE = " "
 OracleLinux = " "
-Pop = " "
+Pop = " "
 Raspbian = " "
 Redhat = " "
 RedHatEnterprise = " "
@@ -110,6 +116,9 @@ Windows = " "
 
 [package]
 symbol = " "
+
+[pijul_channel]
+symbol = " "
 
 [python]
 symbol = " "
