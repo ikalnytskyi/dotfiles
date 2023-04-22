@@ -82,7 +82,8 @@
     $mod+Shift+9 move container to workspace 9
     $mod+Shift+0 move container to workspace 10
 
-    $mod+shift+r mode "resize"
+    $mod+Shift+r mode "resize"
+    $mod+Scroll_Lock mode "passthrough"
   }
 
   mode "resize" {
@@ -95,6 +96,10 @@
       Return mode "default"
       Escape mode "default"
     }
+  }
+
+  mode "passthrough" {
+    bindsym --to-code $mod+Scroll_Lock mode "default"
   }
 
   # multimedia
@@ -121,10 +126,10 @@
 
   output * bg `xdg-user-dir PICTURES`/wallpapers/current fill
 
-    set $nord00 #2e3440fa
-    set $nord01 #3b4252fa
-    set $nord02 #434c5efa
-    set $nord03 #4c566afa
+    set $nord00 #2e3440
+    set $nord01 #3b4252
+    set $nord02 #434c5e
+    set $nord03 #4c566a
 
     set $nord04 #d8dee9
     set $nord05 #e5e9f0
@@ -174,7 +179,6 @@
   titlebar_padding 8
   floating_modifier Alt
 
-  for_window [app_id=".*"] border csd
   for_window [shell="xwayland"] title_format "X11 :: %title"
 
 
