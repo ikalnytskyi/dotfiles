@@ -1,5 +1,5 @@
 [alias]
-	authors = shortlog -sne --group=author --group=trailer:co-authored-by
+	contributors = shortlog -sne --group=author --group=trailer:co-authored-by
 	branches = branch -vv
 	history = log --graph --decorate --oneline
 	uncommit = reset --soft HEAD^
@@ -31,9 +31,6 @@
 	defaultKeyCommand = sh -c 'echo key::$(ssh-add -L)'
 	allowedSignersFile = ~/.ssh/authorized_signatures
 	revocationFile = ~/.ssh/revoked_signatures
-
-[init]
-	defaultBranch = master
 
 [merge]
 	tool = nvimdiff

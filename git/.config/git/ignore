@@ -8,3 +8,6 @@
 
 # I seldom create a virtual environment for Python projects for ad-hoc testing.
 .venv/
+
+# I seldom create a directory with some notes and temporar files.
+.notes/
