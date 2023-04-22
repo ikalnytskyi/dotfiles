@@ -1,13 +1,25 @@
 theme = "nord"
 
 [editor]
+auto-format = false
+cursorline = true
 rulers = [80, 100]
+true-color = true
+color-modes = true
 
-[editor.lsp]
-display-messages = true
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "block"
+
+[editor.file-picker]
+hidden = false
 
 [editor.indent-guides]
 render = true
+
+[editor.lsp]
+display-inlay-hints = true
 
 [editor.statusline]
 left = [
@@ -17,10 +29,11 @@ left = [
 right = [
   "spinner",
   "diagnostics",
-  "selections",
+  "spacer",
   "file-encoding",
   "file-line-ending",
   "file-type",
+  "spacer",
   "position-percentage",
   "position",
 ]
@@ -29,3 +42,6 @@ right = [
 space = "all"
 tab = "all"
 newline = "none"
+
+[keys.normal]
+"ret" = ["move_line_down", "goto_first_nonwhitespace"]
