@@ -1,11 +1,11 @@
--- TODO: 
+-- TODO:
 -- 1. Show LSP server name near the message if option is passed.
 -- 2. Regenerate the status message when `LspProgressUpdate` is arrived.
 
 local M = require("lualine.component"):extend()
 
 local default_options = {
-   icon = "",
+   icon = "",
 }
 
 function M:init(options)
