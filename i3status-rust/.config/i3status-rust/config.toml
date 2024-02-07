@@ -25,7 +25,7 @@ theme_overrides.idle_fg = { link = "idle_bg" }
 
 [[block.click]]
 button = "left"
-cmd = "gnome-control-center sound"
+cmd = "pavucontrol"
 
 [[block]]
 block = "sound"
@@ -38,7 +38,7 @@ theme_overrides.warning_bg = { link = "idle_bg" }
 
 [[block.click]]
 button = "left"
-cmd = "gnome-control-center sound"
+cmd = "pavucontrol"
 
 [[block]]
 block = "net"
@@ -46,6 +46,7 @@ device = "enp38s0"
 format = " $icon ^icon_net_down{$speed_down.eng(p:K, u:b)} ^icon_net_up $speed_up.eng(p:K, u:b) "
 format_alt = " $ip "
 missing_format = ""
+inactive_format = ""
 theme_overrides.idle_bg = "#a3be86"
 theme_overrides.idle_fg = { link = "idle_bg" }
 
@@ -55,6 +56,7 @@ device = "wlan0"
 format = " $icon ^icon_net_down{$speed_down.eng(p:K, u:b)} ^icon_net_up $speed_up.eng(p:K, u:b) "
 format_alt = " $ssid $signal_strength $ip "
 missing_format = ""
+inactive_format = ""
 theme_overrides.idle_bg = "#a3be86"
 theme_overrides.idle_fg = { link = "idle_bg" }
 
@@ -64,6 +66,13 @@ device = "gpd0"
 format = " $icon VPN "
 missing_format = ""
 theme_overrides.idle_bg = "#3b4252"
+
+[[block]]
+device = "BAT0"
+block = "battery"
+format = " $icon $percentage "
+missing_format = ""
+empty_format = ""
 
 [[block]]
 block = "notify"
