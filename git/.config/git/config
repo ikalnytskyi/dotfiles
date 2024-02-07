@@ -1,7 +1,5 @@
 [alias]
 	contributors = shortlog -sne --group=author --group=trailer:co-authored-by
-	branches = branch -vv
-	history = log --graph --decorate --oneline
 	uncommit = reset --soft HEAD^
 
 [color]
@@ -41,9 +39,6 @@
 
 [push]
 	gpgSign = if-asked
-
-[tag]
-	gpgSign = true
 
 [user]
 	name = Ihor Kalnytskyi
