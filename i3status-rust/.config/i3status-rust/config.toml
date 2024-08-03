@@ -31,14 +31,25 @@ cmd = "pavucontrol"
 block = "sound"
 max_vol = 100
 device_kind = "source"
-theme_overrides.idle_fg = { link = "warning_fg" }
-theme_overrides.idle_bg = { link = "warning_bg" }
+theme_overrides.idle_bg = "#8fbcbb"
+theme_overrides.idle_fg = { link = "idle_bg" }
 theme_overrides.warning_fg = { link = "idle_fg" }
 theme_overrides.warning_bg = { link = "idle_bg" }
 
 [[block.click]]
 button = "left"
 cmd = "pavucontrol"
+
+[[block]]
+block = "privacy"
+
+[[block.driver]]
+name = "pipewire"
+display = "nickname"
+exclude_input = ["capture.noise_suppressor"]
+
+[[block.driver]]
+name = "v4l"
 
 [[block]]
 block = "net"
