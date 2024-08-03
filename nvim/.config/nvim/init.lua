@@ -12,73 +12,14 @@
 -- string.
 local FLOAT_BORDER = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
 
--- Nerd Font icons for LSP completion item kinds.
-local LSP_COMPLETION_ITEM_KIND_ICONS = {
-   Text          = "󰉿",
-   Method        = "󰆧",
-   Function      = "󰊕",
-   Constructor   = "⌘",
-   Field         = "󰜢",
-   Variable      = "󰀫",
-   Class         = "",
-   Interface     = "",
-   Module        = "󰅩",
-   Property      = "󰜢",
-   Unit          = "",
-   Value         = "󰎠",
-   Enum          = "",
-   Keyword       = "",
-   Snippet       = "",
-   Color         = "󰏘",
-   File          = "󰈤",
-   Reference     = "󰈝",
-   Folder        = "",
-   EnumMember    = "",
-   Constant      = "󰏿",
-   Struct        = "",
-   Event         = "",
-   Operator      = "󰆕",
-   TypeParameter = "󰊄",
-}
-
--- Nerd Font icons for LSP symbol item kinds.
-local LSP_SYMBOL_KIND_ICONS = {
-   File          = "󰈤",
-   Module        = "󰅩",
-   Namespace     = ":",
-   Package       = "󰏗",
-   Class         = "",
-   Method        = "󰆧",
-   Property      = "󰜢",
-   Field         = "󰜢",
-   Constructor   = "⌘",
-   Enum          = "",
-   Interface     = "",
-   Function      = "󰊕",
-   Variable      = "󰀫",
-   Constant      = "󰏿",
-   String        = "󰉾",
-   Number        = "#",
-   Boolean       = "󰈿",
-   Array         = "󰅪",
-   Object        = "󰅩",
-   Key           = "󰌋",
-   Null          = "␀",
-   EnumMember    = "",
-   Struct        = "",
-   Event         = "",
-   Operator      = "󰆕",
-   TypeParameter = "󰊄",
-}
-
-local LSP_CAPABILITIES = vim.lsp.protocol.make_client_capabilities()
-
+-- LSP client capabilities to report to language server. Can be updated when
+-- other plugins are used, hence is a global shared object.
+local LSP_CLIENT_CAPABILITIES = vim.lsp.protocol.make_client_capabilities()
 
 --
 -- // OPTIONS //
 --
 
-vim.opt.termguicolors = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.showmode = false
@@ -116,6 +57,7 @@ vim.opt.tabstop = 4
 vim.opt.undofile = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.pumheight = 20
+vim.opt.mousemodel = "extend"
 
 vim.g.mapleader = " "
 
@@ -129,25 +71,30 @@ vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 15
 
 
--- Since Neovim natively supports system clipboard there's no much sense to
--- prefer OSC-52 over native implementation. However, native clipboard providers
--- work only when Neovim is running on the localhost, they won't work when it's
--- flying remotely. For remote sessions it's better to use OSC-52 assuming the
--- terminal supports one.
-if vim.env.SSH_CONNECTION or vim.loop.fs_stat("/run/host/container-manager") ~= nil then
-   if vim.fn.has("nvim-0.10") == 1 then
-      vim.g.clipboard = {
-         name = "OSC 52",
-         copy = {
-            ["+"] = require("vim.clipboard.osc52").copy,
-            ["*"] = require("vim.clipboard.osc52").copy,
-         },
-         paste = {
-            ["+"] = require("vim.clipboard.osc52").paste,
-            ["*"] = require("vim.clipboard.osc52").paste,
-         },
-      }
-   end
+--
+-- // CLIPBOARD //
+--
+
+-- When running NeoVim over SSH or in a Linux container, system clipboard
+-- integration usually fails due to the lack of X11 or Wayland sockets. Using
+-- OSC 52 escape codes can improve clipboard integration if supported by the
+-- terminal emulator.
+if os.getenv("SSH_TTY")                                -- ssh
+    or vim.loop.fs_stat("/run/host/container-manager") -- systemd-nspawn
+    or vim.loop.fs_stat("/.dockerenv")                 -- docker
+then
+   local osc52 = require("vim.ui.clipboard.osc52")
+   vim.g.clipboard = {
+      name = "OSC 52",
+      copy = {
+         ["+"] = osc52.copy("+"),
+         ["*"] = osc52.copy("*"),
+      },
+      paste = {
+         ["+"] = osc52.paste("+"),
+         ["*"] = osc52.paste("*"),
+      },
+   }
 end
 
 
@@ -155,9 +102,9 @@ end
 -- // HOOKS //
 --
 
-vim.api.nvim_create_augroup("NvimTextYank", {})
+vim.api.nvim_create_augroup("MyTextYank", {})
 vim.api.nvim_create_autocmd("TextYankPost", {
-   group = "NvimTextYank",
+   group = "MyTextYank",
    callback = function()
       require("vim.highlight").on_yank()
    end,
@@ -178,14 +125,14 @@ vim.filetype.add({
    },
 })
 
-vim.api.nvim_create_augroup("NvimFiletypeOptions", {})
+vim.api.nvim_create_augroup("MyFiletypeOptions", {})
 vim.api.nvim_create_autocmd("FileType", {
-   group = "NvimFiletypeOptions",
+   group = "MyFiletypeOptions",
    pattern = "python",
    command = "setlocal comments+=b:#:", -- '#:' sphinx docstrings comments
 })
 vim.api.nvim_create_autocmd("FileType", {
-   group = "NvimFiletypeOptions",
+   group = "MyFiletypeOptions",
    pattern = "dosini",
    command = "setlocal comments+=b:#", -- '#' common ini dialect
 })
@@ -195,48 +142,105 @@ vim.api.nvim_create_autocmd("FileType", {
 -- // LSP FRAMEWORK //
 --
 
-vim.api.nvim_create_augroup("NvimLspAttach", {})
+vim.fn.sign_define({
+   { name = "LspCodeActionSign", text = "󰁨", texthl = "LightBulbSign" },
+})
+
+vim.api.nvim_create_augroup("MyLspCodeAction", { clear = true })
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+   group = "MyLspCodeAction",
+   callback = function(ev)
+      local is_supported = false
+
+      for _, client in ipairs(vim.lsp.get_clients({ bufnr = ev.buf })) do
+         if client.supports_method(vim.lsp.protocol.Methods.textDocument_codeAction, { bufnr = ev.buf }) then
+            is_supported = true
+            break
+         end
+      end
+
+      if not is_supported then
+         return false
+      end
+
+      local params = vim.lsp.util.make_range_params()
+      params.context = { diagnostics = vim.lsp.diagnostic.get_line_diagnostics(ev.buf) }
+      vim.lsp.buf_request_all(ev.buf, vim.lsp.protocol.Methods.textDocument_codeAction, params, function(responses)
+         for _, response in ipairs(responses) do
+            if next(response.result or {}) then
+               vim.b[ev.buf].code_action_sign_id = vim.fn.sign_place(
+                  vim.b[ev.buf].code_action_sign_id,
+                  "",
+                  "LspCodeActionSign",
+                  ev.buf,
+                  { lnum = params.range.start.line + 1 }
+               )
+               break
+            end
+         end
+      end)
+   end,
+})
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+   group = "MyLspCodeAction",
+   callback = function(ev)
+      vim.fn.sign_unplace("", { ["id"] = vim.b[ev.buf].code_action_sign_id, ["buffer"] = ev.buf })
+   end
+})
+
+vim.api.nvim_create_augroup("MyLspAttach", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
-   group = "NvimLspAttach",
-   callback = function(args)
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      local keymap_opts = { buffer = args.buf }
+   group = "MyLspAttach",
+   callback = function(ev)
+      local lsp_client = vim.lsp.get_client_by_id(ev.data.client_id)
+      local lsp_methods = vim.lsp.protocol.Methods
 
-      vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, keymap_opts)
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
-      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, keymap_opts)
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, keymap_opts)
-      vim.keymap.set("n", "<Leader>k", vim.lsp.buf.hover, keymap_opts)
-      vim.keymap.set("n", "<Leader>s", vim.lsp.buf.document_symbol, keymap_opts)
-      vim.keymap.set("n", "<Leader>S", vim.lsp.buf.workspace_symbol, keymap_opts)
-      vim.keymap.set({ "n", "v" }, "<Leader>a", vim.lsp.buf.code_action, keymap_opts)
-      vim.keymap.set("n", "<Leader>r", vim.lsp.buf.rename, keymap_opts)
-      vim.keymap.set({ "n", "v" }, "<Leader>F", vim.lsp.buf.format, keymap_opts)
+      for _, keymap in ipairs({
+         { "n",          "gy",         vim.lsp.buf.type_definition,  "Goto type definition",            lsp_methods.textDocument_typeDefinition },
+         { "n",          "gd",         vim.lsp.buf.definition,       "Goto definition",                 lsp_methods.textDocument_definition },
+         { "n",          "gi",         vim.lsp.buf.implementation,   "Goto implementation",             lsp_methods.textDocument_implementation },
+         { "n",          "gr",         vim.lsp.buf.references,       "Goto references",                 lsp_methods.textDocument_references },
+         { "n",          "<Leader>rn", vim.lsp.buf.rename,           "Rename symbol",                   lsp_methods.textDocument_rename },
+         { "n",          "<Leader>a",  vim.lsp.buf.code_action,      "Perform code action",             lsp_methods.textDocument_codeAction },
+         { "i",          "<C-S>",      vim.lsp.buf.signature_help,   "Show signature",                  lsp_methods.textDocument_signatureHelp },
+         { "n",          "<Leader>k",  vim.lsp.buf.hover,            "Show docs for item under cursor", lsp_methods.textDocument_hover },
+         { "n",          "<Leader>s",  vim.lsp.buf.document_symbol,  "Open symbol picker",              lsp_methods.textDocument_documentSymbol },
+         { "n",          "<Leader>S",  vim.lsp.buf.workspace_symbol, "Open workspace symbol picker",    lsp_methods.workspace_symbol },
+         { { "n", "v" }, "<Leader>F",  vim.lsp.buf.format,           "Auto-format a buffer",            lsp_methods.textDocument_formatting },
+      }) do
+         if lsp_client.supports_method(keymap[5]) then
+            vim.keymap.set(keymap[1], keymap[2], keymap[3], { buffer = ev.buf, desc = keymap[4] })
+         end
+      end
 
-      if client.server_capabilities.documentHighlightProvider then
-         vim.api.nvim_create_augroup("NvimLspHighlightReferences", {})
+      if lsp_client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+         vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+      end
+
+      if lsp_client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+         vim.api.nvim_create_augroup("MyLspHighlightReferences", {})
          vim.api.nvim_create_autocmd("CursorHold", {
-            group = "NvimLspHighlightReferences",
+            group = "MyLspHighlightReferences",
             callback = vim.lsp.buf.document_highlight,
-            buffer = args.buf,
+            buffer = ev.buf,
          })
          vim.api.nvim_create_autocmd("CursorMoved", {
-            group = "NvimLspHighlightReferences",
+            group = "MyLspHighlightReferences",
             callback = vim.lsp.buf.clear_references,
-            buffer = args.buf,
+            buffer = ev.buf,
          })
       end
    end,
 })
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_hover] = vim.lsp.with(
    vim.lsp.handlers.hover, {
       border = FLOAT_BORDER,
       focusable = false,
    }
 )
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_signatureHelp] = vim.lsp.with(
    vim.lsp.handlers.signature_help, {
       border = FLOAT_BORDER,
       focusable = false,
@@ -255,25 +259,14 @@ vim.diagnostic.config({
       border = FLOAT_BORDER,
       focusable = false,
    },
-})
-
-vim.fn.sign_define({
-   -- Set custom icons for diagnostics. Unfortunately these signs aren't
-   -- defined until diagnostics are shown for the first time, that's why
-   -- specifying `texthl` in addition to `text` is required; otherwise proper
-   -- highlight groups won't be applied.
-   { name = "DiagnosticSignError", text = "", texthl = "DiagnosticSignError" },
-   { name = "DiagnosticSignWarn", text = "", texthl = "DiagnosticSignWarn" },
-   { name = "DiagnosticSignInfo", text = "", texthl = "DiagnosticSignInfo" },
-   { name = "DiagnosticSignHint", text = "", texthl = "DiagnosticSignHint" },
-})
-
-vim.api.nvim_create_augroup("NvimDiagnostic", {})
-vim.api.nvim_create_autocmd("CursorHold", {
-   group = "NvimDiagnostic",
-   callback = function()
-      vim.diagnostic.open_float(0, { scope = "cursor" })
-   end
+   signs = {
+      text = {
+         [vim.diagnostic.severity.ERROR] = "",
+         [vim.diagnostic.severity.WARN] = "",
+         [vim.diagnostic.severity.INFO] = "",
+         [vim.diagnostic.severity.HINT] = "",
+      }
+   }
 })
 
 
@@ -307,9 +300,11 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup({
    -- Fast asynchronous completion manager that works with omnicomplete, word
-   -- completion and built-in LSP.
+   -- completion and built-in LSP. The priority must be higher than of lspconfig
+   -- plugin, because its config updates LSP client capabilities.
    {
       "hrsh7th/nvim-cmp",
+      priority = 100,
       dependencies = {
          "dcampos/cmp-snippy",
          "hrsh7th/cmp-buffer",
@@ -330,7 +325,7 @@ require("lazy").setup({
             },
             snippet = {
                expand = function(args)
-                  require("snippy").expand_snippet(args.body)
+                  vim.snippet.expand(args.body)
                end
             },
             preselect = cmp.PreselectMode.None,
@@ -345,7 +340,7 @@ require("lazy").setup({
             formatting = {
                format = function(_, vim_item)
                   vim_item.menu = vim_item.kind
-                  vim_item.kind = LSP_COMPLETION_ITEM_KIND_ICONS[vim_item.kind]
+                  vim_item.kind = MiniIcons.get("lsp", vim_item.kind)
                   return vim_item
                end
             },
@@ -359,9 +354,9 @@ require("lazy").setup({
             }),
          })
 
-         LSP_CAPABILITIES = vim.tbl_deep_extend(
+         LSP_CLIENT_CAPABILITIES = vim.tbl_deep_extend(
             "force",
-            LSP_CAPABILITIES,
+            LSP_CLIENT_CAPABILITIES,
             require("cmp_nvim_lsp").default_capabilities()
          )
       end,
@@ -480,19 +475,26 @@ require("lazy").setup({
             telescope_builtin.diagnostics({ bufnr = 0, no_sign = true })
          end)
 
-         vim.api.nvim_create_augroup("NvimTelescopeLspAttach", {})
          vim.api.nvim_create_autocmd("LspAttach", {
-            group = "NvimTelescopeLspAttach",
-            callback = function(args)
-               local keymap_opts = { buffer = args.buf }
+            group = "MyLspAttach",
+            callback = function(ev)
+               local lsp_client = vim.lsp.get_client_by_id(ev.data.client_id)
+               local lsp_methods = vim.lsp.protocol.Methods
 
                -- These are Telescope keymap overwrites to provide a better UI
                -- than standard NeoVim does.
-               vim.keymap.set("n", "gd", telescope_builtin.lsp_definitions, keymap_opts)
-               vim.keymap.set("n", "gy", telescope_builtin.lsp_type_definitions, keymap_opts)
-               vim.keymap.set("n", "gr", telescope_builtin.lsp_references, keymap_opts)
-               vim.keymap.set("n", "<Leader>s", telescope.extensions.aerial.aerial, keymap_opts)
-               vim.keymap.set("n", "<Leader>S", telescope_builtin.lsp_dynamic_workspace_symbols, keymap_opts)
+               for _, keymap in ipairs({
+                  { "n", "gy",        telescope_builtin.lsp_type_definitions,          "Goto type definition",         lsp_methods.textDocument_typeDefinition },
+                  { "n", "gd",        telescope_builtin.lsp_definitions,               "Goto definition",              lsp_methods.textDocument_definition },
+                  { "n", "gi",        telescope_builtin.lsp_implementations,           "Goto implementation",          lsp_methods.textDocument_implementation },
+                  { "n", "gr",        telescope_builtin.lsp_references,                "Goto references",              lsp_methods.textDocument_references },
+                  { "n", "<Leader>s", telescope.extensions.aerial.aerial,              "Open symbol picker",           lsp_methods.textDocument_documentSymbol },
+                  { "n", "<Leader>S", telescope_builtin.lsp_dynamic_workspace_symbols, "Open workspace symbol picker", lsp_methods.workspace_symbol },
+               }) do
+                  if lsp_client.supports_method(keymap[5]) then
+                     vim.keymap.set(keymap[1], keymap[2], keymap[3], { buffer = ev.buf, desc = keymap[4] })
+                  end
+               end
             end
          })
       end,
@@ -504,24 +506,21 @@ require("lazy").setup({
       dependencies = { "b0o/SchemaStore.nvim" },
       config = function()
          local lspconfig = require("lspconfig")
-         local config = lspconfig.util.default_config
-
-         config.capabilities = LSP_CAPABILITIES
-         lspconfig.rust_analyzer.setup({})
-         lspconfig.pyright.setup({
-            settings = {
+         local server_settings = {
+            pyright = {
+               pyright = {
+                  disableOrganizeImports = true,
+               },
                python = {
                   analysis = {
                      autoImportCompletions = false,
+                     diagnosticSeverityOverrides = {
+                        -- reportIncompatibleMethodOverride = false,
+                     },
                   },
                },
             },
-         })
-         lspconfig.ruff_lsp.setup({})
-         lspconfig.clangd.setup({})
-         lspconfig.bashls.setup({})
-         lspconfig.tsserver.setup({
-            settings = {
+            tsserver = {
                typescript = {
                   inlayHints = {
                      includeInlayParameterNameHints = "all",
@@ -531,7 +530,7 @@ require("lazy").setup({
                      includeInlayPropertyDeclarationTypeHints = true,
                      includeInlayFunctionLikeReturnTypeHints = true,
                      includeInlayEnumMemberValueHints = true,
-                  }
+                  },
                },
                javascript = {
                   inlayHints = {
@@ -542,67 +541,45 @@ require("lazy").setup({
                      includeInlayPropertyDeclarationTypeHints = true,
                      includeInlayFunctionLikeReturnTypeHints = true,
                      includeInlayEnumMemberValueHints = true,
-                  }
-               }
-            }
-         })
-         lspconfig.lua_ls.setup({
-            settings = {
+                  },
+               },
+            },
+            lua_ls = {
                Lua = {
                   hint = {
                      enable = true,
                   },
                },
             },
-         })
-         lspconfig.yamlls.setup({})
-         lspconfig.cssls.setup({})
-         lspconfig.html.setup({})
-         lspconfig.jsonls.setup({
-            settings = {
+            jsonls = {
                json = {
                   schemas = require("schemastore").json.schemas(),
                   validate = { enable = true },
                },
             },
-         })
-         lspconfig.taplo.setup({})
-      end,
-   },
-   {
-      "lvimuser/lsp-inlayhints.nvim",
-      config = function()
-         require("lsp-inlayhints").setup({
-            inlay_hints = {
-               parameter_hints = {
-                  show = false,
-               },
-               type_hints = {
-                  prefix = "→ ",
-                  remove_colon_start = true,
-               },
-            },
-         })
+         }
 
-         vim.api.nvim_create_augroup("NvimInlayHintsLspAttach", {})
-         vim.api.nvim_create_autocmd("LspAttach", {
-            group = "NvimInlayHintsLspAttach",
-            callback = function(args)
-               local lspinlayhints = require("lsp-inlayhints")
-               local client = vim.lsp.get_client_by_id(args.data.client_id)
-               local keymap_opts = { buffer = args.buf }
-
-               lspinlayhints.on_attach(client, args.buf)
-               vim.keymap.set("n", "<Leader>4", lspinlayhints.toggle, keymap_opts)
-            end
-         })
-      end,
-   },
-   {
-      "kosayoda/nvim-lightbulb",
-      config = function()
-         require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
-         vim.fn.sign_define("LightBulbSign", { text = "", texthl = "LspDiagnosticsDefaultInformation" })
+         for _, server_name in ipairs({
+            "bashls",
+            "clangd",
+            "cssls",
+            "dotls",
+            "gopls",
+            "html",
+            "jsonls",
+            "lua_ls",
+            "pyright",
+            "ruff",
+            "rust_analyzer",
+            "taplo",
+            "tsserver",
+            "yamlls",
+         }) do
+            lspconfig[server_name].setup({
+               capabilities = vim.deepcopy(LSP_CLIENT_CAPABILITIES),
+               settings = server_settings[server_name] or vim.empty_dict(),
+            })
+         end
       end,
    },
 
@@ -612,9 +589,7 @@ require("lazy").setup({
    {
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
-      dependencies = {
-         "nvim-treesitter/playground",
-      },
+      dependencies = { "apple/pkl-neovim" },
       config = function()
          require("nvim-treesitter.configs").setup({
             highlight = { enable = true },
@@ -625,7 +600,6 @@ require("lazy").setup({
                   scope_incremental = "<C-Space>",
                },
             },
-            playground = { enable = true },
          })
       end,
    },
@@ -633,7 +607,7 @@ require("lazy").setup({
    -- Non default colorschemes and their configurations.
    {
       "gbprod/nord.nvim",
-      priority = 100,
+      priority = 200,
       config = function()
          require("nord").setup({
             diff = { mode = "fg" },
@@ -646,7 +620,6 @@ require("lazy").setup({
    },
    {
       "folke/tokyonight.nvim",
-      priority = 100,
       opts = {
          styles = {
             comments = { italic = false },
@@ -692,8 +665,9 @@ require("lazy").setup({
                   },
                },
                lualine_c = {},
-               -- Use vim.lsp.status() in 0.10
-               lualine_x = { "lsp_progress" },
+               lualine_x = {
+                  { "vim.lsp.status():gsub('%%', '%%%%')", icon = "" },
+               },
                lualine_y = {
                   "diagnostics",
                   {
@@ -725,15 +699,11 @@ require("lazy").setup({
          highlight_on_jump = false,
          close_on_select = true,
          show_guides = true,
-         icons = LSP_SYMBOL_KIND_ICONS,
-         on_attach = function(buffer)
-            vim.keymap.set("n", "<Leader>2", "<Cmd>AerialToggle!<Cr>", { buffer = buffer })
-         end,
-      }
-   },
-   {
-      "stevearc/overseer.nvim",
-      config = true,
+      },
+      config = function(self, opts)
+         require("aerial").setup(opts)
+         vim.keymap.set("n", "<Leader>2", "<Cmd>AerialToggle!<Cr>")
+      end,
    },
    {
       "ahmedkhalf/project.nvim",
@@ -743,9 +713,12 @@ require("lazy").setup({
    {
       "folke/which-key.nvim",
       opts = {
-         plugins = {
-            spelling = { enabled = true },
-         },
+         preset = "modern",
+         filter = function(mapping)
+            -- Do not show key mappings w/o description, since it won't be
+            -- useful anyway.
+            return mapping.desc and mapping.desc ~= ""
+         end,
       },
    },
    {
@@ -782,7 +755,18 @@ require("lazy").setup({
       },
       enabled = vim.opt.termguicolors:get(),
    },
-   { "nvim-tree/nvim-web-devicons" },
+   {
+      "echasnovski/mini.icons",
+      opts = {
+         lsp = {
+            ["function"] = { glyph = "󰊕" },
+         },
+      },
+      config = function(self, opts)
+         require("mini.icons").setup(opts)
+         MiniIcons.mock_nvim_web_devicons()
+      end,
+   },
    { "tpope/vim-sleuth" },
    { "mg979/vim-visual-multi" },
    {
