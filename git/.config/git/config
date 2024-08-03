@@ -1,45 +1,40 @@
 [alias]
 	contributors = shortlog -sne --group=author --group=trailer:co-authored-by
 	uncommit = reset --soft HEAD^
-
-[color]
-	ui = true
-
+[blame]
+	coloring = repeatedLines
+[core]
+	precomposeUnicode = true
 [diff]
-	noprefix = true
+	noPrefix = true
+	algorithm = minimal
+	tool = nvimdiff
+	guitool = meld
 	relative = true
 	suppressBlankEmpty = true
-	tool = nvimdiff
-	guitool = meld
-	algorithm = minimal
-
-[difftool]
-	prompt = false
-
-[difftool "difft"]
-	cmd = difft "$LOCAL" "$REMOTE"
-
-[grep]
-	lineNumber = true
-
 [gpg]
 	format = ssh
-
 [gpg "ssh"]
 	defaultKeyCommand = sh -c 'echo key::$(ssh-add -L)'
-	allowedSignersFile = ~/.ssh/authorized_signatures
-	revocationFile = ~/.ssh/revoked_signatures
-
+	allowedSignersFile = ~/.ssh/trusted_signing_keys
+	revocationFile = ~/.ssh/revoked_signing_keys
+[grep]
+	lineNumber = true
+[include]
+	path = ~/.config/git/config.local
+[init]
+	defaultBranch = master
+[instaweb]
+	httpd = python
+[log]
+	date = iso
 [merge]
-	tool = nvimdiff
+	tool = nvimdiff2
 	guitool = meld
-
 [pull]
 	ff = only
-
-[push]
-	gpgSign = if-asked
-
+[rerere]
+	enabled = true
 [user]
 	name = Ihor Kalnytskyi
 	email = ihor@kalnytskyi.com
