@@ -1,4 +1,12 @@
 ### Output ###
 
-  output DP-1 mode 2560x1440@119.998Hz pos 0 0
-  output DP-3 pos 2560 0
+  # Unfortunately some software are sluggish w/ fractional scaling. Let's wait
+  # until they get better and switch over to it.
+  #
+  # ~ Firefox: widget.wayland.fractional-scale.enabled -> true
+  #
+  # output DP-2 mode 2560x1440@119.998Hz pos 0 0 scale 1.15
+  # output DP-1 pos 2226 0
+
+  output DP-2 mode 2560x1440@119.998Hz pos 0 0
+  output DP-1 pos 2560 0
