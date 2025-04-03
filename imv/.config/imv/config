@@ -6,8 +6,11 @@ overlay_background_alpha = #dd
 overlay_text_color = #e5e9f0
 overlay_text_alpha = #dd
 
+[aliases]
+delete = exec rm -f $imv_current_file
+
 [binds]
 <Escape> = quit
-<Ctrl+w> = exec swaymsg output "*" bg "$imv_current_file" fill
+<Shift+W> = exec swaymsg output "*" bg "$imv_current_file" fill
 <Ctrl+Shift+W> = exec ln -sf "$imv_current_file" "`xdg-user-dir PICTURES`/wallpapers/current"; exec swaymsg output "*" bg "$imv_current_file" fill
-<Ctrl+Shift+D> = exec rm "$imv_current_file"; close
+<Shift+D> = delete; close

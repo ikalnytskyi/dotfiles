@@ -1,0 +1,19 @@
+line-length = 100
+
+[lint]
+select = ["ALL"]
+ignore = [
+    "ANN401",
+    "COM812",
+    "D100",
+    "D107",
+    "D203",
+    "D213",
+    "PERF203",
+    "PLR",
+    "SIM117",
+    "T201",
+]
+
+[lint.isort]
+lines-after-imports = 2
