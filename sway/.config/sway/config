@@ -2,201 +2,191 @@
 
 ### Variables ###
 
-  set $mod Mod4
+set $mod Mod4
 
-  set $lock loginctl lock-session
-  set $term foot
-  set $appmenu fuzzel --launch-prefix="swaymsg exec --" --terminal="$term"
+set $lock loginctl lock-session
+set $term foot
+set $appmenu fuzzel --terminal="$term"
 
 ### Keybindings ###
 
-  bindsym --to-code {
-    # general
-    $mod+Return exec $term
-    $mod+d exec $appmenu
-    $mod+l exec $lock
-    $mod+Shift+q kill
-    $mod+Shift+c reload
+bindsym $mod+Return exec $term
+bindsym XF86PowerOff exec swaynag -t warning -m "Do you really want to power off?" \
+  -Z "󰍃 Logout" "swaymsg exit" \
+  -Z "󰤁 Reboot" "systemctl reboot" \
+  -Z "󰤂 Poweroff" "systemctl poweroff"
 
-    # sway
-    $mod+Shift+e exec swaynag -t warning -m "Do you really want to exit Sway?" \
-      -Z "Yes!" "swaymsg exit" \
-      -s "No"
-    $mod+Shift+p exec swaynag -t warning -m "Do you really want to power off?" \
-      -Z "Poweroff" "systemctl poweroff" \
-      -Z "Reboot" "systemctl reboot" \
-      -s "No"
+bindsym --to-code $mod+d exec $appmenu
+bindsym --to-code $mod+l exec $lock
+bindsym --to-code $mod+Shift+q kill
+bindsym --to-code $mod+Shift+c reload
 
-    # containers
-    $mod+Left focus left
-    $mod+Down focus down
-    $mod+Up focus up
-    $mod+Right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
-    $mod+Shift+Left move left
-    $mod+Shift+Down move down
-    $mod+Shift+Up move up
-    $mod+Shift+Right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
-    $mod+Shift+w layout stacking
-    $mod+Shift+t layout tabbed
-    $mod+Shift+s layout toggle split
+bindsym --to-code $mod+Shift+w layout stacking
+bindsym --to-code $mod+Shift+t layout tabbed
+bindsym --to-code $mod+Shift+s layout toggle split
 
-    $mod+b splith
-    $mod+v splitv
+bindsym --to-code $mod+h splith
+bindsym --to-code $mod+v splitv
+bindsym --to-code $mod+t splitt
 
-    $mod+f fullscreen
-    $mod+Shift+space floating toggle
-    $mod+space focus mode_toggle
-    $mod+a focus parent
+bindsym --to-code $mod+f fullscreen
+bindsym --to-code $mod+Shift+space floating toggle
+bindsym --to-code $mod+space focus mode_toggle
+bindsym --to-code $mod+a focus parent
 
-    $mod+Shift+minus move scratchpad
-    $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
-    # workspaces
-    $mod+1 workspace 1
-    $mod+2 workspace 2
-    $mod+3 workspace 3
-    $mod+4 workspace 4
-    $mod+5 workspace 5
-    $mod+6 workspace 6
-    $mod+7 workspace 7
-    $mod+8 workspace 8
-    $mod+9 workspace 9
-    $mod+0 workspace 10
-    $mod+Tab workspace next
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+bindsym $mod+Tab workspace next
 
-    $mod+Ctrl+Up move workspace to output up
-    $mod+Ctrl+Left move workspace to output left
-    $mod+Ctrl+Right move workspace to output right
-    $mod+Ctrl+Down move workspace to output down
+bindsym $mod+Ctrl+Up move workspace to output up
+bindsym $mod+Ctrl+Left move workspace to output left
+bindsym $mod+Ctrl+Right move workspace to output right
+bindsym $mod+Ctrl+Down move workspace to output down
 
-    $mod+Shift+1 move container to workspace 1
-    $mod+Shift+2 move container to workspace 2
-    $mod+Shift+3 move container to workspace 3
-    $mod+Shift+4 move container to workspace 4
-    $mod+Shift+5 move container to workspace 5
-    $mod+Shift+6 move container to workspace 6
-    $mod+Shift+7 move container to workspace 7
-    $mod+Shift+8 move container to workspace 8
-    $mod+Shift+9 move container to workspace 9
-    $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
 
-    $mod+Shift+r mode "resize"
-    $mod+Scroll_Lock mode "passthrough"
-  }
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym --locked $mod+XF86AudioLowerVolume exec wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SOURCE@ 5%-
+bindsym --locked $mod+XF86AudioRaiseVolume exec wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+
+bindsym --locked $mod+XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +10%
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
 
-  mode "resize" {
-    bindsym --to-code {
-      Left resize shrink width 10 px or 10 ppt
-      Down resize grow height 10 px or 10 ppt
-      Up resize shrink height 10 px or 10 ppt
-      Right resize grow width 10 px or 10 ppt
+bindsym --release Print exec grimshot copy area && wl-paste | swappy -f -
+bindsym --release Shift+Print exec grimshot copy output && wl-paste | swappy -f -
+bindsym --release Alt+Print exec grimshot copy window && wl-paste | swappy -f -
+bindsym --release Ctrl+Print exec grimshot save area
+bindsym --release Ctrl+Shift+Print exec grimshot save output
+bindsym --release Ctrl+Alt+Print exec grimshot save window
 
-      Return mode "default"
-      Escape mode "default"
-    }
-  }
+bindsym $mod+Shift+r mode "resize"
+bindsym $mod+F12 mode "passthrough"
 
-  mode "passthrough" {
-    bindsym --to-code $mod+Scroll_Lock mode "default"
-  }
+mode "resize" {
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+  bindsym Escape mode "default"
+}
 
-  # multimedia
-  bindsym --locked XF86AudioLowerVolume exec wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SINK@ 5%-
-  bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SINK@ 5%+
-  bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-  bindsym --locked $mod+XF86AudioLowerVolume exec wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SOURCE@ 5%-
-  bindsym --locked $mod+XF86AudioRaiseVolume exec wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+
-  bindsym --locked $mod+XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-  bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%-
-  bindsym --locked XF86MonBrightnessUp exec brightnessctl set +10%
-  bindsym --locked XF86AudioPlay exec playerctl play-pause
-  bindsym --locked XF86AudioNext exec playerctl next
-  bindsym --locked XF86AudioPrev exec playerctl previous
-
-  # screenshot
-  bindsym --release Print exec grimshot copy area && wl-paste | swappy -f -
-  bindsym --release Shift+Print exec grimshot copy output && wl-paste | swappy -f -
-  bindsym --release Alt+Print exec grimshot copy window && wl-paste | swappy -f -
-  bindsym --release Ctrl+Print exec grimshot save area
-  bindsym --release Ctrl+Shift+Print exec grimshot save output
-  bindsym --release Ctrl+Alt+Print exec grimshot save window
+mode "passthrough" {
+  bindsym $mod+F12 mode "default"
+}
 
 
 ### Appearance ###
 
-  output * bg `xdg-user-dir PICTURES`/wallpapers/current fill
+output * bg `xdg-user-dir PICTURES`/wallpapers/current fill
 
-    set $nord00 #2e3440
-    set $nord01 #3b4252
-    set $nord02 #434c5e
-    set $nord03 #4c566a
+set $nord00 #2e3440
+set $nord01 #3b4252
+set $nord02 #434c5e
+set $nord03 #4c566a
 
-    set $nord04 #d8dee9
-    set $nord05 #e5e9f0
-    set $nord06 #eceff4
+set $nord04 #d8dee9
+set $nord05 #e5e9f0
+set $nord06 #eceff4
 
-    set $nord07 #8fbcbb
-    set $nord08 #88c0d0
-    set $nord09 #81a1c1
-    set $nord10 #5e81ac
+set $nord07 #8fbcbb
+set $nord08 #88c0d0
+set $nord09 #81a1c1
+set $nord10 #5e81ac
 
-    set $nord11 #bf616a
-    set $nord12 #d08770
-    set $nord13 #ebcb8b
-    set $nord14 #a3be8c
-    set $nord15 #b48ead
+set $nord11 #bf616a
+set $nord12 #d08770
+set $nord13 #ebcb8b
+set $nord14 #a3be8c
+set $nord15 #b48ead
 
-  bar {
-    position top
-    height 35
-    workspace_min_width 30
-    tray_output none
-    status_command i3status-rs
-    status_padding 0
-    status_edge_padding 0
-    colors {
-      background $nord00
-      focused_workspace $nord01 $nord01 $nord04
-      active_workspace $nord00 $nord00 $nord04
-      inactive_workspace $nord00 $nord00 $nord04
-      urgent_workspace $nord11 $nord11 $nord06
-      binding_mode $nord06 $nord06 $nord00
-    }
+bar {
+  id "main"
+  font pango:JetBrains Mono 11
+  position top
+  height 35
+  workspace_min_width 30
+  tray_output none
+  status_command i3status-rs
+  status_padding 0
+  status_edge_padding 0
+  colors {
+    background $nord00
+    focused_workspace $nord01 $nord01 $nord04
+    active_workspace $nord00 $nord00 $nord04
+    inactive_workspace $nord00 $nord00 $nord04
+    urgent_workspace $nord11 $nord11 $nord06
+    binding_mode $nord07 $nord07 $nord01
   }
+}
 
-  #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-  client.focused          $nord15     $nord00     $nord04     $nord15     $nord15
-  client.focused_inactive $nord01     $nord01     $nord04     $nord01     $nord01
-  client.unfocused        $nord01     $nord01     $nord04     $nord01     $nord01
-  client.urgent           $nord11     $nord11     $nord06     $nord11     $nord11
+#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
+client.focused          $nord09     $nord00     $nord04     $nord09     $nord09
+client.focused_inactive $nord03     $nord03     $nord04     $nord03     $nord03
+client.unfocused        $nord03     $nord03     $nord04     $nord03     $nord03
+client.urgent           $nord11     $nord11     $nord06     $nord11     $nord11
 
-  font pango:JetBrains Mono 10
-  gaps inner 10
-  gaps outer 0
-  default_border pixel 4
-  default_floating_border pixel 4
-  titlebar_border_thickness 4
-  titlebar_padding 8
-  floating_modifier Alt
+font pango:JetBrains Mono 10
+gaps inner 10
+gaps outer 0
+default_border pixel 4
+default_floating_border pixel 4
+titlebar_border_thickness 4
+titlebar_padding 8
+floating_modifier Alt
 
-  for_window [shell="xwayland"] title_format "X11 :: %title"
+for_window [shell="xwayland"] title_format "X11 :: %title"
 
 
 ### Input ###
 
-  input type:keyboard {
-    xkb_layout us,ua
-    xkb_options grp:caps_toggle,compose:paus,lv3:ralt_switch
-  }
+input type:keyboard {
+  xkb_layout us,ua
+  xkb_options grp:caps_toggle,compose:paus,lv3:ralt_switch
+  repeat_rate 30
+  repeat_delay 300
+}
 
-  input type:touchpad {
-    dwt enabled                 # disable a touchpad while typing
-    tap enabled                 # tap to click
-    natural_scroll enabled      # natural, not reversed scroll
-    scroll_factor 0.3
-  }
+input type:touchpad {
+  dwt enabled                 # disable a touchpad while typing
+  tap enabled                 # tap to click
+  natural_scroll enabled      # natural, not reversed scroll
+  scroll_factor 0.3
+}
 
 
 ### Customization ###
