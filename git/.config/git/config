@@ -35,6 +35,8 @@
 	ff = only
 [rerere]
 	enabled = true
+[tag]
+	sort = -version:refname
 [user]
 	name = Ihor Kalnytskyi
 	email = ihor@kalnytskyi.com

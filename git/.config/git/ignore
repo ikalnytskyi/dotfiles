@@ -6,6 +6,9 @@
 # text editors
 .vscode/
 
+# python's bytecode
+__pycache__/
+
 # I seldom create a virtual environment for Python projects for ad-hoc testing.
 .venv/
 
