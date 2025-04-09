@@ -59,7 +59,6 @@ So how to apply configurations from this repository?
 
 ## Configuration packages
 
- * [alacritty](https://alacritty.org/)
  * [bash](https://www.gnu.org/software/bash/)
  * [bat](https://github.com/sharkdp/bat)
  * [dunst](https://dunst-project.org/)
