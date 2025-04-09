@@ -2,10 +2,15 @@ theme = "nord"
 
 [editor]
 auto-format = false
+auto-pairs = false
+color-modes = true
 cursorline = true
+popup-border = "all"
 rulers = [80, 100]
 true-color = true
-color-modes = true
+
+[editor.inline-diagnostics]
+cursor-line = "hint"
 
 [editor.cursor-shape]
 normal = "block"
@@ -45,3 +50,14 @@ newline = "none"
 
 [keys.normal]
 "ret" = ["move_line_down", "goto_first_nonwhitespace"]
+"G" = "goto_file_end"
+"0" = "goto_line_start"
+"$" = "goto_line_end"
+"tab" = "move_parent_node_end"
+"S-tab" = "move_parent_node_start"
+"F" = ":reflow"
+
+[keys.select]
+"tab" = "extend_parent_node_end"
+"S-tab" = "extend_parent_node_start"
+"F" = ":reflow"
