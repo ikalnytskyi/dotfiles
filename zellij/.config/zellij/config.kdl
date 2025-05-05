@@ -1,0 +1,18 @@
+pane_frames false
+scroll_buffer_size 50000
+simplified_ui true
+theme "nord"
+
+keybinds {
+    normal {
+        bind "Alt 1" { GoToTab 1; SwitchToMode "normal"; }
+        bind "Alt 2" { GoToTab 2; SwitchToMode "normal"; }
+        bind "Alt 3" { GoToTab 3; SwitchToMode "normal"; }
+        bind "Alt 4" { GoToTab 4; SwitchToMode "normal"; }
+        bind "Alt 5" { GoToTab 5; SwitchToMode "normal"; }
+        bind "Alt 6" { GoToTab 6; SwitchToMode "normal"; }
+        bind "Alt 7" { GoToTab 7; SwitchToMode "normal"; }
+        bind "Alt 8" { GoToTab 8; SwitchToMode "normal"; }
+        bind "Alt 9" { GoToTab 9; SwitchToMode "normal"; }
+    }
+}
