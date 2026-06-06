@@ -1,7 +1,10 @@
 /git/.config/git/config.local
 
+/ghostty/.config/ghostty/config.local
+
 /fish/.config/fish/fish_*
 /fish/.config/fish/config.local.fish
+/fish/.config/fish/conf.d/fish_*
 /fish/**/fish/completions/
 
 /mc/.local/share/mc/history

@@ -1,5 +1,5 @@
 image=`xdg-user-dir PICTURES`/wallpapers/current
-font=JetBrains Mono
+font=TvirMono Nerd Font
 font-size=14
 indicator-radius=75
 indicator-thickness=20

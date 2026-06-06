@@ -50,14 +50,9 @@ newline = "none"
 
 [keys.normal]
 "ret" = ["move_line_down", "goto_first_nonwhitespace"]
-"G" = "goto_file_end"
 "0" = "goto_line_start"
 "$" = "goto_line_end"
-"tab" = "move_parent_node_end"
-"S-tab" = "move_parent_node_start"
 "F" = ":reflow"
 
 [keys.select]
-"tab" = "extend_parent_node_end"
-"S-tab" = "extend_parent_node_start"
 "F" = ":reflow"
