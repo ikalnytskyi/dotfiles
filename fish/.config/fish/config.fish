@@ -11,6 +11,7 @@ set --export --global LESS "FRX"
 fish_add_path --global ~/.local/bin           # executables installed by pip/pipx
 fish_add_path --global ~/.cargo/bin           # executables installed by cargo
 
+fish_config theme choose nord
 
 # Starship is the minimal, fast, and  customizable prompt for any shell.
 if status is-interactive; and type -q starship

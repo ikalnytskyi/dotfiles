@@ -1,0 +1,6 @@
+#!/bin/sh
+
+### Output ###
+
+wlr-randr --output DP-2 --mode 2560x1440@119.998Hz --pos 0,0 --preferred
+wlr-randr --output DP-1 --pos 2560,0

@@ -12,12 +12,13 @@ icons = "material-nf"
 
 [[block]]
 block = "focused_window"
-format = " $title.str(max_width:70) | "
+format = "{ $title.str(max_width:70) |}"
 
 [[block]]
 block = "sound"
 max_vol = 100
 device_kind = "sink"
+format = " $icon {$volume.eng(w:2) |}"
 headphones_indicator = true
 theme_overrides.idle_bg = { link = "info_bg" }
 theme_overrides.idle_fg = { link = "info_fg" }
@@ -30,10 +31,9 @@ cmd = "pavucontrol"
 block = "sound"
 max_vol = 100
 device_kind = "source"
+format = " $icon {$volume.eng(w:2) |}"
 theme_overrides.idle_bg = { link = "info_bg" }
 theme_overrides.idle_fg = { link = "info_fg" }
-theme_overrides.warning_fg = { link = "idle_fg" }
-theme_overrides.warning_bg = { link = "idle_bg" }
 
 [[block.click]]
 button = "left"
@@ -53,7 +53,7 @@ name = "v4l"
 [[block]]
 block = "net"
 device = "enp38s0"
-format = " $icon  ^icon_net_down$speed_down.eng(p:K, u:b, w:3) ^icon_net_up$speed_up.eng(p:K, u:b, w:3) "
+format = " $icon ^icon_net_down$speed_down.eng(p:K, u:b, w:3) ^icon_net_up$speed_up.eng(p:K, u:b, w:3) "
 format_alt = " $ip "
 missing_format = ""
 inactive_format = ""
@@ -63,7 +63,7 @@ theme_overrides.idle_fg = { link = "idle_bg" }
 [[block]]
 block = "net"
 device = "wlan0"
-format = " $icon  ^icon_net_down$speed_down.eng(p:K, u:b, w:3) ^icon_net_up$speed_up.eng(p:K, u:b, w:3) "
+format = " $icon ^icon_net_down$speed_down.eng(p:K, u:b, w:3) ^icon_net_up$speed_up.eng(p:K, u:b, w:3) "
 format_alt = " $ssid $signal_strength $ip "
 missing_format = ""
 inactive_format = ""
@@ -85,13 +85,16 @@ empty_format = ""
 
 [[block]]
 block = "notify"
-format = " $icon {($notification_count.eng(w:2))|} "
+format = " $icon {($notification_count.eng(w:2)) |}"
+theme_overrides.idle_bg = "#3b4252"
 
 [[block]]
 block = "keyboard_layout"
 driver = "sway"
 format = " $layout "
 mappings = { "English (US)" = "\U0001F1FA\U0001F1F8", "Ukrainian (N/A)" = "\U0001F1FA\U0001F1E6" }
+theme_overrides.idle_bg = "#3b4252"
+theme_overrides.idle_fg = { link = "idle_bg" }
 
 [[block]]
 block = "time"

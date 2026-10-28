@@ -73,7 +73,6 @@ So how to apply configurations from this repository?
  * [mako](https://wayland.emersion.fr/mako/)
  * [mc](https://midnight-commander.org/)
  * [nvim](https://neovim.io/)
- * [rofi](https://davatorium.github.io/rofi/)
  * [starship](https://starship.rs/)
  * [swappy](https://github.com/jtheoof/swappy)
  * [sway](https://swaywm.org/)
@@ -84,8 +83,9 @@ So how to apply configurations from this repository?
  * [tmux](https://github.com/tmux/tmux/wiki)
  * [vscode](https://code.visualstudio.com/)
  * [waybar](https://github.com/Alexays/Waybar)
- * [wofi](https://hg.sr.ht/~scoopta/wofi)
  * [xdg-desktop-portal-wlr](https://github.com/emersion/xdg-desktop-portal-wlr)
+ * [zathura](https://pwmt.org/projects/zathura/)
+ * [zellij](https://zellij.dev/)
 
 
 ## Screenshots
